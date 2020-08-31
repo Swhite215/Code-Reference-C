@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 /*
-   Function Description - Prints "Hello, Spencer!"" to the console
+   Function Description - Prints "Hello, Spencer!" to the console
    Parameters: N/A
    Returns: N/A
 */
