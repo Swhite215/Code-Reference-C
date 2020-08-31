@@ -1,14 +1,14 @@
 /*
    Spencer White
-   CIS 170-70 - Hello World
-   Prints "Hello, Spencer!" to the console
+   CIS 170-70 - Bad Made Good Program
+   Loops through an array and prints each value and its square
 */
 
-// Change: Must include the header stdio.h to use printf
+// Change: Must include the header stdio.h to use printf method
 #include <stdio.h>
 
 /*
-   Function Description - Prints "Hello, Spencer!" to the console
+   Function Description - Loops through an array and prints each value and its square
    Parameters: N/A
    Returns: N/A
 */
@@ -25,7 +25,7 @@ int main() {
 
     // Change: You can declare and intialize i as part of the for loop initialization
     // Change: A better description of what the for loop is doing
-    // Loop through the A array and print each number and its square
+    // Loop through the A array and print each value and its square
     for (int i = 0; i < 5; ++i) {
         printf("element %d is %g, \tits square is %g\n", i, A[i], A[i]*A[i]);                               
     }
