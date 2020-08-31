@@ -14,18 +14,19 @@
 */
 
 // Change: Must change return type of main to int if returning 0
+// Change: Fix all indentation for readability
 int main() {
-    // Declarationss
+    // Declarations
     double A[5] = {
-    9.0,
-    2.9,
-    3.E+25,
-    .00007,
+        9.0,
+        2.9,
+        3.E+25,
+        .00007,
     };
 
     // Change: You can declare and intialize i as part of the for loop initialization
     // Change: A better description of what the for loop is doing
-    // Loop through the A array and print each value and its square
+    // Loop through the array and print each value and its square
     for (int i = 0; i < 5; ++i) {
         printf("element %d is %g, \tits square is %g\n", i, A[i], A[i]*A[i]);                               
     }
