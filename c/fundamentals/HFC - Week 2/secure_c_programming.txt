@@ -1,0 +1,7 @@
+Chapter 2: Secure C Programming
+
+1. Avoid using single-argument printfs
+    - To display a string that terminates with a newline, use the puts() function
+        - puts("Hello World!")
+    - To display a string without terminating a newline character, use printf with two arguments
+        - printf("%s", "Hello World!");
