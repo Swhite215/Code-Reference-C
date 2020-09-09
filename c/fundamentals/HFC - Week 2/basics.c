@@ -66,6 +66,19 @@ int main (void) {
 
     printf("%s", "Hello World!"); // Secure C Programming Lesson 2
 
+    if (y < 1) {
+        puts("Y is less than 1");
+    } else if (y > 1) {
+        puts("Y is greater than 1");
+    } else {
+        puts("Y is one");
+    }
+
+    // Conditional Operator - ternary
+    puts(y >= 0 ? "Y is greater than or equal to 0" : "Y is a negative number");
+
+    y >= 1000000 ? puts("Y is greater than or equal to 1 million") : puts("Y is not bigger than 1 million");
+
     return 0;
 
 }
