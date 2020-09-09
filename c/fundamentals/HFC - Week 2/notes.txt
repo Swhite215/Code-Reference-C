@@ -1,0 +1,25 @@
+Important Notes from Chapter 3: Structured Program Development in C
+
+    1. Algorithms - procedure for solving a problem
+        - actions to be executed
+        - order in which the actions are executed
+        - program control is ordering the statements to be executed
+    2. Pseudocode
+        - actions and decision statements
+    3. Control Structures
+        - sequential execution - statements executed one after another
+        - transfer of control - specify the next statement to be executed may be other than the next one in sequence
+        - goto statement - transfer control to one of many possible destinations in a program
+        - sequence structure - execute C statements one after the other in the order in which they are written
+        - selection structure
+            - if, if...else, switch
+        - iteration structure
+            - while, do..while, and for
+        - flowchart - graphical representation of an algorithm, or portion of an algorithm
+            - flowlines - connect rectangles, diamonds, rounded rectangles and circles
+            - first symbol is rounded rectangle symbol containing the word "Begin"
+            - last symbol is rounded rectangle containing the word "End"
+            - diamond symbol - decision symbol
+    4. Formulating Algorithms
+        - sentinel value (signal, dummy, or flag) - indicates end of entry, indefinite iteration because the number of iterations isn't known
+        - top-down stepwise refinement
