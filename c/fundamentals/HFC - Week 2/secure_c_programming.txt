@@ -1,7 +1,12 @@
-Chapter 2: Secure C Programming
+Chapter 2 and Chapter 3: Secure C Programming
 
 1. Avoid using single-argument printfs
     - To display a string that terminates with a newline, use the puts() function
         - puts("Hello World!")
     - To display a string without terminating a newline character, use printf with two arguments
         - printf("%s", "Hello World!");
+2. Arithmetic Overflow
+    - Adding integers could result in a value that is too large to store in an int variable
+3. Unsigned Integers
+    - counters that should store only non-negative values should be declared with unsigned before the integer type
+4. scanf_s and printf_s
