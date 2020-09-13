@@ -1,4 +1,4 @@
-Chapter 1 and 2 Questions and Answers
+Chapter 1 Questions and Answers
 
     1. Q: Computers process data under the control of sets of instructions called ______.
         - A: Programs
