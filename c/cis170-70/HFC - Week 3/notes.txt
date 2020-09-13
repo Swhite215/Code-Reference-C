@@ -6,10 +6,12 @@ Chapter 4 Notes
 
 
 Extra:
-    - Common Error
+    - Common Errors
         - Off-by-one
         - Attempting to access control variable defined in for statement header
         - Using floating point values for iteration
         - Using commas instead of semi-colons in a for header
         - Changing the value of the control variable inside the body of a for loop
         - Using float or double to perform monetary calculations
+        - Forgetting a break statement when one is needed in s switch statement
+        - Using == for assignment or using = for equality
