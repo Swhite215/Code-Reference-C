@@ -1,0 +1,6 @@
+Chapter 4: Secure C Programming
+
+1. Check scanf's return value to ensure that the number of inputs read matches the number of inputs expected.
+    - scanf returns 1 indicating one value was read as type indicated
+    - scanf returns 0 indicating it was unable to read input as type indicated
+2. Use range checking to validate inputs
