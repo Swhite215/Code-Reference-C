@@ -1,0 +1,15 @@
+Chapter 4 Notes
+
+1. Iteration Essentials
+    - Counter Controlled - definite iteration = number of iterations known
+    - Sentinel Controlled - indefinite iteration - number of iterations is unknown
+
+
+Extra:
+    - Common Error
+        - Off-by-one
+        - Attempting to access control variable defined in for statement header
+        - Using floating point values for iteration
+        - Using commas instead of semi-colons in a for header
+        - Changing the value of the control variable inside the body of a for loop
+        - Using float or double to perform monetary calculations
