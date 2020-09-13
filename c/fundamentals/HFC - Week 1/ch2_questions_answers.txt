@@ -1,0 +1,113 @@
+Chapter 2 Questions and Answers
+
+    1. Q: Every C program begins execution at the function ______.
+        - A: main
+    2. Q: Every function's body begins with ______ and ends with ______.
+        - A: { }
+    3. Q: Every statement ends with a ______.
+        - A: ;
+    4. Q: The ______ Standard Library function displays information on the screen.
+        - A: printf()
+    5. Q: The escape sequence \n represents the ______ character, which causes the cursos to position to the beginning
+        of the next line on the screen.
+        - A: newline
+    6. Q: The ______ Standard Library function is used to obtain data from the keyboard.
+        - A: scanf()
+    7. Q: The conversion specifier ______ is used in scanf to format control strings to indicate that in integer will 
+        be input and in a printf format control string to indicate that an integer will be output.
+        - A: %d
+    8. Q: Whenever a new value is placed in a memory location, that value overrides the previous value in that location.
+        This process is said to be ______.
+        - A: destructive
+    9. Q: When a value is read from a memory location, the value in that location is preserved, this process is said to be ______.
+        - A: nondestructive
+    10. Q: The ______ is used to make decisions.
+        - A: conditional statments
+    11. Q: Function printf always begings printing at the begining of a new line.
+        - A: False
+    12. Q: Comments cause the computer to display the text after // on the screen when the program is executed.
+        - A: False
+    13. Q: The escape sequence \n when used in a printf format control string causes the cursos to position at the beginning
+        of the next line on the screen.
+        - A: True
+    14. Q: All variables must be defined before they are used.
+        - A: True
+    15. Q: All variables must be given a type when they are defined.
+        - A: True
+    16. Q: C considers the variables number and NuMbEr to be identical.
+        - A: False
+    17. Q: Definitions can appear anywhere in the body of a function.
+        - A: True
+    18. Q: All arguments following the format control string in a printf function must be preceded by an ampersand.
+        - A: False
+    19. Q: The remainder operator can be used only with integer operands.
+        - A: True
+    20. Q: The arithmetic operations *, /, +, and - all have the same level of precedence.
+        - A: False
+    21. Q: A program that prints three lines of output must contain three printf statements.
+        - A: False
+    22. Q: Define the variables c, thisVariable, q76354 and number to be of type int
+        - A: int c, thisVariable, q76354, number.
+    23. Q: Prompt the user to enter an integer. End your prompt message with a colon followed by a space.
+        - A: printf("Enter an integer: ");
+    24. Q: Read an integer from the keyboard and store the value entered in the integer variable a.
+        - A: scanf("%d", &a);
+    25. Q: If number is not equal to 7, print "The variable number is not equal to 7".
+        - A: if (number != 7) {printf("%s", "The variable number is not equal to 7");}
+    26. Q: Print the message "This is a C program." on one line
+        - A: puts("This is a C program.");
+    27. Q: Print the message "This is a C program." on two lines so that the first line ends with C.
+        - A: puts("This is a C\n program.");
+    28. Q: Print the message "This is a C program." with each word on a separate line.
+        - A: puts("This\n is\n a\n C\n program.");
+    29. Q: Print the message "This is a C program." with the words separated by tabs.
+        - A: puts("This\t is\t a\t C\t program.");
+    30. Q: scanf( "d", value )
+        - A: Missing % before d
+    31. Q: printf( "The product of %d and %d is %d"\n, x, y )
+        - A: Should include x + y as third parameter
+    32. Q: firstNumber + secondNumber = sumOfNumbers
+        - A: Should be sumOfNumbers = firstNumber + secondNumber
+    33. Q: if ( number => largest 
+        - A: Should be >=
+    34. Q: largest == number;
+        - A: Assignment should be single =
+    35. Q: */ Program to determine the largest of three integers /
+        - A: Multi-Line comments are /* */
+    36. Q: Scanf( "%d", anInteger 
+        - A: scanf is lowercase and anInteger should be preceded by &
+    37. Q: printf( "Remainder of %d divided by %d is\n", x, y, x % y )
+        - A: Should include another %d at the end of the string.
+    38. Q: if ( x = y )
+        - A: Comparison should be ==
+    39. Q: print( "The sum is %d\n," x + y
+        - A: Missing a comma after the string.
+    40. Q: Printf( "The value you entered is: %d\n, &value );
+        - A: printf should be lowercase.
+    41. Q: ______ are used to document a program and improve its readabiltiy
+        - A: Comments
+    42. Q: The function used to display information on the screen is ______.
+        - A: printf() or puts()
+    43. Q: A C statement that makes a decision is ______.
+        - A: if.
+    44. Q: Calculations are normally performed by ______ statements.
+        - A: assigment
+    45. Q: The ______ function inputs values from the keyboard.]
+        - A: scanf
+    46. Q: C operators are evaluated from left to right.
+        - A: False
+    47. Q: The following are valid variable names: 
+        - A: True
+    48. Q: The statment printf("a = 5";); is a typical example of an assignment statment. 
+        - A: False
+    49. Q: A valid arithmetic expression containing no parentheses is evaluated from left to right.
+        - A: False
+    50. Q: The following are invalid vareiable names
+        - A: True
+    51. Q: What arithmetic operations are on the same level of precedence as multiplication?
+        - A: Division
+    52. Q: When parentheses are nested, which set of parentheses is evaluated first in an arithmetic expression?
+        - A: Inner
+    53. Q: A location in the computer's memory that may contain different values at various times throughout the execution of a program is called ______.
+        - A: Variable
+    
