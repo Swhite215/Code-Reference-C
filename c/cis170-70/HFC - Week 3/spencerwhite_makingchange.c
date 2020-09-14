@@ -1,7 +1,7 @@
 /*
    Spencer White
    CIS 170-70 - Making Change
-   Calculates the change
+   Calculates the change returned when paying a bill
 */
 
 #include <stdio.h>
