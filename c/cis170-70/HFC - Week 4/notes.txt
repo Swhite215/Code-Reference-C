@@ -1,0 +1,71 @@
+Chapter 5 Notes
+
+1. Function Essentials
+    - Each function should be limited to performing a single, well-defined task
+    - A function's name should express the task it performs
+    - Programs should be collections of small functions
+    - Include function prototypes for all functions to take advantage of C's type checking capabilities
+    - Include parameter names in function prototypes for documentation purposes
+2. Conversion Essentials
+    - In a mixed-type expression, compiler converts copy to highest type in expression, this is known as promotion
+    - C asting is the process of explcitly converting a value to a lower type
+3. Call Stack and Stack Frames
+    - Stack - LIFO Data Structure using Push and Pop - Function Call Stack or Program Execution Stack
+4. Headers
+    - Important Headers
+        - <assert.h> - information for adding diagnostics that aid program debugging
+        - <ctype.h> - function prototype for functions that test characters for certain properties
+        - <errno.h> - Macros that are useful for reporting error conditions
+        - <float.h> - Contains the floating point size limits of the systems
+        - <limits.h> - Contains the integral size limits of the system
+        - <locale.h> - Contains function prototypes and other information that enables a program to be modified for the current local on which it is running.
+        - <math.h> - Contains function prototypes for math library functions
+        - <setjmp.h> - Contains function prototypes for functions that allow bypassing of the usual function call and return sequence
+        - <signal.h> - Contains function prototypes and macros to handle various conditions that may arise during program exeuction
+        - <stdarg.h> - Defines macros for dealing with a list of arguments to a function whose number and types are unknown
+        - <stddef.h> - Contains common type definitions used by C for performing calculations
+        - <stdio.h> - Contains function prototypes for the standard input/output library functions, and information used by them
+        - <stdlib.h> - Contains function prototypes for conversion of numbers to text and text to numbers, memory allocation, random numbers and other utility functions
+        - <string.h> - Contains function prototypes for string processing functions
+        - <time.h> - Contains function prototypes and types for manipulating the time and date
+5. Passing Arguments by Value and By Reference
+    - (C Standard) Pass-By-Value - a copy of the arguyment's value is made and passed to the called functions. Changes to the copy do NOT affect an original variable's value in the caller.
+    - Pass-By-Reference - the caller allows the called function to modify the original variable's value.
+6. Random Numbers
+    - rand() from <stdlib.h> produces pseudorandom numbers, the sequence repeats itself each time the program is executed.
+    - Randomizing is preparing a function to produce a different sequence of random numbers for each execution. srand is used for this.
+7. Storage Classes
+    - Storage Class - determines storage duration, score, and linkage.
+    - Storage Duration - period during which the identifier exists in memory
+    - Scope - where the identifier can be referenced in a program
+    - Linkage - determines for a multiple-source-file program whether the identifier is known ONLY in the current source file or in ANY source file with proper declarations
+    - Specifier Split - Automatic Storage Duration and Static Storage Duration
+        - Keyword auto is used to declare variables of automatic storage duration, they are created when program control enters the block in which they are defined, they exists while the block is active, and they are destroyed when program control exists the block
+        - Automatic storage is a means of conserving memory, because automatic variables exist only when they are needed
+        - Keywords extern and static are used to declare variables static storage duration, they exist from the time at which the program begins execution until the program terminates
+        - Global variables and function names are class extern by default, this is why we use function prototypes
+        - Local variables declared with the keyword static are still known only in the function, but unlike automatic, they retain their value when the function is exited, the next time the function is called, the static local variableds contains the value it had when the function last exited
+8. Scope Rules
+    - Identifiers defined inside of a block have block scope, scope ends at the terminating right brace
+    - Identifier outside any function has file scope, known to all function from the point at which the identifier is declared until the end of the file
+    - Labels "start:" have function scope, cannot be referenced outside the function body
+9. Recursion
+    - A function that calls itself either directly or indirectly through another function
+    - Exponential Complexity - example is recursion that can have a doubling effect on the number of calls
+    - Recursion vs. Iteration
+        - R - Termintes when a base case is recognized
+        - I - Terminates when loop continuation condition fails
+        - B - Can occur infinitely
+10. Secure Programming
+    - Must follow guidelines for your platform to use recommended functions and patterns for generating random numbers
+
+Extra:
+    - Common Errors
+        - Specifying function parameters of teh same type as double x, y instead of double x, double y
+        - Placing a semi-colon after the right parenthesis enclosing the paramter list
+        - Redefining a parameter as a local vaiable in a function
+        - Defining a function inside another function
+        - Overusing global variables that can lead to unintended side effects
+        - Using the same name for an identifier in an inner block as it is used for an identifier in an outer block
+        - Forgetting to return a value from a recursive function when one is needed
+        - Either omitting the base case, or writing the recursion step incorrectly so that it does not converge on the base case, can cause infinite recursion
