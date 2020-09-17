@@ -1,0 +1,49 @@
+Chapter 3 Questions and Answers
+
+    1. Q: A procedure for solving a problem in terms of the actions to be executed
+    and the order in which teh actions should be executed is called a ______.
+        - A: algorithm
+    2. Specifying the execution order of statements by the computer is called ______.
+        - A: program control
+    3. All programs can be written in terms of three types of control statements: ______, ______, and ______.
+        - A: sequence, selection, iteration
+    4. The ______ selection statement is used to execute one action when a condition is true and another action when that condition is false.
+        - A: if...else
+    5. Several statements grouped together in braces are called a ______.
+        - A: block
+    6. The ______ iteration statement specifies that a statement or group of statements is to be executed repeatedly while some condition remains true.
+        - A: while or do...while
+    7. Iteration of a set of instructions a specific number of times is called ______ iteration.
+        - A: definite
+    8. When it's not known in advance how many times a set of statements will be repeated, a ______ value can be used to terminate the iteration.
+        - A: sentinel\
+    9. Write four differnt statemetns that each add 1 to integer variable x
+        - A: x = x + 1
+        - A: x++
+        - A: ++x
+        - A: x += 1
+    10. The solution to any problem involes performing a series of actions in a specific ______.
+        - A: order
+    11. A synonym for procedure is ______.
+        - A: algorithm
+    12. A variable that accumulates the sum of several numbers is a ______.
+        - A: total
+    13. A special value used to indicate "end of data entry" is called a ______, ______, ______, or ______.
+        - A: sentiner, signal, dummy or flag
+    14. In a flowchart, the order in which steps should be performed is indicated by ______ symbols.
+        - A: arrow
+    15. Rectangle symbols correspond to calculations that are normally performed by statements and input/output operations that are normally
+        performed by calls to the ______ and ______ Standard Library function.
+        - A: printf and scanf
+    16. The item written inside of a decision symbol is called a ______.
+        - A: condition
+    17. Experience has shown that the most difficult part of solving a problem on a computer is producing a working C program.
+        - A: False
+    18. A sentinel value must be a value that cannot be confused with a legitimate data value.
+        - A: True
+    19. Flowlines indicate the actions to be perfomed.
+        - A: False
+    20. Conditions written inside decision symbols always contain arithmetic operators.
+        - A: False
+    21. In top-down, stepwise refinement, each refinement is a complete representaiton of the algorithm.
+        - A: Falsess
