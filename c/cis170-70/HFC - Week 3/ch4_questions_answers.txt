@@ -1,0 +1,25 @@
+Chapter 4 Questions and Answers
+
+    1. Q: Counter-controlled iteration is also known as ______ iteration because it's known in advance
+        how many times the loop will be executed.
+        A: definite
+    2. Sentinell-controlled iteration is also known as ______ iteration because it is not known in advance
+        how many times the loop will be executed.
+        A: indefinite
+    3. In counter-controlled iteration, a ______ is used to counter the number of times a group of instructions
+        should be repeated.
+        A: counter
+    4. The ______ statement, when executed in an iteration statement, causes the next iteration of the loop to be performed immediately.
+        A: continue
+    5. The statement, when executed in an iteration statement or a switch, causes an immediate exit from the statement.
+        A: break
+    6. The ______ is used to test a particular variable or expression for each of the constant integral values it may assume.
+        A: switch
+    7. The default case is required in the switch selection statement.
+        A: false
+    8. The break statement is required in the default case of a switch selection statement.
+        A: false
+    9. The expression x > y && a < b is true if either x > y or a < b is true.
+        A: false
+    10. An expression containing the || operator is true if either or both of its operands is true.
+        A: true
