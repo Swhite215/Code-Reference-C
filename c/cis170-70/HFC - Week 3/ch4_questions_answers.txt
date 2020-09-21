@@ -3,7 +3,7 @@ Chapter 4 Questions and Answers
     1. Q: Counter-controlled iteration is also known as ______ iteration because it's known in advance
         how many times the loop will be executed.
         A: definite
-    2. Sentinell-controlled iteration is also known as ______ iteration because it is not known in advance
+    2. Sentinel-controlled iteration is also known as ______ iteration because it is not known in advance
         how many times the loop will be executed.
         A: indefinite
     3. In counter-controlled iteration, a ______ is used to counter the number of times a group of instructions
