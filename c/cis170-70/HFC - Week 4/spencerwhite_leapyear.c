@@ -70,7 +70,7 @@ int isLeap(int year) {
 }
 
 /*
-   Function Description - Determines if a valid day has been entered
+   Function Description - Determines if a valid date has been entered
    Parameters: int month, int day, int isLeapYear
    Returns: int isValidDate
 */
@@ -85,10 +85,15 @@ int validateDay(int month, int day, int isLeapYear) {
         februaryDays = FEB;
     }
 
-    // Sum Preceeding Months Date Count and Add Current Day
     switch(month) {
         case 1: // January
-            if (day <= 0 || day > JAN) {
+        case 3: // March
+        case 5: // May
+        case 7: // July
+        case 8: // August
+        case 10: // October
+        case 12: // December
+            if (day <= 0 || day > 31) {
                 isValidDate = 0;
             } else {
                 isValidDate = 1;
@@ -101,71 +106,11 @@ int validateDay(int month, int day, int isLeapYear) {
                 isValidDate = 1;
             }
             break;
-        case 3: // March
-            if (day <= 0 || day > MAR) {
-                isValidDate = 0;
-            } else {
-                isValidDate = 1;
-            }
-            break;
         case 4: // April
-            if (day <= 0 || day > APR) {
-                isValidDate = 0;
-            } else {
-                isValidDate = 1;
-            }
-            break;
-        case 5: // May
-            if (day <= 0 || day > MAY) {
-                isValidDate = 0;
-            } else {
-                isValidDate = 1;
-            }
-            break;
         case 6: // June
-            if (day <= 0 || day > JUN) {
-                isValidDate = 0;
-            } else {
-                isValidDate = 1;
-            }
-            break;
-        case 7: // July
-            if (day <= 0 || day > JUL) {
-                isValidDate = 0;
-            } else {
-                isValidDate = 1;
-            }
-            break;
-        case 8: // August
-            if (day <= 0 || day > AUG) {
-                isValidDate = 0;
-            } else {
-                isValidDate = 1;
-            }
-            break;
         case 9: // September
-            if (day <= 0 || day > SEP) {
-                isValidDate = 0;
-            } else {
-                isValidDate = 1;
-            }
-            break;
-        case 10: // October
-            if (day <= 0 || day > OCT) {
-                isValidDate = 0;
-            } else {
-                isValidDate = 1;
-            }
-            break;
         case 11: // November
-            if (day <= 0 || day > NOV) {
-                isValidDate = 0;
-            } else {
-                isValidDate = 1;
-            }
-            break;
-        case 12: // December
-            if (day <= 0 || day > DEC) {
+            if (day <= 0 || day > 30) {
                 isValidDate = 0;
             } else {
                 isValidDate = 1;
