@@ -23,8 +23,8 @@ int main( void ) {
 
 /*
    Function Description - Convert Fahrenheit Input to Celsius
-   Parameters: int fahrenheit
-   Returns: int celsius
+   Parameters: float fahrenheit
+   Returns: float celsius
 */
 float toCelsius(float fahrenheit) {
     return ((fahrenheit - 32) * 5 / 9);
@@ -32,8 +32,8 @@ float toCelsius(float fahrenheit) {
 
 /*
    Function Description - Convert Celsius Input to Fahrenheit
-   Parameters: int celsius
-   Returns: int fahrenheit
+   Parameters: float celsius
+   Returns: float fahrenheit
 */
 float toFahrenheit(float celsius) {
     return (celsius * 1.8) + 32;
