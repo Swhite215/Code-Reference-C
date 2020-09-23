@@ -1,7 +1,7 @@
 /*
    Spencer White
-   CIS 170-70 - Leap Year
-   Calculates the day of the year, taking into consideration leap years
+   CIS 170-70 - Temperature Conversion
+   Displays Celsius to Fahrenheit and Fahrenheit to Celsius Conversion Tables
 */
 
 #include <stdio.h>
