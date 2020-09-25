@@ -1,7 +1,7 @@
 /*
    Spencer White
-   CIS 170-70 - Loop Examples
-   File Description
+   CIS 170-70 - Arithmetic Program
+   Interactive Arithmetic Program for Performing Calculations or Rendering Arithmetic Tables
 */
 
 #include <stdio.h>
