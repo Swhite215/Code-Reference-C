@@ -17,6 +17,8 @@ float subtractNumbers(float, float);
 float multiplyNumbers(float, float);
 float askForNumber(float);
 void displayAdditionTables(float, float, float);
+void displaySubtractionTables(float, float, float);
+void displayMultiplicationTables(float, float, float);
 
 int main (void ) {
 
@@ -41,64 +43,67 @@ int main (void ) {
         mainMenuOption = showMainMenu();
         switch(mainMenuOption){
             case '+':
+                puts("\n-------------------Addition Module------------------");
                 additionMenu();
-                //call another function to do some stuff
                 break;
-            case 2:
-                //subtractionMenU();
-                //call another function to do some stuff
+            case '-':
+                puts("\n-----------------Subtraction Module-----------------");
+                subtractionMenu();
                 break;
             case '*':
-                //multiplicationMenu();
-                //call another function to do some stuff
+                puts("\n----------------Multiplication Module---------------");
+                multiplicationMenu();
                 break;
-            case 0:
+            case '0':
+                puts("Exiting the program...");
                 break;
             default:
                 printf("\n%c is an invalid option, please try again...\n\n", mainMenuOption);
                 break;
         }
     } while (mainMenuOption != '0');
-    printf("\nGoodbye...\n\n\n");
 
    return 0;
 }
 
 char showMainMenu(){
    char mainMenuOption;
-    printf("+--------------------------------------------+\n");
-    printf("|     Arithmetic Tables and Calculations     |\n");
-    printf("+--------------------------------------------+\n");
-    printf("|                                            |\n");
-    printf("|\tEnter + for Addition Menu:\t\t|\n");
-    printf("|\tEnter - for Subtraction Menu:\t\t|\n");
-    printf("|\tEnter * for Multiplication Menu:\t\t|\n");
-    printf("|                               |\n");
-    printf("|\tEnter 0 to Exit the Program:\t0\t|\n");
-    printf("|                               |\n");
-    printf("+-------------------------------+\n\n");
+    printf("%s", "+--------------------------------------------+\n");
+    printf("%s", "|     Arithmetic Tables and Calculations     |\n");
+    printf("%s", "+--------------------------------------------+\n");
+    printf("%s", "|                                            |\n");
+    printf("%s", "|\tEnter + for Addition Module:\t     |\n");
+    printf("%s", "|\tEnter - for Subtraction Module:\t     |\n");
+    printf("%s", "|\tEnter * for Multiplication Module:   |\n");
+    printf("%s", "|\tEnter 0 to Exit the Program:\t     |\n");
+    printf("%s", "|                                            |\n");
+    printf("%s", "+--------------------------------------------+\n");
 
-    printf("Enter Your Choice:\t");
+    printf("%s", "Enter Your Choice: ");
     scanf(" %c", &mainMenuOption);
     return mainMenuOption;
 }
 
 char showSubMenu(){
    char subMenuOption;
-    printf("+--------------------------------------------+\n");
-    printf("|                                            |\n");
-    printf("|\tEnter 1 to See A Table of Values:\t\t|\n");
-    printf("|\tEnter 2 for Single Calculation:\t\t|\n");
-    printf("|                               |\n");
-    printf("|\tEnter 0 to Exit the Program:\t0\t|\n");
-    printf("|                               |\n");
-    printf("+-------------------------------+\n\n");
+    printf("%s", "+--------------------------------------------------+\n");
+    printf("%s", "|                                                  |\n");
+    printf("%s", "|\tEnter 1 to See A Table of Values:\t   |\n");
+    printf("%s", "|\tEnter 2 to Perform A Single Calculation:   |\n");
+    printf("%s", "|\tEnter 0 to Exit this Module: \t\t   |\n");
+    printf("%s", "|                                                  |\n");
+    printf("%s", "+--------------------------------------------------+\n\n");
 
-    printf("Enter Your Choice:\t");
+    printf("Enter Your Choice: ");
     scanf(" %c", &subMenuOption);
     return subMenuOption;
 }
 
+/*
+   Function Description - Prints Addition Menu And Triggers Table or Calculation Functionality
+   Parameters: N/A
+   Returns: N/A
+*/
 void additionMenu() {
    char subMenuOption;
    subMenuOption = showSubMenu();
@@ -133,11 +138,116 @@ void additionMenu() {
 
          // Perform Calculation and Log the Results
          c = addNumbers(a, b);
-         printf("The result of %.0f + %.0f = %.0f\n", a, b, c);
+         printf("The result of %.0f + %.0f = %.0f\n\n", a, b, c);
 
          // Break
          break;
       case '0':
+         puts("Exiting the module...\n");
+         break;
+      default:
+         printf(" %c is an invalid option, returning to main menu...", subMenuOption);
+         break;
+   }
+}
+
+/*
+   Function Description - Prints Subtraction Menu And Triggers Table or Calculation Functionality
+   Parameters: N/A
+   Returns: N/A
+*/
+void subtractionMenu() {
+   char subMenuOption;
+   subMenuOption = showSubMenu();
+   float a;
+   float b;
+   float start;
+   float end;
+   float c;
+
+   switch(subMenuOption) {
+      case '1':
+         // Ask For Base Number
+         a = askForNumber(3);
+
+         // Ask for Start of Range
+         start = askForNumber(4);
+      
+         // Ask for End of Range
+         end = askForNumber(5);
+
+         // Loop and Show Table of Results
+         displaySubtractionTables(a, start, end);
+
+         // Break
+         break;
+      case '2':
+         // Ask for First Number
+         a = askForNumber(1);
+
+         // Ask for Second Number
+         b = askForNumber(2);
+
+         // Perform Calculation and Log the Results
+         c = subtractNumbers(a, b);
+         printf("The result of %.0f - %.0f = %.0f\n\n", a, b, c);
+
+         // Break
+         break;
+      case '0':
+         puts("Exiting the module...\n");
+         break;
+      default:
+         printf(" %c is an invalid option, returning to main menu...", subMenuOption);
+         break;
+   }
+}
+
+/*
+   Function Description - Prints Multiplication Menu And Triggers Table or Calculation Functionality
+   Parameters: N/A
+   Returns: N/A
+*/
+void multiplicationMenu() {
+   char subMenuOption;
+   subMenuOption = showSubMenu();
+   float a;
+   float b;
+   float start;
+   float end;
+   float c;
+
+   switch(subMenuOption) {
+      case '1':
+         // Ask For Base Number
+         a = askForNumber(3);
+
+         // Ask for Start of Range
+         start = askForNumber(4);
+      
+         // Ask for End of Range
+         end = askForNumber(5);
+
+         // Loop and Show Table of Results
+         displayMultiplicationTables(a, start, end);
+
+         // Break
+         break;
+      case '2':
+         // Ask for First Number
+         a = askForNumber(1);
+
+         // Ask for Second Number
+         b = askForNumber(2);
+
+         // Perform Calculation and Log the Results
+         c = multiplyNumbers(a, b);
+         printf("\nThe result of %.0f * %.0f = %.0f\n\n", a, b, c);
+
+         // Break
+         break;
+      case '0':
+         puts("Exiting the module...\n");
          break;
       default:
          printf(" %c is an invalid option, returning to main menu...", subMenuOption);
@@ -181,7 +291,7 @@ float askForNumber(float order) {
    float num;
 
    if (order == 1) {
-      printf("%s", "Enter the first number: ");
+      printf("%s", "\nEnter the first number: ");
       scanf("%f", &num);
       return num;
    } else if (order == 2) {
@@ -189,15 +299,15 @@ float askForNumber(float order) {
       scanf("%f", &num);
       return num;
    } else if (order == 3) {
-      printf("%s", "Enter a number:");
+      printf("%s", "\nEnter a number: ");
       scanf("%f", &num);
       return num;
    } else if (order == 4) {
-      printf("%s", "Enter the starting number in the range of values to display:");
+      printf("%s", "Enter the starting number in the range of values to display: ");
       scanf("%f", &num);
       return num;
    } else if (order == 5) {
-      printf("%s", "Enter the ending number in the range of values to display:");
+      printf("%s", "Enter the ending number in the range of values to display: ");
       scanf("%f", &num);
       return num;
    } else {
@@ -207,7 +317,7 @@ float askForNumber(float order) {
 }
 
 /*
-   Function Description - Prints Addition Table Table
+   Function Description - Prints Addition Table
    Parameters: float number, float start, float end
    Returns: N/A
 */
@@ -224,13 +334,71 @@ void displayAdditionTables(float a, float start, float end) {
       smallest = start;
    }
 
-   puts("- - - - - - - - - - - - - - - - - - - -");
-   printf("Additional Table for %.0f from %.0f to %.0f\n", a, smallest, largest);
+   puts("\n- - - - - - - - - - - - - - - - - - - -");
+   printf("Addition Table for %.0f from %.0f to %.0f\n", a, smallest, largest);
    puts("- - - - - - - - - - - - - - - - - - - -");
 
    for (int i = smallest; i <= largest; i++) {
       float sum;
       sum = addNumbers(a, i);
-      printf("%.0f + %d | %.0f.\n", a, i, sum);
+      printf("%.0f + %d | %.0f\n", a, i, sum);
+   }
+}
+
+/*
+   Function Description - Prints Subtraction Table
+   Parameters: float number, float start, float end
+   Returns: N/A
+*/
+void displaySubtractionTables(float a, float start, float end) {
+
+   float smallest;
+   float largest;
+
+   if (start > end) {
+      largest = start;
+      smallest = end;
+   } else {
+      largest = end;
+      smallest = start;
+   }
+
+   puts("\n- - - - - - - - - - - - - - - - - - - -");
+   printf("Subtraction Table for %.0f from %.0f to %.0f\n", a, smallest, largest);
+   puts("- - - - - - - - - - - - - - - - - - - -");
+
+   for (int i = smallest; i <= largest; i++) {
+      float difference;
+      difference = subtractNumbers(a, i);
+      printf("%.0f - %d | %.0f\n", a, i, difference);
+   }
+}
+
+/*
+   Function Description - Prints Multiplication Table
+   Parameters: float number, float start, float end
+   Returns: N/A
+*/
+void displayMultiplicationTables(float a, float start, float end) {
+
+   float smallest;
+   float largest;
+
+   if (start > end) {
+      largest = start;
+      smallest = end;
+   } else {
+      largest = end;
+      smallest = start;
+   }
+
+   puts("\n- - - - - - - - - - - - - - - - - - - -");
+   printf("Multiplication Table for %.0f from %.0f to %.0f\n", a, smallest, largest);
+   puts("- - - - - - - - - - - - - - - - - - - -");
+
+   for (int i = smallest; i <= largest; i++) {
+      float product;
+      product = multiplyNumbers(a, i);
+      printf("%.0f * %d | %.0f\n", a, i, product);
    }
 }
