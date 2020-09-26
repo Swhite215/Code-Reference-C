@@ -1,0 +1,23 @@
+Chapter 6 Notes
+
+1. Array Essentials
+    - Initialization
+    - Looping through Arrays
+    - Linear and Binary Search
+    - Multidimensional Arrays
+    - Arrays of Variable Length
+
+2. Secure Programming
+    - Do Bound's Checking for Array Indices
+    - Use scanf_s, scanf does not prevent buffer overflows when reading a string into char array.
+    - Don't Use Strings Read from User as Format-Control Strings
+
+Extra:
+    - Common Errors
+        - Forgetting to initialize the elements of an array
+        - Providing more intilizers in an array intializer list than there are elements in the array
+        - Ending #define or #include with a semicolon
+        - Assigning a value to a symbolic constant in an executable statement
+        - C has no array bounds checking to prevent the program from referring to an eleemnt that does not exist
+        - Assuming the elements of a local static array are intilized to zero every time the function is called
+        - 
