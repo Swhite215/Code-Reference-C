@@ -61,7 +61,7 @@ int main ( void ) {
 char showMainMenu(){
     char mainMenuOption;
     printf("%s", "+-----------------------------------------------+\n");
-    printf("%s", "|     Welcome to the HFC Federal Credit Union!   |\n");
+    printf("%s", "|     Welcome to the HFC Federal Credit Union!  |\n");
     printf("%s", "+-----------------------------------------------+\n");
     printf("%s", "|     Please select from the following menu:    |\n");
     printf("%s", "|                                               |\n");
@@ -83,12 +83,14 @@ char showMainMenu(){
 */
 float inputDeposit(float balance) {
     float deposit;
-    int inputCheck;
 
     printf("%s", "Enter the amount to deposit: ");
-    scanf("%f", &deposit);
 
-    return balance + deposit;
+    if (scanf("%f", &deposit) == 1) {
+        return balance + deposit;
+    } else {
+        return balance;
+    }
 }
 
 /*
@@ -100,13 +102,16 @@ float inputWithdrawal(float balance) {
     float withdraw;
 
     printf("%s", "Enter the amount to withdraw: ");
-    scanf("%f", &withdraw);
-
-    if (withdraw > balance) {
-        puts("You don't have enough money to withdraw that amount.");
-        return '0';
+    
+    if (scanf("%f", &withdraw) == 1) {
+        if (withdraw > balance) {
+            puts("You don't have enough money to withdraw that amount.");
+            return balance;
+        } else {
+            return balance - withdraw;
+        }
     } else {
-        return balance - withdraw;
+        return balance;
     }
 
 }
