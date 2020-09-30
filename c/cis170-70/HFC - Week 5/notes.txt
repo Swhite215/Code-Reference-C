@@ -12,6 +12,12 @@ Chapter 6 Notes
     - Use scanf_s, scanf does not prevent buffer overflows when reading a string into char array.
     - Don't Use Strings Read from User as Format-Control Strings
 
+3. In-Class Number Systems
+    - Decimal - Base 10 - 0-9
+    - Binary - Base 2 - 0 or 1
+    - Octal - Base 8 - 0-7
+    - Hexadecimal - Base 16 - 0-9 A - F
+
 Extra:
     - Common Errors
         - Forgetting to initialize the elements of an array
@@ -20,4 +26,3 @@ Extra:
         - Assigning a value to a symbolic constant in an executable statement
         - C has no array bounds checking to prevent the program from referring to an eleemnt that does not exist
         - Assuming the elements of a local static array are intilized to zero every time the function is called
-        - 
