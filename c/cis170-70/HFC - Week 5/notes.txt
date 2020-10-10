@@ -24,5 +24,5 @@ Extra:
         - Providing more intilizers in an array intializer list than there are elements in the array
         - Ending #define or #include with a semicolon
         - Assigning a value to a symbolic constant in an executable statement
-        - C has no array bounds checking to prevent the program from referring to an eleemnt that does not exist
+        - C has no array bounds checking to prevent the program from referring to an element that does not exist
         - Assuming the elements of a local static array are intilized to zero every time the function is called
