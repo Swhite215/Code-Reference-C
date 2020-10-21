@@ -4,6 +4,11 @@
    Apartment Search
 */
 
+// Important Notes
+    // Float and Float Validation for MaxRent
+    // Deal with multiple characters with scanf(" %c")
+    // Dump input stream
+
 #include <stdio.h>
 
 // Function Prototypes
