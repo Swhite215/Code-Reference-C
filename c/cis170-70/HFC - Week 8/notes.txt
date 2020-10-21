@@ -1,0 +1,46 @@
+Chapter 7 Notes
+
+1. Pointer Essentials
+    - What - variables whose values are memory addresses, indirectly references a value
+    - Intialized to null, 0, or an address
+    - Pointer Operators
+        - The Address (&) Operator - returns the address of its operand
+        - The Indirection (*) Operator - returns the value of the object to which its operand points
+2. Passing Arguments to Functions by Reference
+    - Pass-by-value and pass-by-reference
+        - All arguments in C are passed by value
+    - Use & and * to Accomplish Pass-by-References
+        - When calling a function with arguments that should be modified, the addresses of the arguments are passed.
+            - This is normamly accomplished by applying the address operator (&) to the variable (in the caller) whose value will be modified
+            - When the adsdress of a variable is passed to a function, the indirection operator may be used in the function to modify the value at that location in the caller's memory
+3. Passing Pointers to a Function
+    - non-constant pointer to non-constant data  - highest level of access, data can be modified through dereferenced pointer - e.g. convertToUppercaes(), convert-to-uppercase.c
+    - constant pointer to non-constant data - data can be modified to point to any data item of the appropriate type, but the data to which it points cannot be modified
+    - non-constant pointer to constant data - points to the same memory location, and the data at that location can be modified through the pointer - default for array
+    - constant pointer to constant data - least access privilege, always points to the same memory location and the data at that memory location cannot be modified
+4. Pointer Arithmetic
+    - incremented ++ - increments pointer to next location in the array
+    - decremented -- - decrements pointer to previous location in the array
+    - sPtr += integer (incremented by that integer times the size of the object to which the pointer refers)
+    - sPtr -= integer (decremented by that integer times the size of the object to which the pointer refers)
+    - sPtr - xPtr (only meaningful when both pointers point to elements of the same array)
+        - x = v2Ptr (3008) - vPtr (3000) would assign to x, the number of array elements from vPtr to v2Ptr, in this case 2 elements if they are 4 bytes in length
+    - Pointer can be assigned to another pointer if they both have the same type
+    - Pointer to void cannot be dereferenced
+5. Relationship between Pointers and Array  - often may be used interchangeably, an array name can be though of as a constant pointer
+6. Secure Programming
+
+7. Extra
+    - Common Errors
+        - Use pass-by-value to pass arguments to a function unless the caller explicitly requires the called function to modify the value of the argument variable in the caller's environment
+        - Being unaware that a function is expecting pointers as arguments for pass-by-reference and passing arguments by value
+        - Running off either end of an array when using pointer arithmetic
+        - Subtracting two pointers that do not refer to elements in the same array
+        - Assigning a pointer of one type to a pointer of another type
+        - Dereferencing a void pointer is a syntax error
+        - Attempting to modify the value of an array name with pointer arithmetic is a compilation error
+    - Good Programming
+        - include Ptr in pointer variable names
+        - initliaze to NULL, instead of 0
+        - Principle of least privilege - always award a function enough access to the data in its parameters to accomplish a specific task, but absolutely no more
+        - if a variable does not (or should not) change in the body of a function to which its passed, the variable should be declared const to ensure that its not accidentally modified
