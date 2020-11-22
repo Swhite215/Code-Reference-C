@@ -152,7 +152,7 @@ void retrieveStudentGPA(float *gPtr) {
 
 void gatherClassData(STU students[]) {
 
-    for (size_t i = 0; i < 3; i++) {
+    for (size_t i = 0; i < STUDENTS; i++) {
         retrieveStudentID(&students[i].studentId);
         retrieveStudentName(students[i].name);
         retrieveStudentCredits(&students[i].completedCredits);
