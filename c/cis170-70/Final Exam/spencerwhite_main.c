@@ -14,6 +14,7 @@ void displayEditPromptMenu(char *sPtr);
 void createNewPrompt();
 void editExistingPrompt();
 void howToSwitchBashPrompts();
+void understandingPS1();
 
 // Main Program
 int main (void) {
@@ -63,7 +64,7 @@ int main (void) {
 */
 void displayMainMenu(char *mPtr) {
     char mainMenuOption;
-    printf("%s", "\n+---------------------------------------------+\n");
+    printf("%s", "\n+-----------------------------------------------+\n");
     printf("%s", "|        PS1 Designer by Spencer White          |\n");
     printf("%s", "+-----------------------------------------------+\n");
     printf("%s", "|                  Main Menu:                   |\n");
@@ -104,7 +105,7 @@ void displayMainMenu(char *mPtr) {
 */
 void displayEditPromptMenu(char *sPtr) {
     char subMenuOption;
-    printf("%s", "\n+---------------------------------------------+\n");
+    printf("%s", "\n+-----------------------------------------------+\n");
     printf("%s", "|               Edit Prompt Menu                |\n");
     printf("%s", "+-----------------------------------------------+\n");
     printf("%s", "|                                               |\n");
@@ -221,6 +222,11 @@ void editExistingPrompt() {
     }
 }
 
+/*
+   Function Description - Manages the Secondary Flow of Instructing How to Switch Prompts
+   Parameters: N/A
+   Returns: N/A
+*/
 void howToSwitchBashPrompts() {
     // Call readPromptsFromFile()
     // Display prompts
@@ -228,4 +234,14 @@ void howToSwitchBashPrompts() {
     // call howToSetUpPS1() - passing selected prompt as reference
 
     puts("There are no prompts to switch to, returning to main menu...");
+}
+
+/*
+   Function Description - Manages the Display of Information about PS1
+   Parameters: N/A
+   Returns: N/A
+*/
+void understandingPS1() {
+    // Detailed information about PS1 from - Project Design references
+     puts("No information to share about PS1...");
 }
