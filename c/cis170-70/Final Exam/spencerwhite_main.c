@@ -15,6 +15,7 @@ void createNewPrompt();
 void editExistingPrompt();
 void howToSwitchBashPrompts();
 void understandingPS1();
+void understandingSpecialPromptVariables();
 
 // Main Program
 int main (void) {
@@ -33,10 +34,10 @@ int main (void) {
                 howToSwitchBashPrompts();
                 break;
             case 'D':
-                puts("call understandingPS1()");
+                understandingPS1();
                 break;
             case 'E':
-                puts("call understandingSpecialPromptVariables()");
+                understandingSpecialPromptVariables();
                 break;
             case 'F':
                 puts("call howToSetupPS1()");
@@ -244,4 +245,14 @@ void howToSwitchBashPrompts() {
 void understandingPS1() {
     // Detailed information about PS1 from - Project Design references
      puts("No information to share about PS1...");
+}
+
+/*
+   Function Description - Manages the Display of Information about Special prompt Variables
+   Parameters: N/A
+   Returns: N/A
+*/
+void understandingSpecialPromptVariables() {
+    // Detailed information about Special Variables from - Project Design references
+     puts("No information to share about special prompt variables...");
 }
