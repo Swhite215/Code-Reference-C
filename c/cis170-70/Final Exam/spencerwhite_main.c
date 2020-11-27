@@ -11,6 +11,7 @@
 // Function Prototypes
 void displayMainMenu(char *mPtr);
 void displayEditPromptMenu(char *sPtr);
+void displaySavePromptMenu(char *sPtr);
 void createNewPrompt();
 void editExistingPrompt();
 void howToSwitchBashPrompts();
