@@ -16,6 +16,7 @@ void editExistingPrompt();
 void howToSwitchBashPrompts();
 void understandingPS1();
 void understandingSpecialPromptVariables();
+void howToSetupPS1();
 
 // Main Program
 int main (void) {
@@ -40,7 +41,7 @@ int main (void) {
                 understandingSpecialPromptVariables();
                 break;
             case 'F':
-                puts("call howToSetupPS1()");
+                howToSetupPS1();
                 break;
             case 'G':
                 puts("call generateRandomPrompt()");
@@ -248,11 +249,24 @@ void understandingPS1() {
 }
 
 /*
-   Function Description - Manages the Display of Information about Special prompt Variables
+   Function Description - Manages the Display of Information about Special Prompt Variables
    Parameters: N/A
    Returns: N/A
 */
 void understandingSpecialPromptVariables() {
     // Detailed information about Special Variables from - Project Design references
      puts("No information to share about special prompt variables...");
+}
+
+/*
+   Function Description - Manages the Display of Information about Special Prompt Variables
+   Parameters: N/A
+   Returns: N/A
+*/
+void howToSetupPS1() {
+
+    // Check if Prompt is Passed - If So Use It, Else Use Example/Random Prompt
+    // Detailed information about setting PS1 using Option 1 - editing .bash_profile
+    // Detailed information about setting PS1 using Option 2 - terminal echo
+     puts("No directions on setting PS1 to share...");
 }
