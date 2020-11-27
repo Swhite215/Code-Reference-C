@@ -17,6 +17,7 @@ void howToSwitchBashPrompts();
 void understandingPS1();
 void understandingSpecialPromptVariables();
 void howToSetupPS1();
+void generateRandomPrompt();
 
 // Main Program
 int main (void) {
@@ -44,7 +45,7 @@ int main (void) {
                 howToSetupPS1();
                 break;
             case 'G':
-                puts("call generateRandomPrompt()");
+                generateRandomPrompt();
                 break;
             case 'Q':
                 puts("Exiting the program...");
@@ -101,8 +102,8 @@ void displayMainMenu(char *mPtr) {
 }
 
 /*
-   Function Description - Prints Main Menu and Updates Value at Pointer
-   Parameters: char *mPtr
+   Function Description - Prints Edit Prompt Menu and Updates Value at Pointer
+   Parameters: char *sPtr
    Returns: N/A
 */
 void displayEditPromptMenu(char *sPtr) {
@@ -128,6 +129,40 @@ void displayEditPromptMenu(char *sPtr) {
 
     while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'C' && subMenuOption != 'D' && subMenuOption != 'E' && subMenuOption != 'Q') {
         puts("Invalid input. Enter either A, B, C, D, E, or Q");
+        printf("%s", "Enter Your Choice: ");
+        scanf(" %c", &subMenuOption);
+
+        while ((getchar()) != '\n');
+        subMenuOption = toupper(subMenuOption);
+    }
+
+    *sPtr = subMenuOption;
+}
+
+/*
+   Function Description - Prints Save Prompt Menu and Updates Value at Pointer
+   Parameters: char *sPtr
+   Returns: N/A
+*/
+void displaySavePromptMenu(char *sPtr) {
+    char subMenuOption;
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "|               Save Prompt Menu                |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+    printf("%s", "|                                               |\n");
+    printf("%s", "|  A: Save Prompt                               |\n");
+    printf("%s", "|  Q: Quit                                      |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+
+    printf("%s", "Enter Your Choice: ");
+    scanf(" %c", &subMenuOption);
+
+    while ((getchar()) != '\n');
+
+    subMenuOption = toupper(subMenuOption);
+
+    while (subMenuOption != 'A' && subMenuOption != 'Q') {
+        puts("Invalid input. Enter either A or Q");
         printf("%s", "Enter Your Choice: ");
         scanf(" %c", &subMenuOption);
 
@@ -212,7 +247,6 @@ void editExistingPrompt() {
                     puts("SAVE PROMPT - call writePromptToFile()");
                     break;
                 case 'Q':
-                    puts("Exiting the program...");
                     break;
                 default:
                     printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
@@ -259,7 +293,7 @@ void understandingSpecialPromptVariables() {
 }
 
 /*
-   Function Description - Manages the Display of Information about Special Prompt Variables
+   Function Description - Manages the Display of Information about Setting PS1
    Parameters: N/A
    Returns: N/A
 */
@@ -269,4 +303,34 @@ void howToSetupPS1() {
     // Detailed information about setting PS1 using Option 1 - editing .bash_profile
     // Detailed information about setting PS1 using Option 2 - terminal echo
      puts("No directions on setting PS1 to share...");
+}
+
+/*
+   Function Description - Generates Random Prompts
+   Parameters: N/A
+   Returns: DEFINE DATA TYPE OF PROMPT
+*/
+void generateRandomPrompt() {
+
+    // Call generateRandomFeatures() - generates a prompt compose of random number special prompt variables
+    // Call generateRandomColors() - uses random colors to color a random number of the features in the prompt generated above
+    // Call displayPromptResults() - will display the prompt, the features that make it up, and the color codes usesd
+    // Call displaySavePromptMenu() - displays Save Prompt Menu - choose to save or quit and abandon prompt
+    
+     puts("No prompts can currently be generated...");
+
+    char subMenuOption;
+    do {
+        displaySavePromptMenu(&subMenuOption);
+        switch(subMenuOption){
+            case 'A':
+                puts("SAVE PROMPT - call writePromptToFile()");
+                break;
+            case 'Q':
+                break;
+            default:
+                printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
+                break;
+        }
+    } while (subMenuOption != 'Q');
 }
