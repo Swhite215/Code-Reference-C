@@ -15,6 +15,7 @@ void displaySavePromptMenu(char *sPtr);
 void displayAddContentMenu(char *sPtr);
 void displayRemoveContentMenu(char *sPtr);
 void displayMoveContentMenu(char *sPtr, int order);
+void displayColorContentMenu(char *sPtr);
 void createNewPrompt();
 void editExistingPrompt();
 void howToSwitchBashPrompts();
@@ -25,6 +26,8 @@ void generateRandomPrompt();
 void addContent();
 void removeContent();
 void moveContent();
+void colorContent();
+void writePromptToFile();
 
 // Main Program
 int main (void) {
@@ -216,7 +219,7 @@ void displayAddContentMenu(char *sPtr) {
 }
 
 /*
-   Function Description - Prints Add Content Menu and Updates Value at Pointer
+   Function Description - Prints Remove Content Menu and Updates Value at Pointer
    Parameters: char *sPtr
    Returns: N/A
 */
@@ -254,7 +257,7 @@ void displayRemoveContentMenu(char *sPtr) {
 }
 
 /*
-   Function Description - Prints Add Content Menu and Updates Value at Pointer
+   Function Description - Prints Move Content Menu and Updates Value at Pointer
    Parameters: char *sPtr
    Returns: N/A
 */
@@ -266,10 +269,11 @@ void displayMoveContentMenu(char *sPtr, int order) {
     printf("%s", "+-----------------------------------------------+\n");
 
     if (order == 0) {
-        printf("%s", "|                   Portion to Move             |\n");
+        printf("%s", "|                   Portion to Move?             |\n");
         printf("%s", "|                                               |\n");
     } else if (order == 1) {
-        printf("%s", "|                   Destination                 |\n");
+        printf("%s", "|                   Destination?                 |\n");
+        printf("%s", "|                   (Content after insert will be pushed to the right)                |\n");
     }
 
     printf("%s", "|                                               |\n");
@@ -286,6 +290,41 @@ void displayMoveContentMenu(char *sPtr, int order) {
     subMenuOption = toupper(subMenuOption);
 
     // OPTIONS NEED TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
+    while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'Q') {
+        puts("Invalid input. Enter either A, B, or Q");
+        printf("%s", "Enter Your Choice: ");
+        scanf(" %c", &subMenuOption);
+
+        while ((getchar()) != '\n');
+        subMenuOption = toupper(subMenuOption);
+    }
+
+    *sPtr = subMenuOption;
+}
+
+/*
+   Function Description - Prints Color Content Menu and Updates Value at Pointer
+   Parameters: char *sPtr
+   Returns: N/A
+*/
+void displayColorContentMenu(char *sPtr) {
+    char subMenuOption;
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "|               Color Content Menu              |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+    printf("%s", "|                                               |\n");
+    printf("%s", "|  A: Add Color                                 |\n");
+    printf("%s", "|  B: Remove Color                              |\n");
+    printf("%s", "|  Q: Quit                                      |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+
+    printf("%s", "Enter Your Choice: ");
+    scanf(" %c", &subMenuOption);
+
+    while ((getchar()) != '\n');
+
+    subMenuOption = toupper(subMenuOption);
+
     while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'Q') {
         puts("Invalid input. Enter either A, B, or Q");
         printf("%s", "Enter Your Choice: ");
@@ -321,10 +360,10 @@ void createNewPrompt() {
                 moveContent();
                 break;
             case 'D':
-                puts("COLOR CONTENT - call colorHandlingMenu() - PART ONE");
+                colorContent();
                 break;
             case 'E':
-                puts("SAVE PROMPT - call writePromptToFile()");
+                writePromptToFile();
                 break;
             case 'Q':
                 puts("Exiting the program...");
@@ -349,7 +388,7 @@ void editExistingPrompt() {
     // Display Edit Prompt Menu
     // Pass prompt to sub functions where appropriate
 
-    int validPromptSelected = 0;
+    int validPromptSelected = 1;
 
     if (validPromptSelected == 1) {
         char subMenuOption;
@@ -363,13 +402,13 @@ void editExistingPrompt() {
                     removeContent();
                     break;
                 case 'C':
-                    puts("MOVE CONTENT - call moveContentMenu() - PART ONE");
+                    moveContent();
                     break;
                 case 'D':
-                    puts("COLOR CONTENT - call colorHandlingMenu() - PART ONE");
+                    colorContent();
                     break;
                 case 'E':
-                    puts("SAVE PROMPT - call writePromptToFile()");
+                    writePromptToFile();
                     break;
                 case 'Q':
                     break;
@@ -526,7 +565,7 @@ void removeContent() {
 }
 
 /*
-   Function Description - Removes Content
+   Function Description - Moves Content
    Parameters: N/A
    Returns: N/A
 */
@@ -559,4 +598,51 @@ void moveContent() {
         puts("SWITCH CONTENT - call switchContent()");
 
     } while (itemToBeMoved != 'Q' && whereToMoveItem != 'Q');
+}
+
+/*
+   Function Description - Adds Color to Content
+   Parameters: N/A
+   Returns: N/A
+*/
+
+void colorContent() {
+    // Receive Prompt from above
+    // Parse Prompt
+    // Choose to Add or Remove Color
+        // Add - Choose Content -> Choose Color
+        // Remove - Choose Content -> Removed IF color exists
+
+    char subMenuOption;
+    do {
+        displayColorContentMenu(&subMenuOption);
+        switch(subMenuOption){
+            case 'A':
+                puts("ADD COLOR - call addColor()");
+                break;
+            case 'B':
+                puts("REMOVE COLOR - call removeColor()");
+                break;
+            case 'Q':
+                break;
+            default:
+                printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
+                break;
+        }
+    } while (subMenuOption != 'Q');
+}
+
+/*
+   Function Description - Saves(Appends) Prompt to File
+   Parameters: N/A
+   Returns: N/A
+*/
+
+void writePromptToFile() {
+
+    puts("No prompt receieved! Returning...");
+
+    // Receive Prompt from above
+    // Append Prompt to File (Duplicates can happen)
+    // Show Error if Error, Say Successful if Successful
 }
