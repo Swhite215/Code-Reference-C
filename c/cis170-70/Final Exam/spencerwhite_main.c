@@ -12,6 +12,9 @@
 void displayMainMenu(char *mPtr);
 void displayEditPromptMenu(char *sPtr);
 void displaySavePromptMenu(char *sPtr);
+void displayAddContentMenu(char *sPtr);
+void displayRemoveContentMenu(char *sPtr);
+void displayMoveContentMenu(char *sPtr, int order);
 void createNewPrompt();
 void editExistingPrompt();
 void howToSwitchBashPrompts();
@@ -19,6 +22,9 @@ void understandingPS1();
 void understandingSpecialPromptVariables();
 void howToSetupPS1();
 void generateRandomPrompt();
+void addContent();
+void removeContent();
+void moveContent();
 
 // Main Program
 int main (void) {
@@ -174,6 +180,124 @@ void displaySavePromptMenu(char *sPtr) {
     *sPtr = subMenuOption;
 }
 
+/*
+   Function Description - Prints Add Content Menu and Updates Value at Pointer
+   Parameters: char *sPtr
+   Returns: N/A
+*/
+void displayAddContentMenu(char *sPtr) {
+    char subMenuOption;
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "|               Add Content Menu                |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+    printf("%s", "|                                               |\n");
+    printf("%s", "|  A: Add Default Feature                       |\n");
+    printf("%s", "|  B: Add Custom Text                           |\n");
+    printf("%s", "|  Q: Quit                                      |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+
+    printf("%s", "Enter Your Choice: ");
+    scanf(" %c", &subMenuOption);
+
+    while ((getchar()) != '\n');
+
+    subMenuOption = toupper(subMenuOption);
+
+    while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'Q') {
+        puts("Invalid input. Enter either A, B, or Q");
+        printf("%s", "Enter Your Choice: ");
+        scanf(" %c", &subMenuOption);
+
+        while ((getchar()) != '\n');
+        subMenuOption = toupper(subMenuOption);
+    }
+
+    *sPtr = subMenuOption;
+}
+
+/*
+   Function Description - Prints Add Content Menu and Updates Value at Pointer
+   Parameters: char *sPtr
+   Returns: N/A
+*/
+void displayRemoveContentMenu(char *sPtr) {
+    char subMenuOption;
+    //  MENU NEEDS TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "|               Remove Content Menu             |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+    printf("%s", "|               FAKE PROMPT HERE                |\n");
+    printf("%s", "|                                               |\n");
+    printf("%s", "|  A: PORTION ONE                               |\n");
+    printf("%s", "|  B: PORTION TWO                               |\n");
+    printf("%s", "|  Q: Quit                                      |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+
+    printf("%s", "Enter Your Choice: ");
+    scanf(" %c", &subMenuOption);
+
+    while ((getchar()) != '\n');
+
+    subMenuOption = toupper(subMenuOption);
+
+    // OPTIONS NEED TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
+    while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'Q') {
+        puts("Invalid input. Enter either A, B, or Q");
+        printf("%s", "Enter Your Choice: ");
+        scanf(" %c", &subMenuOption);
+
+        while ((getchar()) != '\n');
+        subMenuOption = toupper(subMenuOption);
+    }
+
+    *sPtr = subMenuOption;
+}
+
+/*
+   Function Description - Prints Add Content Menu and Updates Value at Pointer
+   Parameters: char *sPtr
+   Returns: N/A
+*/
+void displayMoveContentMenu(char *sPtr, int order) {
+    char subMenuOption;
+    //  MENU NEEDS TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "|               Move Content Menu               |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+
+    if (order == 0) {
+        printf("%s", "|                   Portion to Move             |\n");
+        printf("%s", "|                                               |\n");
+    } else if (order == 1) {
+        printf("%s", "|                   Destination                 |\n");
+    }
+
+    printf("%s", "|                                               |\n");
+    printf("%s", "|  A: PORTION ONE                               |\n");
+    printf("%s", "|  B: PORTION TWO                               |\n");
+    printf("%s", "|  Q: Quit                                      |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+
+    printf("%s", "Enter Your Choice: ");
+    scanf(" %c", &subMenuOption);
+
+    while ((getchar()) != '\n');
+
+    subMenuOption = toupper(subMenuOption);
+
+    // OPTIONS NEED TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
+    while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'Q') {
+        puts("Invalid input. Enter either A, B, or Q");
+        printf("%s", "Enter Your Choice: ");
+        scanf(" %c", &subMenuOption);
+
+        while ((getchar()) != '\n');
+        subMenuOption = toupper(subMenuOption);
+    }
+
+    *sPtr = subMenuOption;
+}
+
 // ------------------------------------------------- FUNCTIONS -------------------------------------------------
 /*
    Function Description - Manages the Secondary Flow of Creating a Prompt
@@ -188,13 +312,13 @@ void createNewPrompt() {
         displayEditPromptMenu(&subMenuOption);
         switch(subMenuOption){
             case 'A':
-                puts("ADD CONTENT - call addContentMenu()");
+                addContent();
                 break;
             case 'B':
-                puts("REMOVE CONTENT - call removeContentMenu()");
+                removeContent();
                 break;
             case 'C':
-                puts("MOVE CONTENT - call moveContentMenu() - PART ONE");
+                moveContent();
                 break;
             case 'D':
                 puts("COLOR CONTENT - call colorHandlingMenu() - PART ONE");
@@ -233,10 +357,10 @@ void editExistingPrompt() {
             displayEditPromptMenu(&subMenuOption);
             switch(subMenuOption){
                 case 'A':
-                    puts("ADD CONTENT - call addContentMenu()");
+                    addContent();
                     break;
                 case 'B':
-                    puts("REMOVE CONTENT - call removeContentMenu()");
+                    removeContent();
                     break;
                 case 'C':
                     puts("MOVE CONTENT - call moveContentMenu() - PART ONE");
@@ -334,4 +458,105 @@ void generateRandomPrompt() {
                 break;
         }
     } while (subMenuOption != 'Q');
+}
+
+/*
+   Function Description - Adds Content
+   Parameters: N/A
+   Returns: N/A
+*/
+
+void addContent() {
+    // Receive Prompt from above
+    // Pass prompt to be edited
+    char subMenuOption;
+    do {
+        displayAddContentMenu(&subMenuOption);
+        switch(subMenuOption){
+            case 'A':
+                puts("ADD FEATURE - call addFeature()");
+                break;
+            case 'B':
+                puts("ADD TEXT - call addCustomText()");
+                break;
+            case 'Q':
+                puts("Exiting the program...");
+                break;
+            default:
+                printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
+                break;
+        }
+    } while (subMenuOption != 'Q');
+}
+
+/*
+   Function Description - Removes Content
+   Parameters: N/A
+   Returns: N/A
+*/
+
+void removeContent() {
+    // Receive Prompt from above
+    // Parse Prompt
+    // Show Dynamic Menu of Prompt Parts that Can be Deleted
+    // User Selects One
+    // Part is Deleted and Menu is Reshown with new prompt
+
+    char subMenuOption;
+    do {
+        displayRemoveContentMenu(&subMenuOption);
+        // SWITCH NEEDS TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
+        switch(subMenuOption){
+            case 'A':
+                puts("REMOVE FEATURE ONE - call deleteFeature(0)");
+                break;
+            case 'B':
+                puts("REMOVE FEATURE TWO - call deleteFeature(1)");
+                break;
+            case 'N':
+                puts("REMOVE FEATURE N - call deleteFeature(N-1)");
+                break;
+            case 'Q':
+                break;
+            default:
+                printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
+                break;
+        }
+    } while (subMenuOption != 'Q');
+}
+
+/*
+   Function Description - Removes Content
+   Parameters: N/A
+   Returns: N/A
+*/
+
+void moveContent() {
+    // Receive Prompt from above
+    // Parse Prompt
+    // Show Dynamic Menu of Prompt Parts that Can be Moved
+    // User Selects Source
+    // User Selects Destination
+    // Portions are switched
+    // Repeat until Quit
+
+    char itemToBeMoved;
+    char whereToMoveItem;
+    do {
+
+        displayMoveContentMenu(&itemToBeMoved, 0);
+
+        if (itemToBeMoved == 'Q') {
+            continue;
+        }
+
+        displayMoveContentMenu(&whereToMoveItem, 1);
+
+        if (whereToMoveItem == 'Q') {
+            continue;
+        }
+
+        puts("SWITCH CONTENT - call switchContent()");
+
+    } while (itemToBeMoved != 'Q' && whereToMoveItem != 'Q');
 }
