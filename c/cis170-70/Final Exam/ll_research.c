@@ -83,17 +83,23 @@ int main(void) {
 
     printLinkedList(&startPtr);
 
+    free(movePtr); // Free the Memory Here
+
     NodePtr movePtrTwo = NULL;
     takeOutAndHoldComponent(&startPtr, &movePtrTwo, "is"); // Grab Node To Move
     insertToList(&startPtr, &movePtrTwo, "Spencer"); // Insert Node
 
     printLinkedList(&startPtr);
 
+    free(movePtrTwo); // Free the Memory Here
+
     NodePtr movePtrThree = NULL;
     takeOutAndHoldComponent(&startPtr, &movePtrThree, "awesome"); // Grab Node To Move
     insertToList(&startPtr, &movePtrThree, "Spencer"); // Insert Node
 
     printLinkedList(&startPtr);
+
+    free(movePtrThree); // Free the Memory Here
 
     return 0;
 }
