@@ -4,7 +4,8 @@
 
 struct PromptComponent {
     char textValue[100];
-    char colorValue[10];
+    char colorName[15];
+    char colorCode[15];
     int hasColor;
 };
 
@@ -16,10 +17,37 @@ struct node {
 typedef struct node Node;
 typedef Node *NodePtr;
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
+const char RED[5] = "RED";
+const char GREEN[6] = "GREEN";
+const char YELLOW[8] = "YELLOW";
+const char BLUE[6] = "BLUE";
+const char PURPLE[8] = "PURPLE";
+const char TURQUOISE[11] = "TURQUOISE";
+const char GRAY[6] = "GRAY";
+const char DARK_GRAY[11] = "DARK_GRAY";
+
+const char RED_CODE[13] = "\\[\\e[0;31m\\]";
+const char GREEN_CODE[13] = "\\[\\e[0;32m\\]";
+const char YELLOW_CODE[13] = "\\[\\e[0;33m\\]";
+const char BLUE_CODE[13] = "\\[\\e[0;34m\\]";
+const char PURPLE_CODE[13] = "\\[\\e[0;35m\\]";
+const char TURQUOISE_CODE[13] =" \\[\\e[0;36m\\]";
+const char GRAY_CODE[13] = "\\[\\e[0;37m\\]";
+const char DARK_GRAY_CODE[13] = "\\[\\e[0;30m\\]";
+
 // Function Prototypes
 void appendToList(NodePtr *sPtr, char value[]);
 void printLinkedList(NodePtr *sPtr);
 void deleteFromList(NodePtr *sPtr, char value[]);
+void addColorToComponent(NodePtr *sPtr, char value[], char color[]);
 
 int main(void) {
     NodePtr startPtr = NULL; // Linked List Initialized to Null
@@ -37,6 +65,8 @@ int main(void) {
     deleteFromList(&startPtr, "not"); // not is third value inserted*
 
     printLinkedList(&startPtr);
+
+    addColorToComponent(&startPtr, "Spencer", GREEN);
 
     return 0;
 }
@@ -103,7 +133,7 @@ void printLinkedList(NodePtr *sPtr) {
    Returns: N/A
 */
 
-void deleteFromList(NodePtr *sPtr, char value[]) {\
+void deleteFromList(NodePtr *sPtr, char value[]) {
 
     NodePtr previousPtr = NULL;
     NodePtr currentPtr = *sPtr;
@@ -122,4 +152,52 @@ void deleteFromList(NodePtr *sPtr, char value[]) {\
         free(tempPtr);
     }
 
+}
+
+void addColorToComponent(NodePtr *sPtr, char value[], char color[]) {
+    NodePtr currentPtr = *sPtr;
+
+    if (currentPtr == NULL) {
+        puts("The list is empty. No content can be colored");
+        return;
+    } else {
+        while (currentPtr != NULL && strcmp(currentPtr->data.textValue, value) != 0) { // Move Through List Until Match is Found
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        // Set hasColor, colorName, and colorCode
+        if (strcmp(RED, color) == 0) {
+            currentPtr->data.hasColor = 1;
+            strcpy(currentPtr->data.colorName, color);
+            strcpy(currentPtr->data.colorCode, RED_CODE);
+        } else if (strcmp(GREEN, color) == 0) {
+            currentPtr->data.hasColor = 1;
+            strcpy(currentPtr->data.colorName, color);
+            strcpy(currentPtr->data.colorCode, GREEN_CODE);
+        }else if (strcmp(YELLOW, color) == 0) {
+            currentPtr->data.hasColor = 1;
+            strcpy(currentPtr->data.colorName, color);
+            strcpy(currentPtr->data.colorCode, YELLOW_CODE);
+        }else if (strcmp(BLUE, color) == 0) {
+            currentPtr->data.hasColor = 1;
+            strcpy(currentPtr->data.colorName, color);
+            strcpy(currentPtr->data.colorCode, BLUE_CODE);
+        }else if (strcmp(PURPLE, color) == 0) {
+            currentPtr->data.hasColor = 1;
+            strcpy(currentPtr->data.colorName, color);
+            strcpy(currentPtr->data.colorCode, PURPLE_CODE);
+        }else if (strcmp(TURQUOISE, color) == 0) {
+            currentPtr->data.hasColor = 1;
+            strcpy(currentPtr->data.colorName, color);
+            strcpy(currentPtr->data.colorCode, TURQUOISE_CODE);
+        }else if (strcmp(GRAY, color) == 0) {
+            currentPtr->data.hasColor = 1;
+            strcpy(currentPtr->data.colorName, color);
+            strcpy(currentPtr->data.colorCode, GRAY_CODE);
+        }else if (strcmp(DARK_GRAY, color) == 0) {
+            currentPtr->data.hasColor = 1;
+            strcpy(currentPtr->data.colorName, color);
+            strcpy(currentPtr->data.colorCode, DARK_GRAY_CODE);
+        }
+    }
 }
