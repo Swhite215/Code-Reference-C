@@ -55,6 +55,8 @@ void printLinkedList(NodePtr *sPtr);
 void deleteFromList(NodePtr *sPtr, char value[]);
 void addColorToComponent(NodePtr *sPtr, char value[], char color[]);
 void removeColorFromComponent(NodePtr *sPtr, char value[]);
+void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]);
+void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]);
 
 int main(void) {
     NodePtr startPtr = NULL; // Linked List Initialized to Null
@@ -75,6 +77,17 @@ int main(void) {
 
     addColorToComponent(&startPtr, "Spencer", GREEN);
 
+    NodePtr movePtr = NULL;
+    takeOutAndHoldComponent(&startPtr, &movePtr, "awesome"); // Grab Node To Move
+    insertToList(&startPtr, &movePtr, "Spencer"); // Insert Node
+
+    printLinkedList(&startPtr);
+
+    NodePtr movePtrTwo = NULL;
+    takeOutAndHoldComponent(&startPtr, &movePtrTwo, "is"); // Grab Node To Move
+    insertToList(&startPtr, &movePtrTwo, "Spencer"); // Insert Node
+
+    printLinkedList(&startPtr);
 
     return 0;
 }
@@ -116,7 +129,7 @@ void appendToList(NodePtr *sPtr, char value[]) {
 void printLinkedList(NodePtr *sPtr) {
     NodePtr currentPtr = *sPtr;
 
-    char fullPrompt[1000]; // Holds Entire Prompt String - > 1000...?
+    char fullPrompt[1000] = ""; // Holds Entire Prompt String - > 1000...?
 
     if (currentPtr == NULL) {
         puts("The list is empty. No content can be printed!");
@@ -233,5 +246,55 @@ void removeColorFromComponent(NodePtr *sPtr, char value[]) {
         currentPtr->data.hasColor = 0; // Set Has Color to Zero
         strcpy(currentPtr->data.colorName, ""); // Set Color Name to Nothing
         strcpy(currentPtr->data.colorCode, ""); // Set Color Code to Nothing
+    }
+}
+
+void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]) {
+    NodePtr currentPtr = *sPtr;
+    NodePtr previousPtr = NULL;
+
+    if (currentPtr == NULL) {
+         puts("The list is empty. No content can be moved!");
+        return;
+    } else {
+
+        // Find Node to Move
+        while(currentPtr != NULL && strcmp(currentPtr->data.textValue, valueToFind) != 0) {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        // Remove It From List and Store Temporarily
+        *mPtr = currentPtr;
+        previousPtr->nextPtr = currentPtr->nextPtr;
+    }
+}
+
+void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]) {
+
+    NodePtr currentPtr = *sPtr;
+    NodePtr previousPtr = NULL;
+
+    if (currentPtr == NULL) {
+         puts("The list is empty. No content can be inserted!");
+        return;
+    } else {
+
+        // Find Where to Insert
+        while (currentPtr != NULL && strcmp(currentPtr->data.textValue, whereToInsert) != 0) {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        // If At Front Insert Directly
+        if (previousPtr == NULL) { // If At Front Insert Directly
+            (*mPtr)->nextPtr = *sPtr;
+            *sPtr = (*mPtr);
+            return;
+        } else { // Else Insert Between Nodes
+            previousPtr->nextPtr = (*mPtr);
+            (*mPtr)->nextPtr = currentPtr;
+        }
+
     }
 }
