@@ -18,29 +18,31 @@ typedef Node *NodePtr;
 
 // Function Prototypes
 void append(NodePtr *sPtr, char value[]);
+void printLinkedList(NodePtr *sPtr);
 
 int main(void) {
     NodePtr startPtr = NULL; // Linked List Initialized to Null
     char textValue[100];
 
-    printf("%s", "Enter a custom string: ");
-    scanf("%99s", textValue);
+    for (int i = 0; i < 3; i++) {
+        printf("%s", "Enter a custom string: ");
+        scanf("%99s", textValue);
 
-    append(&startPtr, textValue);
+        append(&startPtr, textValue);
+    }
 
-    printf("%s", "Enter another custom string: ");
-    scanf("%99s", textValue);
+    printLinkedList(&startPtr);
 
-    append(&startPtr, textValue);
-
-    printf("%s", "Enter another custom string: ");
-    scanf("%99s", textValue);
-
-    append(&startPtr, textValue);
+    puts("");
 
     return 0;
 }
 
+/*
+   Function Description - Appends New Prompt Component to Linked List
+   Parameters: NodePtr *sPtr, char value[]
+   Returns: N/A
+*/
 void append(NodePtr *sPtr, char value[]) {
     NodePtr newPtr = malloc(sizeof(Node)); // Create a New Node
 
@@ -63,4 +65,31 @@ void append(NodePtr *sPtr, char value[]) {
         }
         previousPtr->nextPtr = newPtr; // Insert New Node
     }
+}
+
+/*
+   Function Description - Prints Prompt Component Text Valus as a Single String
+   Parameters: NodePtr *sPtr
+   Returns: N/A
+*/
+void printLinkedList(NodePtr *sPtr) {
+    NodePtr currentPtr = *sPtr;
+
+    char fullPrompt[1000];
+
+    if (currentPtr == NULL) {
+        puts("The list is empty.");
+        return;
+    } else {
+        while (currentPtr != NULL) {
+            strcat(fullPrompt, currentPtr->data.textValue); // Concatenate Into Full Prompt
+            currentPtr = currentPtr->nextPtr; // Move to Next Item in List
+
+            if (!(currentPtr == NULL)) { // If Not At the End, Add a Space Between Prompt Values
+                strcat(fullPrompt, " ");
+            }
+        }
+    }
+
+    printf("%s", fullPrompt); // Print the Full Prompt
 }
