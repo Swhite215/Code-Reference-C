@@ -19,7 +19,12 @@ struct Node {
 // Building the Linked List Order of Operations
 // #1A - Append Only - Make the List ANY Length, Always Adding On To the End - DONE
 // #1B - Print Linked List - DONE
-// #2 - Delete  - Remove Any Content Based on Data Value (textValue)
-// #3 - Move - Change Content Positions At Will
-// #4 - Update - Add Color - Set colorValue = "Choice"
-// #5 - Update - Remove Color - set colorValue = ""
+// #2 - Delete  - Remove Any Content Based on Data Value (textValue) - DONE
+// #3 - Move - Change Content Position
+// #4 - Update - Add Color - Set colorName, colorCode, and hasColor - DONE     
+// #5 - Update - Remove Color - set colorValue, colorCode, and hasColor - DONE
+// #6 - Print Linked List with Colors In Terminal (ANSI)
+// #7 - Form Prompt That Renders Correct as PS1= (Custom Content + COLORS)
+// #8 - Append Special Variable Content
+// #9 - Print Linked List with Colors and Special Variable Content (ANSI + Special Variable Examples)
+// #10 - Form Prompt That Renders Correct as PS1= (Custom Content + COLORS + Special Variables)
