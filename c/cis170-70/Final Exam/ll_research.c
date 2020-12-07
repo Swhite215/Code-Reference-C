@@ -89,6 +89,12 @@ int main(void) {
 
     printLinkedList(&startPtr);
 
+    NodePtr movePtrThree = NULL;
+    takeOutAndHoldComponent(&startPtr, &movePtrThree, "awesome"); // Grab Node To Move
+    insertToList(&startPtr, &movePtrThree, "Spencer"); // Insert Node
+
+    printLinkedList(&startPtr);
+
     return 0;
 }
 
@@ -266,7 +272,13 @@ void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]) {
 
         // Remove It From List and Store Temporarily
         *mPtr = currentPtr;
-        previousPtr->nextPtr = currentPtr->nextPtr;
+
+
+        if (previousPtr == NULL) { // If Taking First Item - Set Start to Next Node
+            *sPtr = currentPtr->nextPtr;
+        } else { // Else If Taking Any Other item - Connect Previos Node to Next Node
+            previousPtr->nextPtr = currentPtr->nextPtr;
+        }
     }
 }
 
