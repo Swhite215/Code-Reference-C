@@ -17,8 +17,8 @@ struct Node {
 //ListNodePtr newPtr = malloc(sizeof(Node));
 
 // Building the Linked List Order of Operations
-// #1A - Append Only - Make the List ANY Length, Always Adding On To the End
-// #1B - Print Linked List
+// #1A - Append Only - Make the List ANY Length, Always Adding On To the End - DONE
+// #1B - Print Linked List - DONE
 // #2 - Delete  - Remove Any Content Based on Data Value (textValue)
 // #3 - Move - Change Content Positions At Will
 // #4 - Update - Add Color - Set colorValue = "Choice"
