@@ -261,6 +261,11 @@ void removeColorFromComponent(NodePtr *sPtr, char value[]) {
     }
 }
 
+/*
+   Function Description - Grabs and Holds a Node in Anticipation of Moving
+   Parameters: NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]
+   Returns: N/A
+*/
 void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]) {
     NodePtr currentPtr = *sPtr;
     NodePtr previousPtr = NULL;
@@ -288,6 +293,11 @@ void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]) {
     }
 }
 
+/*
+   Function Description - Inserts Node into Linked List
+   Parameters: NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]
+   Returns: N/A
+*/
 void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]) {
 
     NodePtr currentPtr = *sPtr;
@@ -308,7 +318,6 @@ void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]) {
         if (previousPtr == NULL) { // If At Front Insert Directly
             (*mPtr)->nextPtr = *sPtr;
             *sPtr = (*mPtr);
-            return;
         } else { // Else Insert Between Nodes
             previousPtr->nextPtr = (*mPtr);
             (*mPtr)->nextPtr = currentPtr;
