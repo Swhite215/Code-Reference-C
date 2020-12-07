@@ -1,0 +1,40 @@
+Chapter 12 Notes
+
+
+1. Data Structures
+    a. Defintions
+        - Dynamic Data Structures - sizes that grow and shrink at execution time
+        - Linked Lists - collections of data items lined up in a row, insertions and deletions are made anywhere in a linked list
+        - Stacks - insertions and deletions are mde only at one end of a stack - its top
+        - Queues - waiting lines, insertions are made only at the back of a queue and deletions are made only from the front of a queue
+        - Binary Trees - facilitate high speed searching and sorting of data, efficient elimination of duplicate data itmes, representing file system directoriesw and compiling expresions into machine language
+        - Self-Referential Structure - contains a pointer memeber that points to a structure of the same structure type
+        - Dynamic Memory Allocation - the ability for a program to obtain more memory space at execution time to hold new nodes, and to release space no longer needed
+            - malloc - takes number of bytes to be allocated and returns a pointer of type void * (pointer to void) to the allocated memory
+                - newPtr = malloc(sizeof(struct node));
+                - IMPORTANT - test for a NULL pointer return value, which indicates the memory was not allocated
+            - free - deallocates memory i.e. the memory is returned to the system so that it can be reallocated in the future
+                - free(newPtr);
+                - IMPORTANT - when dynamically allocated memory is no longer needed, use free to return the memory to the system immediately and then set the pointer to NULL to eliminate the possibility that the program could refer to memory that has been reclaimed
+            - sizeof
+            - calloc
+            - realloc
+    b. Linked Lists
+        - Definition - linear collection of self-referential structures, called nodes, connected by pointer links
+        - Access - viw a pointer to the first node of the list
+        - Subsequent Access - via the link pointer member stored in each node
+        - Link Pointer in Lst Node - should be set to NULL to mark the end of the list
+        - Dynamic - data is stored dynamically, each node is created as necessary
+        - TIP - linked lists can provide better memory utilization compared to arrays declared with more elements that it actually contains
+        - TIP - insertion and deletion in a sorted array can be time consuming, all the elements following the inserted or deleted element must be shifted appropriately
+        - TIP - elements of an array are stored contiguosly in memory, allowing immediate access to any array element because the address of any element can be calculated directly based on its position relative to the beginning of the array, linked lists do not afford such immediate access
+        - TIP - dynamic memory allocation incurs the overheads of function calls
+
+
+Extras:
+    a. Common Errors
+        - Not setting the link in the last node of a list to Null can lead to runtime errors
+        - Not freeing dynamicacly allocated memory when it is no longer needed can cause the system to run out of memory prematurely i.e. memory leak
+        - Freeing memory not allocated dynamically with malloc
+        - Referring to memory that has been fixed is an error
+        - Assign NULL to a new node's link member, Pointer should be initialized before they are used
