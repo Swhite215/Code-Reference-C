@@ -1,22 +1,26 @@
+// Headers
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+// Structure of Prompt Component Node
 struct PromptComponent {
     char textValue[100];
     char colorName[15];
     char colorCode[15];
     int hasColor;
 };
-
+// Struct of Linked List Node
 struct node {
     struct PromptComponent data;
     struct node *nextPtr; // IMPORTANT: This should be null if last prompt component
 };
 
+// Type Definitions for Nodes
 typedef struct node Node;
 typedef Node *NodePtr;
 
+// Color Codes For Coloring Print Statements
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
@@ -25,6 +29,7 @@ typedef Node *NodePtr;
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
+// Color Constants
 const char RED[5] = "RED";
 const char GREEN[6] = "GREEN";
 const char YELLOW[8] = "YELLOW";
@@ -34,6 +39,7 @@ const char TURQUOISE[11] = "TURQUOISE";
 const char GRAY[6] = "GRAY";
 const char DARK_GRAY[11] = "DARK_GRAY";
 
+// Color Code Constants
 const char RED_CODE[13] = "\\[\\e[0;31m\\]";
 const char GREEN_CODE[13] = "\\[\\e[0;32m\\]";
 const char YELLOW_CODE[13] = "\\[\\e[0;33m\\]";
@@ -48,6 +54,7 @@ void appendToList(NodePtr *sPtr, char value[]);
 void printLinkedList(NodePtr *sPtr);
 void deleteFromList(NodePtr *sPtr, char value[]);
 void addColorToComponent(NodePtr *sPtr, char value[], char color[]);
+void removeColorFromComponent(NodePtr *sPtr, char value[]);
 
 int main(void) {
     NodePtr startPtr = NULL; // Linked List Initialized to Null
@@ -67,6 +74,7 @@ int main(void) {
     printLinkedList(&startPtr);
 
     addColorToComponent(&startPtr, "Spencer", GREEN);
+
 
     return 0;
 }
@@ -111,7 +119,7 @@ void printLinkedList(NodePtr *sPtr) {
     char fullPrompt[1000]; // Holds Entire Prompt String - > 1000...?
 
     if (currentPtr == NULL) {
-        puts("The list is empty.");
+        puts("The list is empty. No content can be printed!");
         return;
     } else {
         while (currentPtr != NULL) { // Step Through Linked List
@@ -132,14 +140,13 @@ void printLinkedList(NodePtr *sPtr) {
    Parameters: NodePtr *sPtr, char value[]
    Returns: N/A
 */
-
 void deleteFromList(NodePtr *sPtr, char value[]) {
 
     NodePtr previousPtr = NULL;
     NodePtr currentPtr = *sPtr;
 
     if (currentPtr == NULL) {
-        puts("The list is empty. No content can be deleted");
+        puts("The list is empty. No content can be deleted!");
         return;
     } else {
         while (currentPtr != NULL && strcmp(currentPtr->data.textValue, value) != 0) { // Move Through List Until Match is Found
@@ -154,11 +161,16 @@ void deleteFromList(NodePtr *sPtr, char value[]) {
 
 }
 
+/*
+   Function Description - Adds Color to Node in the List
+   Parameters: NodePtr *sPtr, char value[], char color[]
+   Returns: N/A
+*/
 void addColorToComponent(NodePtr *sPtr, char value[], char color[]) {
     NodePtr currentPtr = *sPtr;
 
     if (currentPtr == NULL) {
-        puts("The list is empty. No content can be colored");
+        puts("The list is empty. No content can be colored!");
         return;
     } else {
         while (currentPtr != NULL && strcmp(currentPtr->data.textValue, value) != 0) { // Move Through List Until Match is Found
@@ -199,5 +211,27 @@ void addColorToComponent(NodePtr *sPtr, char value[], char color[]) {
             strcpy(currentPtr->data.colorName, color);
             strcpy(currentPtr->data.colorCode, DARK_GRAY_CODE);
         }
+    }
+}
+
+/*
+   Function Description - Removes Color from Node in the List
+   Parameters: NodePtr *sPtr, char value[]
+   Returns: N/A
+*/
+void removeColorFromComponent(NodePtr *sPtr, char value[]) {
+    NodePtr currentPtr = *sPtr;
+
+    if (currentPtr == NULL) {
+        puts("The list is empty. No colors can be removed!");
+        return;
+    } else {
+        while (currentPtr != NULL && strcmp(currentPtr->data.textValue, value) != 0) { // Move Through List Until Match is Found
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        currentPtr->data.hasColor = 0; // Set Has Color to Zero
+        strcpy(currentPtr->data.colorName, ""); // Set Color Name to Nothing
+        strcpy(currentPtr->data.colorCode, ""); // Set Color Code to Nothing
     }
 }
