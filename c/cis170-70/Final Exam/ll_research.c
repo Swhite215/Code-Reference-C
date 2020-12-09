@@ -195,7 +195,7 @@ void appendSPToList(NodePtr *sPtr, char specialVariableCode[], char specialVaria
 }
 
 /*
-   Function Description - Prints Prompt Component Text Valus as a Single String
+   Function Description - Prints Prompt Components with Colors and Special Variable Examples
    Parameters: NodePtr *sPtr
    Returns: N/A
 */
@@ -210,7 +210,7 @@ void printLinkedList(NodePtr *sPtr) {
     } else {
         while (currentPtr != NULL) { // Step Through Linked List
 
-            char partialPrompt[1000] = "";
+            char partialPrompt[100] = "";
 
             if (currentPtr->data.hasColor == 1) {
 
