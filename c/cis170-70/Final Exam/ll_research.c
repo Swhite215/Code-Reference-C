@@ -13,6 +13,7 @@ struct PromptComponent {
     int hasColor;
     int isSpecial;
 };
+
 // Struct of Linked List Node
 struct node {
     struct PromptComponent data;
@@ -75,6 +76,7 @@ void addColorToComponent(NodePtr *sPtr, char value[], char color[]);
 void removeColorFromComponent(NodePtr *sPtr, char value[]);
 void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]);
 void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]);
+void buildPrompt(NodePtr *sPtr);
 
 int main(void) {
     NodePtr startPtr = NULL; // Linked List Initialized to Null
@@ -129,6 +131,8 @@ int main(void) {
     addColorToComponent(&startPtr, "07:29 PM", BLUE);
 
     printLinkedList(&startPtr);
+
+    buildPrompt(&startPtr);
 
     return 0;
 }
@@ -448,4 +452,58 @@ void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]) {
         }
 
     }
+}
+
+/*
+   Function Description - Builds Prompt for PS1
+   Parameters: NodePtr *sPtr
+   Returns: N/A
+*/
+void buildPrompt(NodePtr *sPtr) {
+    NodePtr currentPtr = *sPtr;
+
+    char fullPrompt[1000] = ""; // Holds Entire Prompt String - > 1000...?
+
+    if (currentPtr == NULL) {
+        puts("The list is empty. No content can be printed!");
+        return;
+    } else {
+        
+        while (currentPtr != NULL) {
+            char partialPrompt[100] = "";
+
+            if (currentPtr->data.hasColor == 1) {
+
+                if (currentPtr->data.isSpecial == 1) {
+
+                    strcat(partialPrompt, currentPtr->data.colorCode); // Add Color First
+                    strcat(partialPrompt, currentPtr->data.spCode); // Add Special Variable Next
+
+                } else {
+
+                    strcat(partialPrompt, currentPtr->data.colorCode); // Add Color First
+                    strcat(partialPrompt, currentPtr->data.textValue); // Add Custom Content Next
+
+                }
+
+            } else {
+                if (currentPtr->data.isSpecial == 1) {
+                    strcat(partialPrompt, currentPtr->data.spCode); // Add Special Variable
+                } else {
+                    strcat(partialPrompt, currentPtr->data.textValue); // Add Custom Content
+                }
+            }
+
+            strcat(fullPrompt, partialPrompt); // Attach Partial Prompt to Full Prompt
+            currentPtr = currentPtr->nextPtr; // Move to Next Item in List
+
+            if (!(currentPtr == NULL)) { // If Not At the End, Add a Space Between Prompt Values
+                strcat(fullPrompt, " ");
+            }
+        }
+    
+    }
+
+    printf("%s\n", fullPrompt); // Print the Full Prompt
+    printf("export PS1='%s: '\n", fullPrompt); // Display Instructions Code Example
 }
