@@ -25,7 +25,7 @@ struct Node {
 // #4 - Update - Add Color - Set colorName, colorCode, and hasColor - DONE     
 // #5 - Update - Remove Color - set colorValue, colorCode, and hasColor - DONE
 // #8 - Append Special Variable Content - set isSpecial, spCode, and spExample - DONE
-// #9 - Print Linked List with Colors and Special Variable Content (ANSI + Special Variable Examples)
+// #9 - Print Linked List with Colors and Special Variable Content (Custom Content + COLORS + Special Variable Examples) - DONE
 // #10 - Form Prompt That Renders Correct as PS1= (Custom Content + COLORS + Special Variables)
 // #11 - Write Prompt to File
 // #12 - Load Prompt from File
