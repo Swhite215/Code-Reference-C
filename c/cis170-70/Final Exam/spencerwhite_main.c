@@ -3,6 +3,13 @@
    CIS 170-70 - Final Exam: PS1 Designer
 */
 
+/*
+    Opportunities for Growth:
+    1. Write and read more than one prompt from a file.
+    2. Don't force spaces between prompt components.
+    3. Allow immediate insertion as opposed to append and then move.
+*/
+
 // Headers
 #include <stdio.h>
 
