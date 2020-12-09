@@ -6,9 +6,12 @@
 // Structure of Prompt Component Node
 struct PromptComponent {
     char textValue[100];
+    char spCode[5];
+    char spExample[15];
     char colorName[15];
     char colorCode[15];
     int hasColor;
+    int isSpecial;
 };
 // Struct of Linked List Node
 struct node {
@@ -49,8 +52,27 @@ const char TURQUOISE_CODE[13] =" \\[\\e[0;36m\\]";
 const char GRAY_CODE[13] = "\\[\\e[0;37m\\]";
 const char DARK_GRAY_CODE[13] = "\\[\\e[0;30m\\]";
 
+// Special Code Constants
+const char SP_DATE_CODE[3] = "\\d";
+const char SP_HOSTNAME_CODE[3] = "\\h";
+const char SP_24HRTIME_CODE[3] = "\\t";
+const char SP_12HRTIME_ONE_CODE[3] = "\\T";
+const char SP_12HRTIME_TWO_CODE[3] = "\\@";
+const char SP_USERNAME_CODE[3] = "\\u";
+const char SP_CWD_CODE[3] = "\\w";
+
+// Special Code Constant Examples
+const char SP_DATE_EXAMPLE[12] = "Tue Dec 08";
+const char SP_HOSTNAME_EXAMPLE[7] = "Host";
+const char SP_24HRTIME_EXAMPLE[8] = "19:29";
+const char SP_12HRTIME_ONE_EXAMPLE[10] = "19:29:58";
+const char SP_12HRTIME_TWO_EXAMPLE[10] = "07:29 PM";
+const char SP_USERNAME_EXAMPLE[5] = "user";
+const char SP_CWD_EXAMPLE[11] = "/path/dir";
+
 // Function Prototypes
 void appendToList(NodePtr *sPtr, char value[]);
+void appendSPToList(NodePtr *sPtr, char specialVariableCode[], char specialVariableExample[]);
 void printLinkedList(NodePtr *sPtr);
 void deleteFromList(NodePtr *sPtr, char value[]);
 void addColorToComponent(NodePtr *sPtr, char value[], char color[]);
@@ -83,15 +105,11 @@ int main(void) {
 
     printLinkedList(&startPtr);
 
-    free(movePtr); // Free the Memory Here
-
     NodePtr movePtrTwo = NULL;
     takeOutAndHoldComponent(&startPtr, &movePtrTwo, "is"); // Grab Node To Move
     insertToList(&startPtr, &movePtrTwo, "Spencer"); // Insert Node
 
     printLinkedList(&startPtr);
-
-    free(movePtrTwo); // Free the Memory Here
 
     NodePtr movePtrThree = NULL;
     takeOutAndHoldComponent(&startPtr, &movePtrThree, "awesome"); // Grab Node To Move
@@ -99,7 +117,17 @@ int main(void) {
 
     printLinkedList(&startPtr);
 
-    free(movePtrThree); // Free the Memory Here
+    appendSPToList(&startPtr, SP_DATE_CODE, SP_DATE_EXAMPLE); // Append Special Variable
+
+    appendSPToList(&startPtr, SP_12HRTIME_TWO_CODE, SP_12HRTIME_TWO_EXAMPLE); // Append Special Variable
+
+    deleteFromList(&startPtr, "Tue Dec 08"); // not is third value inserted*
+
+    NodePtr movePtrFour = NULL;
+    takeOutAndHoldComponent(&startPtr, &movePtrFour, "07:29 PM"); // Grab Node To Move
+    insertToList(&startPtr, &movePtrFour, "awesome"); // Insert Node
+
+    printLinkedList(&startPtr);
 
     return 0;
 }
@@ -112,8 +140,40 @@ int main(void) {
 void appendToList(NodePtr *sPtr, char value[]) {
     NodePtr newPtr = malloc(sizeof(Node)); // Create a New Node
 
-    struct PromptComponent newComponent = {"", "", 0}; // Create a New Prompt Component Struct
+    struct PromptComponent newComponent = {"", "", "", "", "", 0, 0}; // Create a New Prompt Component Struct
     strcpy(newComponent.textValue, value); // Update Name Value
+
+    newPtr->data = newComponent; // Place New Prompt Component Struct in Node
+    newPtr->nextPtr = NULL; // Set Pointer to Null - Node Will be Insert at End of List
+
+    NodePtr previousPtr = NULL; // Initialize Previous Ptr
+    NodePtr currentPtr = *sPtr; // Initialize Current Ptr
+
+    if (currentPtr == NULL) { // If Start of List - Just Insert
+        newPtr->nextPtr = *sPtr;
+        *sPtr = newPtr;
+    } else { // Else Insert At End of List
+        while (currentPtr != NULL) { // Go to End of List
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+        previousPtr->nextPtr = newPtr; // Insert New Node
+    }
+}
+
+/*
+   Function Description - Appends New Special Prompt Component to Linked List
+   Parameters: NodePtr *sPtr, char value[]
+   Returns: N/A
+*/
+void appendSPToList(NodePtr *sPtr, char specialVariableCode[], char specialVariableExample[]) {
+    NodePtr newPtr = malloc(sizeof(Node)); // Create a New Node
+
+    // Determine Special Variable Code and Example Needed
+
+    struct PromptComponent newComponent = {"", "", "", "", "", 0, 1}; // Create a New Prompt Component Struct
+    strcpy(newComponent.spCode, specialVariableCode);
+    strcpy(newComponent.spExample, specialVariableExample); // Update Name Value
 
     newPtr->data = newComponent; // Place New Prompt Component Struct in Node
     newPtr->nextPtr = NULL; // Set Pointer to Null - Node Will be Insert at End of List
@@ -174,7 +234,7 @@ void deleteFromList(NodePtr *sPtr, char value[]) {
         puts("The list is empty. No content can be deleted!");
         return;
     } else {
-        while (currentPtr != NULL && strcmp(currentPtr->data.textValue, value) != 0) { // Move Through List Until Match is Found
+        while (currentPtr != NULL && (strcmp(currentPtr->data.textValue, value) != 0 && strcmp(currentPtr->data.spExample, value) != 0)) { // Move Through List Until Match is Found
             previousPtr = currentPtr;
             currentPtr = currentPtr->nextPtr;
         }
@@ -198,7 +258,7 @@ void addColorToComponent(NodePtr *sPtr, char value[], char color[]) {
         puts("The list is empty. No content can be colored!");
         return;
     } else {
-        while (currentPtr != NULL && strcmp(currentPtr->data.textValue, value) != 0) { // Move Through List Until Match is Found
+        while (currentPtr != NULL && (strcmp(currentPtr->data.textValue, value) != 0 && strcmp(currentPtr->data.spExample, value) != 0)) { // Move Through List Until Match is Found
             currentPtr = currentPtr->nextPtr;
         }
 
@@ -251,7 +311,7 @@ void removeColorFromComponent(NodePtr *sPtr, char value[]) {
         puts("The list is empty. No colors can be removed!");
         return;
     } else {
-        while (currentPtr != NULL && strcmp(currentPtr->data.textValue, value) != 0) { // Move Through List Until Match is Found
+        while (currentPtr != NULL && (strcmp(currentPtr->data.textValue, value) != 0 && strcmp(currentPtr->data.spExample, value) != 0)) { // Move Through List Until Match is Found
             currentPtr = currentPtr->nextPtr;
         }
 
@@ -276,13 +336,13 @@ void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]) {
     } else {
 
         // Find Node to Move
-        while(currentPtr != NULL && strcmp(currentPtr->data.textValue, valueToFind) != 0) {
+        while(currentPtr != NULL && (strcmp(currentPtr->data.textValue, valueToFind) != 0 && strcmp(currentPtr->data.spExample, valueToFind) != 0)) {
             previousPtr = currentPtr;
             currentPtr = currentPtr->nextPtr;
         }
 
         // Remove It From List and Store Temporarily
-        *mPtr = currentPtr;
+        (*mPtr) = currentPtr;
 
 
         if (previousPtr == NULL) { // If Taking First Item - Set Start to Next Node
@@ -309,7 +369,7 @@ void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]) {
     } else {
 
         // Find Where to Insert
-        while (currentPtr != NULL && strcmp(currentPtr->data.textValue, whereToInsert) != 0) {
+        while (currentPtr != NULL && (strcmp(currentPtr->data.textValue, whereToInsert) != 0 && strcmp(currentPtr->data.spExample, whereToInsert) != 0)) {
             previousPtr = currentPtr;
             currentPtr = currentPtr->nextPtr;
         }
