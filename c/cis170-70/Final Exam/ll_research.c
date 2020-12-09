@@ -39,8 +39,6 @@ const char YELLOW[8] = "YELLOW";
 const char BLUE[6] = "BLUE";
 const char PURPLE[8] = "PURPLE";
 const char TURQUOISE[11] = "TURQUOISE";
-const char GRAY[6] = "GRAY";
-const char DARK_GRAY[11] = "DARK_GRAY";
 
 // Color Code Constants
 const char RED_CODE[13] = "\\[\\e[0;31m\\]";
@@ -49,8 +47,6 @@ const char YELLOW_CODE[13] = "\\[\\e[0;33m\\]";
 const char BLUE_CODE[13] = "\\[\\e[0;34m\\]";
 const char PURPLE_CODE[13] = "\\[\\e[0;35m\\]";
 const char TURQUOISE_CODE[13] =" \\[\\e[0;36m\\]";
-const char GRAY_CODE[13] = "\\[\\e[0;37m\\]";
-const char DARK_GRAY_CODE[13] = "\\[\\e[0;30m\\]";
 
 // Special Code Constants
 const char SP_DATE_CODE[3] = "\\d";
@@ -97,8 +93,6 @@ int main(void) {
 
     printLinkedList(&startPtr);
 
-    addColorToComponent(&startPtr, "Spencer", GREEN);
-
     NodePtr movePtr = NULL;
     takeOutAndHoldComponent(&startPtr, &movePtr, "awesome"); // Grab Node To Move
     insertToList(&startPtr, &movePtr, "Spencer"); // Insert Node
@@ -126,6 +120,13 @@ int main(void) {
     NodePtr movePtrFour = NULL;
     takeOutAndHoldComponent(&startPtr, &movePtrFour, "07:29 PM"); // Grab Node To Move
     insertToList(&startPtr, &movePtrFour, "awesome"); // Insert Node
+
+    printLinkedList(&startPtr);
+
+    addColorToComponent(&startPtr, "Spencer", GREEN);
+    addColorToComponent(&startPtr, "is", RED);
+    addColorToComponent(&startPtr, "awesome", PURPLE);
+    addColorToComponent(&startPtr, "07:29 PM", BLUE);
 
     printLinkedList(&startPtr);
 
@@ -208,7 +209,78 @@ void printLinkedList(NodePtr *sPtr) {
         return;
     } else {
         while (currentPtr != NULL) { // Step Through Linked List
-            strcat(fullPrompt, currentPtr->data.textValue); // Concatenate Into Full Prompt
+
+            char partialPrompt[1000] = "";
+
+            if (currentPtr->data.hasColor == 1) {
+
+                if (currentPtr->data.isSpecial == 1) {
+
+                    if (strcmp(RED, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_RED);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    } else if (strcmp(GREEN, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_GREEN);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(YELLOW, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_YELLOW);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(BLUE, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_BLUE);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(PURPLE, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_MAGENTA);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    } else {
+                        strcat(partialPrompt, ANSI_COLOR_CYAN);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }
+
+                } else {
+
+                    if (strcmp(RED, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_RED);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    } else if (strcmp(GREEN, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_GREEN);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(YELLOW, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_YELLOW);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(BLUE, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_BLUE);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(PURPLE, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_MAGENTA);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    } else {
+                        strcat(partialPrompt, ANSI_COLOR_CYAN);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }
+
+                }
+
+            } else {
+                if (currentPtr->data.isSpecial == 1) {
+                    strcat(partialPrompt, currentPtr->data.spExample);
+                } else {
+                    strcat(partialPrompt, currentPtr->data.textValue);
+                }
+            }
+
+            strcat(fullPrompt, partialPrompt); // Attach Partial Prompt to Full Prompt
             currentPtr = currentPtr->nextPtr; // Move to Next Item in List
 
             if (!(currentPtr == NULL)) { // If Not At the End, Add a Space Between Prompt Values
@@ -283,18 +355,10 @@ void addColorToComponent(NodePtr *sPtr, char value[], char color[]) {
             currentPtr->data.hasColor = 1;
             strcpy(currentPtr->data.colorName, color);
             strcpy(currentPtr->data.colorCode, PURPLE_CODE);
-        }else if (strcmp(TURQUOISE, color) == 0) {
+        }else {
             currentPtr->data.hasColor = 1;
             strcpy(currentPtr->data.colorName, color);
             strcpy(currentPtr->data.colorCode, TURQUOISE_CODE);
-        }else if (strcmp(GRAY, color) == 0) {
-            currentPtr->data.hasColor = 1;
-            strcpy(currentPtr->data.colorName, color);
-            strcpy(currentPtr->data.colorCode, GRAY_CODE);
-        }else if (strcmp(DARK_GRAY, color) == 0) {
-            currentPtr->data.hasColor = 1;
-            strcpy(currentPtr->data.colorName, color);
-            strcpy(currentPtr->data.colorCode, DARK_GRAY_CODE);
         }
     }
 }
