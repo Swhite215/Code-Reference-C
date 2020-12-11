@@ -77,6 +77,9 @@ void removeColorFromComponent(NodePtr *sPtr, char value[]);
 void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]);
 void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]);
 void buildPrompt(NodePtr *sPtr);
+void buildAndDisplayDynamicMenu(NodePtr *sPtr, int *cPtr);
+void getSelection(int *sPtr, int *cPtr);
+void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr);
 
 int main(void) {
     NodePtr startPtr = NULL; // Linked List Initialized to Null
@@ -133,6 +136,14 @@ int main(void) {
     printLinkedList(&startPtr);
 
     buildPrompt(&startPtr);
+
+    int counter = 0;
+    int selection = 0;
+    char targetPromptValue[25];
+
+    buildAndDisplayDynamicMenu(&startPtr, &counter);
+    getSelection(&selection, &counter);
+    getTargetPromptComponent(&startPtr, &selection);
 
     return 0;
 }
@@ -506,4 +517,69 @@ void buildPrompt(NodePtr *sPtr) {
 
     printf("%s\n", fullPrompt); // Print the Full Prompt
     printf("export PS1='%s: '\n", fullPrompt); // Display Instructions Code Example
+}
+
+/*
+   Function Description - Builds Dynamic Menu Options 
+   Parameters: NodePtr *sPtr, int *cPtr
+   Returns: N/A
+*/
+
+void buildAndDisplayDynamicMenu(NodePtr *sPtr, int *cPtr) {
+    NodePtr currentPtr = *sPtr;
+    int counter = 0;
+
+    if (currentPtr == NULL) {
+        puts("The list is empty. No menu can be printed!");
+        return;
+    } else {
+        puts("--------- Prompt Components --------- ");
+
+        while (currentPtr != NULL) {
+
+            if (currentPtr->data.isSpecial == 1) {  
+                printf("%d.)   %s\n", counter, currentPtr->data.spExample);
+            } else {
+                printf("%d.)   %s\n", counter, currentPtr->data.textValue);
+            }
+
+            currentPtr = currentPtr->nextPtr; // Move to Next Item in List
+            counter++; // Increment Counter
+        }
+    
+        *cPtr = counter;
+    }
+}
+
+/*
+   Function Description - Gets Acceptable Dynamic Menu Selection 
+   Parameters: int *sPtr, int *cPtr
+   Returns: N/A
+*/
+void getSelection(int *sPtr, int *cPtr){
+    int status;
+    int number;
+
+    printf("%s", "Please Select a Component: ");
+    status = scanf("%d", &number);
+    while ((getchar()) != '\n'); // Clear Buffer
+
+    while (status != 1 || number < 0 || number >= *cPtr) { // If Not Int, Less Than Zero, or Equal to Counter - Unnacceptable Option
+        puts("Invalid input. Please enter a valid number.");
+        printf("%s", "Please Select a Component: ");
+        status = scanf("%d", &number);
+        while ((getchar()) != '\n'); // Clear Buffer
+    }
+
+    *sPtr = number;
+}
+
+/*
+   Function Description - Gets Selected Prompt Component Value
+   Parameters: Node *sPtr, int *sPtr
+   Returns: N/A
+*/
+
+void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr) {
+
 }
