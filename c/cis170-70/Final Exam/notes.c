@@ -29,3 +29,6 @@ struct Node {
 // #10 - Form Prompt That Renders Correct as PS1= (Custom Content + COLORS + Special Variables) - DONE
 // #11 - Write Prompt to File
 // #12 - Load Prompt from File
+// #13 - Build Dynamic Selection Menu (Options) - DONE
+// #14 - Get Dynamic Prompt Selection Based on Menu (Input) - DONE
+// #15 - Get Target Prompt Component textValue or spExample (Selection) - DONE
