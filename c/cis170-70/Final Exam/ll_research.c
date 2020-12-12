@@ -79,7 +79,7 @@ void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]);
 void buildPrompt(NodePtr *sPtr);
 void buildAndDisplayDynamicMenu(NodePtr *sPtr, int *cPtr);
 void getSelection(int *sPtr, int *cPtr);
-void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr);
+void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr, char targetPromptValue[]);
 
 int main(void) {
     NodePtr startPtr = NULL; // Linked List Initialized to Null
@@ -143,7 +143,7 @@ int main(void) {
 
     buildAndDisplayDynamicMenu(&startPtr, &counter);
     getSelection(&selection, &counter);
-    getTargetPromptComponent(&startPtr, &selection);
+    getTargetPromptComponent(&startPtr, &selection, targetPromptValue);
 
     return 0;
 }
@@ -580,6 +580,31 @@ void getSelection(int *sPtr, int *cPtr){
    Returns: N/A
 */
 
-void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr) {
+void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr, char targetPromptValue[]) {
+    NodePtr currentPtr = *sPtr;
+    int counter = 0;
 
+    if (currentPtr == NULL) {
+        puts("The list is empty. No component can be selected!");
+    } else {
+
+        if (*selectionPtr == 0) { // If it is the first element
+            if (currentPtr->data.isSpecial == 1) {
+                strcpy(targetPromptValue, currentPtr->data.spExample);
+            } else {
+                strcpy(targetPromptValue, currentPtr->data.textValue);
+            }
+        } else {
+            while (counter != *selectionPtr) {
+                currentPtr = currentPtr->nextPtr;
+                counter ++;
+            }
+
+            if (currentPtr->data.isSpecial == 1) {
+                strcpy(targetPromptValue, currentPtr->data.spExample);
+            } else {
+                strcpy(targetPromptValue, currentPtr->data.textValue);
+            }
+        }
+    }
 }
