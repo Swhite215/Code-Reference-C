@@ -29,12 +29,13 @@ void howToSwitchBashPrompts();
 void understandingPS1();
 void understandingSpecialPromptVariables();
 void howToSetupPS1();
-void generateRandomPrompt();
-void addContent();
-void removeContent();
-void moveContent();
-void colorContent();
+void generateRandomPrompt(); // REMOVE IF RUNNING OUT OF TIME
+void addContent(); // appendToList() and appendSPToList()
+void removeContent(); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> deleteFromList()
+void moveContent(); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> takeOutAndHoldComponent() -> buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> insertToList()
+void colorContent(); // ADD OR REMOVE; buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> getColorSelection() -> addColorToComponent() || buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> removeColorFromComponent()
 void writePromptToFile();
+void readPromptFromFile();
 
 // Main Program
 int main (void) {
