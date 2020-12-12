@@ -6,7 +6,7 @@
 // Structure of Prompt Component Node
 struct PromptComponent {
     char textValue[100];
-    char spCode[5];
+    char spCode[10];
     char spExample[15];
     char colorName[15];
     char colorCode[15];
@@ -80,6 +80,12 @@ void buildPrompt(NodePtr *sPtr);
 void buildAndDisplayDynamicMenu(NodePtr *sPtr, int *cPtr);
 void getSelection(int *sPtr, int *cPtr);
 void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr, char targetPromptValue[]);
+void writePromptToFile(NodePtr *sPtr);
+void readPromptFromFile(NodePtr *ePtr);
+
+// File Information
+const char PATH[] = "";
+const char FILENAME[] = "prompt.txt";
 
 int main(void) {
     NodePtr startPtr = NULL; // Linked List Initialized to Null
@@ -144,6 +150,13 @@ int main(void) {
     buildAndDisplayDynamicMenu(&startPtr, &counter);
     getSelection(&selection, &counter);
     getTargetPromptComponent(&startPtr, &selection, targetPromptValue);
+
+    writePromptToFile(&startPtr);
+
+    NodePtr existingListPtr = NULL;
+    readPromptFromFile(&existingListPtr);
+
+    printLinkedList(&startPtr);
 
     return 0;
 }
@@ -576,7 +589,7 @@ void getSelection(int *sPtr, int *cPtr){
 
 /*
    Function Description - Gets Selected Prompt Component Value
-   Parameters: Node *sPtr, int *sPtr
+   Parameters: Node *sPtr, int *sPtr, char targetPromptValue[]
    Returns: N/A
 */
 
@@ -606,5 +619,166 @@ void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr, char targetPromp
                 strcpy(targetPromptValue, currentPtr->data.textValue);
             }
         }
+    }
+}
+
+/*
+   Function Description - Writes the Prompt To File
+   Parameters: NodePtr *sPtr
+   Returns: N/A
+*/
+
+void writePromptToFile(NodePtr *sPtr) {
+    FILE *fPtr; //File Pointer
+    NodePtr currentPtr;
+
+    currentPtr = *sPtr;
+
+    char filePath[100] = "";
+    strcat(filePath, PATH);
+    strcat(filePath, FILENAME);
+
+    if ((fPtr = fopen(filePath, "w")) == NULL) {
+        puts("File could not be opened");
+    } else {
+
+        if (currentPtr == NULL) {
+            puts("The list is empty. No content can be written!");
+        } else {
+            while (currentPtr != NULL) {
+
+                char textValue[100] = "";
+                char spCode[10] = "";
+                char spExample[15] = "";
+                char colorName[15] = "";
+                char colorCode[15] = "";
+
+                if (strcmp(currentPtr->data.textValue, "") == 0) {
+                    strcpy(textValue, "EMPTY");
+                } else {
+                    strcpy(textValue, currentPtr->data.textValue);
+                }
+
+                if (strcmp(currentPtr->data.spCode, "") == 0) {
+                    strcpy(spCode, "EMPTY");
+                } else {
+                    strcpy(spCode, currentPtr->data.spCode);
+                }
+
+                if (strcmp(currentPtr->data.spExample, "") == 0) {
+                    strcpy(spExample, "EMPTY");
+                } else {
+                    strcpy(spExample, currentPtr->data.spExample);
+                }
+
+                if (strcmp(currentPtr->data.colorName, "") == 0) {
+                    strcpy(colorName, "EMPTY");
+                } else {
+                    strcpy(colorName, currentPtr->data.colorName);
+                }
+
+                if (strcmp(currentPtr->data.colorCode, "") == 0) {
+                    strcpy(colorCode, "EMPTY");
+                } else {
+                    strcpy(colorCode, currentPtr->data.colorCode);
+                }
+
+                // Write Component As Line w/ Guillemet Delimeter
+                fprintf(fPtr, "%s»%s»%s»%s»%s»%d»%d\n", textValue, spCode, spExample, colorName, colorCode, currentPtr->data.hasColor, currentPtr->data.isSpecial);
+
+                // Move to Next Component
+                currentPtr = currentPtr->nextPtr;
+            }
+
+            fclose(fPtr); // Close File
+        }
+
+    }
+}
+
+/*
+   Function Description - Reads the Prompt From File and Builds Linked List
+   Parameters: NodePtr *sPtr
+   Returns: N/A
+*/
+
+void readPromptFromFile(NodePtr *ePtr) {
+    FILE *fPtr; //File Pointer
+
+    char filePath[100] = "";
+    strcat(filePath, PATH);
+    strcat(filePath, FILENAME);
+
+    if ((fPtr = fopen(filePath, "r")) == NULL) {
+        puts("File could not be opened");
+    } else {
+
+        while(!feof(fPtr)) {
+            NodePtr newPtr = malloc(sizeof(Node)); // Create a New Node
+            struct PromptComponent newComponent = {"", "", "", "", "", 0, 0}; // Create a New Prompt Component Struct
+
+            char textValue[100] = "";
+            char spCode[10] = "";
+            char spExample[15] = "";
+            char colorName[15] = "";
+            char colorCode[15] = "";
+            int hasColor = 0;
+            int isSpecial = 0;
+
+            fscanf(fPtr, "%100[^»]»%5[^»]»%15[^»]»%15[^»]»%15[^»]»%d»%d\n", textValue, spCode, spExample, colorName, colorCode, &hasColor, &isSpecial);
+
+            if (strcmp(textValue, "EMPTY") == 0) {
+                strcpy(newComponent.textValue, "");
+            } else {
+                strcpy(newComponent.textValue, textValue);
+            }
+
+            if (strcmp(spCode, "EMPTY") == 0) {
+                strcpy(newComponent.spCode, "");
+            } else {
+                strcpy(newComponent.spCode, spCode);
+            }
+
+            if (strcmp(spExample, "EMPTY") == 0) {
+                strcpy(newComponent.spExample, "");
+            } else {
+                strcpy(newComponent.spExample, spExample);
+            }
+
+            if (strcmp(colorName, "EMPTY") == 0) {
+                strcpy(newComponent.colorName, "");
+            } else {
+                strcpy(newComponent.colorName, colorName);
+            }
+
+            if (strcmp(colorCode, "EMPTY") == 0) {
+                strcpy(newComponent.colorCode, "");
+            } else {
+                strcpy(newComponent.colorCode, colorCode);
+            }
+
+            newComponent.hasColor = hasColor;
+            newComponent.isSpecial = isSpecial;
+
+            newPtr->data = newComponent; // Place New Prompt Component Struct in Node
+            newPtr->nextPtr = NULL;
+
+            NodePtr currentPtr = *ePtr;
+            NodePtr previousPtr = NULL;
+
+            if (currentPtr == NULL) { // Start of List
+                newPtr->nextPtr = *ePtr;
+                *ePtr = newPtr;
+            } else {
+                while (currentPtr != NULL) { // Go to End of List
+                    previousPtr = currentPtr;
+                    currentPtr = currentPtr->nextPtr;
+                }
+
+                previousPtr->nextPtr = newPtr; // Insert New Node
+            }
+        }
+
+         fclose(fPtr); // Close File
     }
 }
