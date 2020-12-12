@@ -27,8 +27,8 @@ struct Node {
 // #8 - Append Special Variable Content - set isSpecial, spCode, and spExample - DONE
 // #9 - Print Linked List with Colors and Special Variable Content (Custom Content + COLORS + Special Variable Examples) - DONE
 // #10 - Form Prompt That Renders Correct as PS1= (Custom Content + COLORS + Special Variables) - DONE
-// #11 - Write Prompt to File
-// #12 - Load Prompt from File
+// #11 - Write Prompt to File - DONE
+// #12 - Load Prompt from File - DONE
 // #13 - Build Dynamic Selection Menu (Options) - DONE
 // #14 - Get Dynamic Prompt Selection Based on Menu (Input) - DONE
 // #15 - Get Target Prompt Component textValue or spExample (Selection) - DONE
