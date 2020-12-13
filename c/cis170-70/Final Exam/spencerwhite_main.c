@@ -87,7 +87,7 @@ void displayMainMenu(char *mPtr);
 void displayEditPromptMenu(char *sPtr);
 void displaySavePromptMenu(char *sPtr);
 void displayAddContentMenu(char *sPtr);
-void displayRemoveContentMenu(char *sPtr);
+void displayRemoveContentMenuHeader();
 void displayMoveContentMenu(char *sPtr, int order);
 void displayColorContentMenu(char *sPtr);
 void createNewPrompt();
@@ -98,7 +98,7 @@ void understandingSpecialPromptVariables();
 void howToSetupPS1();
 void generateRandomPrompt(); // REMOVE IF RUNNING OUT OF TIME
 void addContent(NodePtr *sPtr); // appendToList() and appendSPToList()
-void removeContent(); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> deleteFromList()
+void removeContent(NodePtr *sPtr); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> deleteFromList()
 void moveContent(); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> takeOutAndHoldComponent() -> buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> insertToList()
 void colorContent(); // ADD OR REMOVE; buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> getColorSelection() -> addColorToComponent() || buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> removeColorFromComponent()
 void writePromptToFile();
@@ -109,6 +109,10 @@ void appendToList(NodePtr *sPtr, char value[]);
 void appendSPToList(NodePtr *sPtr, char specialVariableCode[], char specialVariableExample[]);
 void printLinkedList(NodePtr *sPtr);
 void addFeature(NodePtr *sPtr);
+void buildAndDisplayDynamicMenu(NodePtr *sPtr, int *cPtr);
+void getSelection(int *sPtr, int *cPtr);
+void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr, char targetPromptValue[]);
+void deleteFromList(NodePtr *sPtr, char value[]);
 
 // Main Program
 int main (void) {
@@ -304,37 +308,12 @@ void displayAddContentMenu(char *sPtr) {
    Parameters: char *sPtr
    Returns: N/A
 */
-void displayRemoveContentMenu(char *sPtr) {
-    char subMenuOption;
-    //  MENU NEEDS TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
+void displayRemoveContentMenuHeader() {
     printf("%s", "\n+-----------------------------------------------+\n");
     printf("%s", "|               Remove Content Menu             |\n");
     printf("%s", "+-----------------------------------------------+\n");
-    printf("%s", "|               FAKE PROMPT HERE                |\n");
-    printf("%s", "|                                               |\n");
-    printf("%s", "|  A: PORTION ONE                               |\n");
-    printf("%s", "|  B: PORTION TWO                               |\n");
-    printf("%s", "|  Q: Quit                                      |\n");
-    printf("%s", "+-----------------------------------------------+\n");
-
-    printf("%s", "Enter Your Choice: ");
-    scanf(" %c", &subMenuOption);
-
-    while ((getchar()) != '\n');
-
-    subMenuOption = toupper(subMenuOption);
-
-    // OPTIONS NEED TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
-    while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'Q') {
-        puts("Invalid input. Enter either A, B, or Q");
-        printf("%s", "Enter Your Choice: ");
-        scanf(" %c", &subMenuOption);
-
-        while ((getchar()) != '\n');
-        subMenuOption = toupper(subMenuOption);
-    }
-
-    *sPtr = subMenuOption;
+    puts("");
+   
 }
 
 /*
@@ -458,6 +437,97 @@ void displayAddFeatureMenu(char *sPtr) {
     *sPtr = subMenuOption;
 }
 
+/*
+   Function Description - Builds Dynamic Menu Options 
+   Parameters: NodePtr *sPtr, int *cPtr
+   Returns: N/A
+*/
+
+void buildAndDisplayDynamicMenu(NodePtr *sPtr, int *cPtr) {
+    NodePtr currentPtr = *sPtr;
+    int counter = 1;
+
+    if (currentPtr == NULL) {
+        puts("The list is empty. No menu can be printed!");
+        return;
+    } else {
+
+        while (currentPtr != NULL) {
+
+            if (currentPtr->data.isSpecial == 1) {  
+                printf("%d.) %s\n", counter, currentPtr->data.spExample);
+            } else {
+                printf("%d.) %s\n", counter, currentPtr->data.textValue);
+            }
+
+            currentPtr = currentPtr->nextPtr; // Move to Next Item in List
+            counter++; // Increment Counter
+        }
+
+        printf("%s", "0.) Quit\n");
+    
+        *cPtr = counter;
+    }
+}
+
+/*
+   Function Description - Gets Acceptable Dynamic Menu Selection 
+   Parameters: int *sPtr, int *cPtr
+   Returns: N/A
+*/
+void getSelection(int *sPtr, int *cPtr){
+    int status;
+    int number;
+
+    printf("%s", "Please Select a Component: ");
+    status = scanf("%d", &number);
+    while ((getchar()) != '\n'); // Clear Buffer
+
+    while (status != 1 || number < 0 || number >= *cPtr) { // If Not Int, Less Than Zero, or Equal to Counter - Unnacceptable Option
+        puts("Invalid input. Please enter a valid number.");
+        printf("%s", "Please Select a Component: ");
+        status = scanf("%d", &number);
+        while ((getchar()) != '\n'); // Clear Buffer
+    }
+
+    *sPtr = number;
+}
+
+/*
+   Function Description - Gets Selected Prompt Component Value
+   Parameters: Node *sPtr, int *sPtr, char targetPromptValue[]
+   Returns: N/A
+*/
+
+void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr, char targetPromptValue[]) {
+    NodePtr currentPtr = *sPtr;
+    int counter = 1;
+
+    if (currentPtr == NULL) {
+        puts("The list is empty. No component can be selected!");
+    } else {
+
+        if (*selectionPtr == 1) { // If it is the first element
+            if (currentPtr->data.isSpecial == 1) {
+                strcpy(targetPromptValue, currentPtr->data.spExample);
+            } else {
+                strcpy(targetPromptValue, currentPtr->data.textValue);
+            }
+        } else {
+            while (counter != *selectionPtr) {
+                currentPtr = currentPtr->nextPtr;
+                counter++;
+            }
+
+            if (currentPtr->data.isSpecial == 1) {
+                strcpy(targetPromptValue, currentPtr->data.spExample);
+            } else {
+                strcpy(targetPromptValue, currentPtr->data.textValue);
+            }
+        }
+    }
+}
+
 // ------------------------------------------------- FLOW FUNCTIONS -------------------------------------------------
 /*
    Function Description - Manages the Secondary Flow of Creating a Prompt
@@ -468,8 +538,6 @@ void createNewPrompt() {
 
     NodePtr startPtr = NULL; // New Prompt Linked List
 
-    // Create prompt variable i.e. string, array, etc.
-    // Pass prompt to sub functions where appropriate
     char subMenuOption;
     do {
         printLinkedList(&startPtr);
@@ -480,7 +548,7 @@ void createNewPrompt() {
                 addContent(&startPtr);
                 break;
             case 'B':
-                removeContent();
+                removeContent(&startPtr);
                 break;
             case 'C':
                 moveContent();
@@ -507,7 +575,7 @@ void createNewPrompt() {
 */
 void editExistingPrompt() {
 
-    NodePtr startPtr = NULL; // New Prompt Linked List
+    NodePtr startPtr = NULL; // New Prompt Linked List - REPLACE WITH READ FROM FILE
 
     printLinkedList(&startPtr);
 
@@ -528,7 +596,7 @@ void editExistingPrompt() {
                     addContent(&startPtr);
                     break;
                 case 'B':
-                    removeContent();
+                    removeContent(&startPtr);
                     break;
                 case 'C':
                     moveContent();
@@ -636,8 +704,6 @@ void generateRandomPrompt() {
 
 void addContent(NodePtr *sPtr) {
 
-    // Receive Prompt from above
-    // Pass prompt to be edited
     char subMenuOption;
     do {
         printLinkedList(sPtr);
@@ -743,33 +809,33 @@ void addFeature(NodePtr *sPtr) {
    Returns: N/A
 */
 
-void removeContent() {
-    // Receive Prompt from above
-    // Parse Prompt
-    // Show Dynamic Menu of Prompt Parts that Can be Deleted
-    // User Selects One
-    // Part is Deleted and Menu is Reshown with new prompt
+void removeContent(NodePtr *sPtr) {
 
     char subMenuOption;
     do {
-        displayRemoveContentMenu(&subMenuOption);
-        // SWITCH NEEDS TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
-        switch(subMenuOption){
-            case 'A':
-                puts("REMOVE FEATURE ONE - call deleteFeature(0)");
-                break;
-            case 'B':
-                puts("REMOVE FEATURE TWO - call deleteFeature(1)");
-                break;
-            case 'N':
-                puts("REMOVE FEATURE N - call deleteFeature(N-1)");
-                break;
-            case 'Q':
-                break;
-            default:
-                printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
-                break;
+        if ((*sPtr) == NULL) {
+            subMenuOption = 'Q';
+            puts("There are no components to remove. Returning to Edit Prompt Menu.");
+            continue;
+        } else {
+            int counter = 0;
+            int selection = 0;
+            char targetPromptValue[100];
+
+            printLinkedList(sPtr);
+            displayRemoveContentMenuHeader();
+            buildAndDisplayDynamicMenu(sPtr, &counter);
+            getSelection(&selection, &counter);
+
+            if (selection == 0) {
+                subMenuOption = 'Q';
+                continue;
+            }
+
+            getTargetPromptComponent(sPtr, &selection, targetPromptValue);
+            deleteFromList(sPtr, targetPromptValue);
         }
+
     } while (subMenuOption != 'Q');
 }
 
@@ -1015,4 +1081,30 @@ void printLinkedList(NodePtr *sPtr) {
     }
 
     printf("%s\n", fullPrompt); // Print the Full Prompt
+}
+
+/*
+   Function Description - Deletes a Component From the List
+   Parameters: NodePtr *sPtr, char value[]
+   Returns: N/A
+*/
+void deleteFromList(NodePtr *sPtr, char value[]) {
+
+    NodePtr previousPtr = NULL;
+    NodePtr currentPtr = *sPtr;
+
+    if (currentPtr == NULL) {
+        puts("The list is empty. No content can be deleted!");
+        return;
+    } else {
+        while (currentPtr != NULL && (strcmp(currentPtr->data.textValue, value) != 0 && strcmp(currentPtr->data.spExample, value) != 0)) { // Move Through List Until Match is Found
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        NodePtr tempPtr = currentPtr; // Make A Copy of Node to Remove
+        previousPtr->nextPtr = currentPtr->nextPtr; // Set Previous Ptr Next Ptr to Node After Current Node
+        free(tempPtr);
+    }
+
 }
