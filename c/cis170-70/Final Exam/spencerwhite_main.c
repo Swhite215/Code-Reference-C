@@ -6,7 +6,7 @@
 /*
     Opportunities for Growth:
     1. Write and read more than one prompt from a file.
-    2. Don't force spaces between prompt components.
+    2. Don't force spaces between prompt components by figuring out bettern patterns of features, text and delimters like -, >>, :, etc.
     3. Allow immediate insertion as opposed to append and then move.
 */
 
@@ -106,7 +106,9 @@ void readPromptFromFile();
 void addCustomText(NodePtr *sPtr);
 void getCustomText(char textValue[]);
 void appendToList(NodePtr *sPtr, char value[]);
+void appendSPToList(NodePtr *sPtr, char specialVariableCode[], char specialVariableExample[]);
 void printLinkedList(NodePtr *sPtr);
+void addFeature(NodePtr *sPtr);
 
 // Main Program
 int main (void) {
@@ -273,7 +275,7 @@ void displayAddContentMenu(char *sPtr) {
     printf("%s", "|               Add Content Menu                |\n");
     printf("%s", "+-----------------------------------------------+\n");
     printf("%s", "|                                               |\n");
-    printf("%s", "|  A: Add Default Feature                       |\n");
+    printf("%s", "|  A: Add Special Feature                       |\n");
     printf("%s", "|  B: Add Custom Text                           |\n");
     printf("%s", "|  Q: Quit                                      |\n");
     printf("%s", "+-----------------------------------------------+\n");
@@ -406,6 +408,46 @@ void displayColorContentMenu(char *sPtr) {
 
     while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'Q') {
         puts("Invalid input. Enter either A, B, or Q");
+        printf("%s", "Enter Your Choice: ");
+        scanf(" %c", &subMenuOption);
+
+        while ((getchar()) != '\n');
+        subMenuOption = toupper(subMenuOption);
+    }
+
+    *sPtr = subMenuOption;
+}
+
+/*
+   Function Description - Prints Add Content Menu and Updates Value at Pointer
+   Parameters: char *sPtr
+   Returns: N/A
+*/
+void displayAddFeatureMenu(char *sPtr) {
+    char subMenuOption;
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "|               Add Feature Menu                |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+    printf("%s", "|                                               |\n");
+    printf("%s", "|  A: Date e.g. Tue Dec 08                      |\n");
+    printf("%s", "|  B: Hostname e.g. Host                        |\n");
+    printf("%s", "|  C: 24hr Time e.g. 19:29                      |\n");
+    printf("%s", "|  D: 12hr Time with Seconds e.g. 19:29:58      |\n");
+    printf("%s", "|  E: 12hr Time AM/PM e.g. 07:29 PM             |\n");
+    printf("%s", "|  F: Username e.g. user                        |\n");
+    printf("%s", "|  G: Current Working Directory e.g. path/dir   |\n");
+    printf("%s", "|  Q: Quit                                      |\n");
+    printf("%s", "+-----------------------------------------------+\n");
+
+    printf("%s", "Enter Your Choice: ");
+    scanf(" %c", &subMenuOption);
+
+    while ((getchar()) != '\n');
+
+    subMenuOption = toupper(subMenuOption);
+
+    while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'C' && subMenuOption != 'D' && subMenuOption != 'E' && subMenuOption != 'F' && subMenuOption != 'G' && subMenuOption != 'Q') {
+        puts("Invalid input. Enter either A, B, C, D, E, F, G or Q");
         printf("%s", "Enter Your Choice: ");
         scanf(" %c", &subMenuOption);
 
@@ -602,7 +644,7 @@ void addContent(NodePtr *sPtr) {
         displayAddContentMenu(&subMenuOption);
         switch(subMenuOption){
             case 'A':
-                puts("ADD FEATURE - call addFeature()");
+                addFeature(sPtr);
                 break;
             case 'B':
                 addCustomText(sPtr);
@@ -649,6 +691,50 @@ void getCustomText(char textValue[]) {
         customTextStatus = scanf("%s", textValue);
         while ((getchar()) != '\n');
     }
+}
+
+
+/*
+   Function Description - Adds Special Variables to Prompt
+   Parameters: NodePtr *sPtr
+   Returns: N/A
+*/
+
+void addFeature(NodePtr *sPtr) {
+    char subMenuOption;
+    do {
+        printLinkedList(sPtr);
+        displayAddFeatureMenu(&subMenuOption);
+        switch(subMenuOption){
+            case 'A':
+                appendSPToList(sPtr, SP_DATE_CODE, SP_DATE_EXAMPLE);
+                break;
+            case 'B':
+                appendSPToList(sPtr, SP_HOSTNAME_CODE, SP_HOSTNAME_EXAMPLE);
+                break;
+            case 'C':
+                appendSPToList(sPtr, SP_24HRTIME_CODE, SP_24HRTIME_EXAMPLE);
+                break;
+            case 'D':
+                appendSPToList(sPtr, SP_12HRTIME_ONE_CODE, SP_12HRTIME_ONE_EXAMPLE);
+                break;
+            case 'E':
+                appendSPToList(sPtr, SP_12HRTIME_TWO_CODE, SP_12HRTIME_TWO_EXAMPLE);
+                break;
+            case 'F':
+                appendSPToList(sPtr, SP_USERNAME_CODE, SP_USERNAME_EXAMPLE);
+                break;
+            case 'G':
+                appendSPToList(sPtr, SP_CWD_CODE, SP_CWD_EXAMPLE);
+                break;
+            case 'Q':
+                break;
+            default:
+                printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
+                break;
+        }
+    } while (subMenuOption != 'Q');
+
 }
 
 /*
@@ -781,6 +867,38 @@ void appendToList(NodePtr *sPtr, char value[]) {
 
     struct PromptComponent newComponent = {"", "", "", "", "", 0, 0}; // Create a New Prompt Component Struct
     strcpy(newComponent.textValue, value); // Update Name Value
+
+    newPtr->data = newComponent; // Place New Prompt Component Struct in Node
+    newPtr->nextPtr = NULL; // Set Pointer to Null - Node Will be Insert at End of List
+
+    NodePtr previousPtr = NULL; // Initialize Previous Ptr
+    NodePtr currentPtr = *sPtr; // Initialize Current Ptr
+
+    if (currentPtr == NULL) { // If Start of List - Just Insert
+        newPtr->nextPtr = *sPtr;
+        *sPtr = newPtr;
+    } else { // Else Insert At End of List
+        while (currentPtr != NULL) { // Go to End of List
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+        previousPtr->nextPtr = newPtr; // Insert New Node
+    }
+}
+
+/*
+   Function Description - Appends New Special Prompt Component to Linked List
+   Parameters: NodePtr *sPtr, char value[]
+   Returns: N/A
+*/
+void appendSPToList(NodePtr *sPtr, char specialVariableCode[], char specialVariableExample[]) {
+    NodePtr newPtr = malloc(sizeof(Node)); // Create a New Node
+
+    // Determine Special Variable Code and Example Needed
+
+    struct PromptComponent newComponent = {"", "", "", "", "", 0, 1}; // Create a New Prompt Component Struct
+    strcpy(newComponent.spCode, specialVariableCode);
+    strcpy(newComponent.spExample, specialVariableExample); // Update Name Value
 
     newPtr->data = newComponent; // Place New Prompt Component Struct in Node
     newPtr->nextPtr = NULL; // Set Pointer to Null - Node Will be Insert at End of List
