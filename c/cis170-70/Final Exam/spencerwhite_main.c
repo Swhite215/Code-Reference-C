@@ -12,8 +12,75 @@
 
 // Headers
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 // Globals
+
+// Structure of Prompt Component Node
+struct PromptComponent {
+    char textValue[100];
+    char spCode[10];
+    char spExample[15];
+    char colorName[15];
+    char colorCode[15];
+    int hasColor;
+    int isSpecial;
+};
+
+// Struct of Linked List Node
+struct node {
+    struct PromptComponent data;
+    struct node *nextPtr; // IMPORTANT: This should be null if last prompt component
+};
+
+// Type Definitions for Nodes
+typedef struct node Node;
+typedef Node *NodePtr;
+
+// Color Codes For Coloring Print Statements
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
+// Color Constants
+const char RED[5] = "RED";
+const char GREEN[6] = "GREEN";
+const char YELLOW[8] = "YELLOW";
+const char BLUE[6] = "BLUE";
+const char PURPLE[8] = "PURPLE";
+const char TURQUOISE[11] = "TURQUOISE";
+
+// Color Code Constants
+const char RED_CODE[13] = "\\[\\e[0;31m\\]";
+const char GREEN_CODE[13] = "\\[\\e[0;32m\\]";
+const char YELLOW_CODE[13] = "\\[\\e[0;33m\\]";
+const char BLUE_CODE[13] = "\\[\\e[0;34m\\]";
+const char PURPLE_CODE[13] = "\\[\\e[0;35m\\]";
+const char TURQUOISE_CODE[13] =" \\[\\e[0;36m\\]";
+
+// Special Code Constants
+const char SP_DATE_CODE[3] = "\\d";
+const char SP_HOSTNAME_CODE[3] = "\\h";
+const char SP_24HRTIME_CODE[3] = "\\t";
+const char SP_12HRTIME_ONE_CODE[3] = "\\T";
+const char SP_12HRTIME_TWO_CODE[3] = "\\@";
+const char SP_USERNAME_CODE[3] = "\\u";
+const char SP_CWD_CODE[3] = "\\w";
+
+// Special Code Constant Examples
+const char SP_DATE_EXAMPLE[12] = "Tue Dec 08";
+const char SP_HOSTNAME_EXAMPLE[7] = "Host";
+const char SP_24HRTIME_EXAMPLE[8] = "19:29";
+const char SP_12HRTIME_ONE_EXAMPLE[10] = "19:29:58";
+const char SP_12HRTIME_TWO_EXAMPLE[10] = "07:29 PM";
+const char SP_USERNAME_EXAMPLE[5] = "user";
+const char SP_CWD_EXAMPLE[11] = "/path/dir";
 
 // Function Prototypes
 void displayMainMenu(char *mPtr);
@@ -30,12 +97,16 @@ void understandingPS1();
 void understandingSpecialPromptVariables();
 void howToSetupPS1();
 void generateRandomPrompt(); // REMOVE IF RUNNING OUT OF TIME
-void addContent(); // appendToList() and appendSPToList()
+void addContent(NodePtr *sPtr); // appendToList() and appendSPToList()
 void removeContent(); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> deleteFromList()
 void moveContent(); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> takeOutAndHoldComponent() -> buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> insertToList()
 void colorContent(); // ADD OR REMOVE; buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> getColorSelection() -> addColorToComponent() || buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> removeColorFromComponent()
 void writePromptToFile();
 void readPromptFromFile();
+void addCustomText(NodePtr *sPtr);
+void getCustomText(char textValue[]);
+void appendToList(NodePtr *sPtr, char value[]);
+void printLinkedList(NodePtr *sPtr);
 
 // Main Program
 int main (void) {
@@ -345,21 +416,26 @@ void displayColorContentMenu(char *sPtr) {
     *sPtr = subMenuOption;
 }
 
-// ------------------------------------------------- FUNCTIONS -------------------------------------------------
+// ------------------------------------------------- FLOW FUNCTIONS -------------------------------------------------
 /*
    Function Description - Manages the Secondary Flow of Creating a Prompt
    Parameters: N/A
    Returns: N/A
 */
 void createNewPrompt() {
+
+    NodePtr startPtr = NULL; // New Prompt Linked List
+
     // Create prompt variable i.e. string, array, etc.
     // Pass prompt to sub functions where appropriate
     char subMenuOption;
     do {
+        printLinkedList(&startPtr);
+
         displayEditPromptMenu(&subMenuOption);
         switch(subMenuOption){
             case 'A':
-                addContent();
+                addContent(&startPtr);
                 break;
             case 'B':
                 removeContent();
@@ -374,7 +450,6 @@ void createNewPrompt() {
                 writePromptToFile();
                 break;
             case 'Q':
-                puts("Exiting the program...");
                 break;
             default:
                 printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
@@ -390,6 +465,10 @@ void createNewPrompt() {
 */
 void editExistingPrompt() {
 
+    NodePtr startPtr = NULL; // New Prompt Linked List
+
+    printLinkedList(&startPtr);
+
     // Call readPromptsFromFile()
     // Display prompts
     // Force user to select one or quit
@@ -404,7 +483,7 @@ void editExistingPrompt() {
             displayEditPromptMenu(&subMenuOption);
             switch(subMenuOption){
                 case 'A':
-                    addContent();
+                    addContent(&startPtr);
                     break;
                 case 'B':
                     removeContent();
@@ -513,27 +592,63 @@ void generateRandomPrompt() {
    Returns: N/A
 */
 
-void addContent() {
+void addContent(NodePtr *sPtr) {
+
     // Receive Prompt from above
     // Pass prompt to be edited
     char subMenuOption;
     do {
+        printLinkedList(sPtr);
         displayAddContentMenu(&subMenuOption);
         switch(subMenuOption){
             case 'A':
                 puts("ADD FEATURE - call addFeature()");
                 break;
             case 'B':
-                puts("ADD TEXT - call addCustomText()");
+                addCustomText(sPtr);
                 break;
             case 'Q':
-                puts("Exiting the program...");
                 break;
             default:
                 printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
                 break;
         }
     } while (subMenuOption != 'Q');
+}
+
+/*
+   Function Description - Adds Custom Text to Prompt
+   Parameters: NodePtr *sPtr
+   Returns: N/A
+*/
+
+void addCustomText(NodePtr *sPtr) {
+    char textValue[100];
+
+    // Get Text
+    getCustomText(textValue);
+
+    // Append to List
+    appendToList(sPtr, textValue);
+
+}
+
+/*
+   Function Description - Gets User Input
+   Parameters: char textValue[]
+   Returns: N/A
+*/
+void getCustomText(char textValue[]) {
+    printf("%s", "Enter custom text to add: ");
+
+    int customTextStatus = scanf("%s", textValue);
+    while ((getchar()) != '\n');
+    while (customTextStatus != 1) {
+        puts("Invalid input. Please enter a valid string.");
+        printf("%s", "Enter custom text to add: ");
+        customTextStatus = scanf("%s", textValue);
+        while ((getchar()) != '\n');
+    }
 }
 
 /*
@@ -653,4 +768,133 @@ void writePromptToFile() {
     // Receive Prompt from above
     // Append Prompt to File (Duplicates can happen)
     // Show Error if Error, Say Successful if Successful
+}
+
+// ------------------------------------------------- LINKED LIST FUNCTIONS -------------------------------------------------
+/*
+   Function Description - Appends New Prompt Component to Linked List
+   Parameters: NodePtr *sPtr, char value[]
+   Returns: N/A
+*/
+void appendToList(NodePtr *sPtr, char value[]) {
+    NodePtr newPtr = malloc(sizeof(Node)); // Create a New Node
+
+    struct PromptComponent newComponent = {"", "", "", "", "", 0, 0}; // Create a New Prompt Component Struct
+    strcpy(newComponent.textValue, value); // Update Name Value
+
+    newPtr->data = newComponent; // Place New Prompt Component Struct in Node
+    newPtr->nextPtr = NULL; // Set Pointer to Null - Node Will be Insert at End of List
+
+    NodePtr previousPtr = NULL; // Initialize Previous Ptr
+    NodePtr currentPtr = *sPtr; // Initialize Current Ptr
+
+    if (currentPtr == NULL) { // If Start of List - Just Insert
+        newPtr->nextPtr = *sPtr;
+        *sPtr = newPtr;
+    } else { // Else Insert At End of List
+        while (currentPtr != NULL) { // Go to End of List
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+        previousPtr->nextPtr = newPtr; // Insert New Node
+    }
+}
+
+/*
+   Function Description - Prints Prompt Components with Colors and Special Variable Examples
+   Parameters: NodePtr *sPtr
+   Returns: N/A
+*/
+void printLinkedList(NodePtr *sPtr) {
+    NodePtr currentPtr = *sPtr;
+
+    char fullPrompt[1000] = ""; // Holds Entire Prompt String - > 1000...?
+    strcat(fullPrompt, "\nPROMPT: ");
+
+    if (currentPtr == NULL) {
+        puts("\nPROMPT: NO CONTENT - Add Content to View Example");
+        return;
+    } else {
+        while (currentPtr != NULL) { // Step Through Linked List
+
+            char partialPrompt[100] = "";
+
+            if (currentPtr->data.hasColor == 1) {
+
+                if (currentPtr->data.isSpecial == 1) {
+
+                    if (strcmp(RED, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_RED);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    } else if (strcmp(GREEN, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_GREEN);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(YELLOW, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_YELLOW);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(BLUE, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_BLUE);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(PURPLE, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_MAGENTA);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    } else {
+                        strcat(partialPrompt, ANSI_COLOR_CYAN);
+                        strcat(partialPrompt, currentPtr->data.spExample);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }
+
+                } else {
+
+                    if (strcmp(RED, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_RED);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    } else if (strcmp(GREEN, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_GREEN);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(YELLOW, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_YELLOW);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(BLUE, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_BLUE);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }else if (strcmp(PURPLE, currentPtr->data.colorName) == 0) {
+                        strcat(partialPrompt, ANSI_COLOR_MAGENTA);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    } else {
+                        strcat(partialPrompt, ANSI_COLOR_CYAN);
+                        strcat(partialPrompt, currentPtr->data.textValue);
+                        strcat(partialPrompt, ANSI_COLOR_RESET);
+                    }
+
+                }
+
+            } else {
+                if (currentPtr->data.isSpecial == 1) {
+                    strcat(partialPrompt, currentPtr->data.spExample);
+                } else {
+                    strcat(partialPrompt, currentPtr->data.textValue);
+                }
+            }
+
+            strcat(fullPrompt, partialPrompt); // Attach Partial Prompt to Full Prompt
+            currentPtr = currentPtr->nextPtr; // Move to Next Item in List
+
+            if (!(currentPtr == NULL)) { // If Not At the End, Add a Space Between Prompt Values
+                strcat(fullPrompt, " ");
+            }
+        }
+    }
+
+    printf("%s\n", fullPrompt); // Print the Full Prompt
 }
