@@ -5,8 +5,8 @@
 
 /*
     Opportunities for Growth:
-    1. Write and read more than one prompt from a file.
-    2. Don't force spaces between prompt components by figuring out bettern patterns of features, text and delimters like -, >>, :, etc.
+    1. Write and read more than one prompt from a file. Given that I didn't allow this, I also dropped the How to Switch functionality.
+    2. Don't force spaces between prompt components by figuring out better patterns of features, text and delimters like -, >>, user: or host:, etc.
     3. Allow immediate insertion as opposed to append and then move.
 */
 
@@ -98,8 +98,8 @@ void understandingPS1();
 void understandingSpecialPromptVariables();
 void howToSetupPS1();
 void generateRandomPrompt(); // REMOVE IF RUNNING OUT OF TIME
-void addContent(NodePtr *sPtr); // appendToList() and appendSPToList()
-void removeContent(NodePtr *sPtr); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> deleteFromList()
+void addContent(NodePtr *sPtr);
+void removeContent(NodePtr *sPtr);
 void moveContent(); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> takeOutAndHoldComponent() -> buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> insertToList()
 void colorContent(NodePtr *sPtr); // ADD OR REMOVE; buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> getColorSelection() -> addColorToComponent() || buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> removeColorFromComponent()
 void writePromptToFile();
@@ -116,6 +116,8 @@ void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr, char targetPromp
 void deleteFromList(NodePtr *sPtr, char value[]);
 void addColor(NodePtr *sPtr);
 void addColorToComponent(NodePtr *sPtr, char value[], char color[]);
+void removeColor(NodePtr *sPtr);
+void removeColorFromComponent(NodePtr *sPtr, char value[]);
 
 // Main Program
 int main (void) {
@@ -131,18 +133,15 @@ int main (void) {
                 editExistingPrompt();
                 break;
             case 'C':
-                howToSwitchBashPrompts();
-                break;
-            case 'D':
                 understandingPS1();
                 break;
-            case 'E':
+            case 'D':
                 understandingSpecialPromptVariables();
                 break;
-            case 'F':
+            case 'E':
                 howToSetupPS1();
                 break;
-            case 'G':
+            case 'F':
                 generateRandomPrompt();
                 break;
             case 'Q':
@@ -172,11 +171,10 @@ void displayMainMenu(char *mPtr) {
     printf("%s", "|                                               |\n");
     printf("%s", "|  A: Create a New Prompt                       |\n");
     printf("%s", "|  B: Edit an Existing Prompt                   |\n");
-    printf("%s", "|  C: Switch Prompt                             |\n");
-    printf("%s", "|  D: Understanding PS1                         |\n");
-    printf("%s", "|  E: Understanding PS1 Special Variables       |\n");
-    printf("%s", "|  F: Setup Prompt on MacOS                     |\n");
-    printf("%s", "|  G: Generate Random Prompt                    |\n");
+    printf("%s", "|  C: Understanding PS1                         |\n");
+    printf("%s", "|  D: Understanding PS1 Special Variables       |\n");
+    printf("%s", "|  E: Setup Prompt on MacOS                     |\n");
+    printf("%s", "|  F: Generate Random Prompt                    |\n");
     printf("%s", "|  Q: Quit                                      |\n");
     printf("%s", "+-----------------------------------------------+\n");
 
@@ -187,8 +185,8 @@ void displayMainMenu(char *mPtr) {
 
     mainMenuOption = toupper(mainMenuOption);
 
-    while (mainMenuOption != 'A' && mainMenuOption != 'B' && mainMenuOption != 'C' && mainMenuOption != 'D' && mainMenuOption != 'E' && mainMenuOption != 'F' && mainMenuOption != 'G' && mainMenuOption != 'Q') {
-        puts("Invalid input. Enter either A, B, C, D, E, F, G, or Q");
+    while (mainMenuOption != 'A' && mainMenuOption != 'B' && mainMenuOption != 'C' && mainMenuOption != 'D' && mainMenuOption != 'E' && mainMenuOption != 'F' && mainMenuOption != 'Q') {
+        puts("Invalid input. Enter either A, B, C, D, E, F or Q");
         printf("%s", "Enter Your Choice: ");
         scanf(" %c", &mainMenuOption);
 
@@ -619,8 +617,6 @@ void editExistingPrompt() {
 
     NodePtr startPtr = NULL; // New Prompt Linked List - REPLACE WITH READ FROM FILE
 
-    printLinkedList(&startPtr);
-
     // Call readPromptsFromFile()
     // Display prompts
     // Force user to select one or quit
@@ -632,6 +628,8 @@ void editExistingPrompt() {
     if (validPromptSelected == 1) {
         char subMenuOption;
         do {
+            printLinkedList(&startPtr);
+
             displayEditPromptMenu(&subMenuOption);
             switch(subMenuOption){
                 case 'A':
@@ -659,20 +657,6 @@ void editExistingPrompt() {
     } else {
         puts("There are no prompts to edit, returning to main menu...");
     }
-}
-
-/*
-   Function Description - Manages the Secondary Flow of Instructing How to Switch Prompts
-   Parameters: N/A
-   Returns: N/A
-*/
-void howToSwitchBashPrompts() {
-    // Call readPromptsFromFile()
-    // Display prompts
-    // Force user to select one or quit
-    // call howToSetUpPS1() - passing selected prompt as reference
-
-    puts("There are no prompts to switch to, returning to main menu...");
 }
 
 /*
@@ -846,7 +830,44 @@ void addFeature(NodePtr *sPtr) {
 }
 
 /*
-   Function Description - Adds Special Variables to Prompt
+   Function Description - Removes Content
+   Parameters: N/A
+   Returns: N/A
+*/
+
+void removeContent(NodePtr *sPtr) {
+
+    char subMenuOption;
+    do {
+        if ((*sPtr) == NULL) {
+            subMenuOption = 'Q';
+            puts("There are no components to remove. Returning to Edit Prompt Menu.");
+            continue;
+        } else {
+            int counter = 0;
+            int selection = 0;
+            char targetPromptValue[100];
+
+            printLinkedList(sPtr);
+            displayPromptContentSelectionHeader();
+            buildAndDisplayDynamicMenu(sPtr, &counter);
+            getSelection(&selection, &counter);
+
+            if (selection == 0) {
+                subMenuOption = 'Q';
+                continue;
+            }
+
+            getTargetPromptComponent(sPtr, &selection, targetPromptValue);
+            deleteFromList(sPtr, targetPromptValue);
+            subMenuOption = 'Q';
+        }
+
+    } while (subMenuOption != 'Q');
+}
+
+/*
+   Function Description - Adds Color to Prompt Component
    Parameters: NodePtr *sPtr
    Returns: N/A
 */
@@ -915,18 +936,18 @@ void addColor(NodePtr *sPtr) {
 }
 
 /*
-   Function Description - Removes Content
-   Parameters: N/A
+   Function Description - Removes Color from Prompt Component
+   Parameters: NodePtr *sPtr
    Returns: N/A
 */
 
-void removeContent(NodePtr *sPtr) {
-
+void removeColor(NodePtr *sPtr) {
     char subMenuOption;
     do {
+
         if ((*sPtr) == NULL) {
             subMenuOption = 'Q';
-            puts("There are no components to remove. Returning to Edit Prompt Menu.");
+            puts("There are no components to remove color from. Returning to Color Content Menu.");
             continue;
         } else {
             int counter = 0;
@@ -944,11 +965,15 @@ void removeContent(NodePtr *sPtr) {
             }
 
             getTargetPromptComponent(sPtr, &selection, targetPromptValue);
-            deleteFromList(sPtr, targetPromptValue);
-        }
+            removeColorFromComponent(sPtr, targetPromptValue);
 
+            subMenuOption = 'Q';
+
+        }
     } while (subMenuOption != 'Q');
+
 }
+
 
 /*
    Function Description - Moves Content
@@ -1008,7 +1033,7 @@ void colorContent(NodePtr *sPtr) {
                 addColor(sPtr);
                 break;
             case 'B':
-                puts("REMOVE COLOR - call removeColor()");
+                removeColor(sPtr);
                 break;
             case 'Q':
                 break;
@@ -1264,5 +1289,27 @@ void addColorToComponent(NodePtr *sPtr, char value[], char color[]) {
             strcpy(currentPtr->data.colorName, color);
             strcpy(currentPtr->data.colorCode, TURQUOISE_CODE);
         }
+    }
+}
+
+/*
+   Function Description - Removes Color from Node in the List
+   Parameters: NodePtr *sPtr, char value[]
+   Returns: N/A
+*/
+void removeColorFromComponent(NodePtr *sPtr, char value[]) {
+    NodePtr currentPtr = *sPtr;
+
+    if (currentPtr == NULL) {
+        puts("The list is empty. No colors can be removed!");
+        return;
+    } else {
+        while (currentPtr != NULL && (strcmp(currentPtr->data.textValue, value) != 0 && strcmp(currentPtr->data.spExample, value) != 0)) { // Move Through List Until Match is Found
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        currentPtr->data.hasColor = 0; // Set Has Color to Zero
+        strcpy(currentPtr->data.colorName, ""); // Set Color Name to Nothing
+        strcpy(currentPtr->data.colorCode, ""); // Set Color Code to Nothing
     }
 }
