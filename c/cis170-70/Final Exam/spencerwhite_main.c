@@ -411,12 +411,12 @@ void displayColorSelectMenu(char *sPtr) {
     printf("%s", "|               Color Select Menu               |\n");
     printf("%s", "+-----------------------------------------------+\n");
     printf("%s", "|                                               |\n");
-    printf("%s", "|  A: Red                                       |\n");
-    printf("%s", "|  B: Green                                     |\n");
-    printf("%s", "|  C: Yellow                                    |\n");
-    printf("%s", "|  D: Blue                                      |\n");
-    printf("%s", "|  E: Purple                                    |\n");
-    printf("%s", "|  F: Turquoise                                 |\n");
+    printf("%s", ANSI_COLOR_RED "|  A: Red                                       |\n" ANSI_COLOR_RESET);
+    printf("%s", ANSI_COLOR_GREEN "|  B: Green                                     |\n" ANSI_COLOR_RESET);
+    printf("%s", ANSI_COLOR_YELLOW "|  C: Yellow                                    |\n" ANSI_COLOR_RESET);
+    printf("%s", ANSI_COLOR_BLUE "|  D: Blue                                      |\n" ANSI_COLOR_RESET);
+    printf("%s", ANSI_COLOR_MAGENTA "|  E: Purple                                    |\n" ANSI_COLOR_RESET);
+    printf("%s", ANSI_COLOR_CYAN "|  F: Turquoise                                 |\n" ANSI_COLOR_RESET);
     printf("%s", "|  Q: Quit                                      |\n");
     printf("%s", "+-----------------------------------------------+\n");
 
