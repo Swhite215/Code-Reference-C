@@ -101,7 +101,7 @@ void generateRandomPrompt(); // REMOVE IF RUNNING OUT OF TIME
 void addContent(NodePtr *sPtr);
 void removeContent(NodePtr *sPtr);
 void moveContent(); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> takeOutAndHoldComponent() -> buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> insertToList()
-void colorContent(NodePtr *sPtr); // ADD OR REMOVE; buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> getColorSelection() -> addColorToComponent() || buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> removeColorFromComponent()
+void colorContent(NodePtr *sPtr);
 void writePromptToFile();
 void readPromptFromFile();
 void addCustomText(NodePtr *sPtr);
@@ -519,13 +519,13 @@ void getSelection(int *sPtr, int *cPtr){
     int status;
     int number;
 
-    printf("%s", "Please Select a Component: ");
+    printf("%s", "\nPlease Select a Component: ");
     status = scanf("%d", &number);
     while ((getchar()) != '\n'); // Clear Buffer
 
     while (status != 1 || number < 0 || number >= *cPtr) { // If Not Int, Less Than Zero, or Equal to Counter - Unnacceptable Option
         puts("Invalid input. Please enter a valid number.");
-        printf("%s", "Please Select a Component: ");
+        printf("%s", "\nPlease Select a Component: ");
         status = scanf("%d", &number);
         while ((getchar()) != '\n'); // Clear Buffer
     }
@@ -1240,7 +1240,12 @@ void deleteFromList(NodePtr *sPtr, char value[]) {
         }
 
         NodePtr tempPtr = currentPtr; // Make A Copy of Node to Remove
-        previousPtr->nextPtr = currentPtr->nextPtr; // Set Previous Ptr Next Ptr to Node After Current Node
+
+        if (previousPtr != NULL) {
+            previousPtr->nextPtr = currentPtr->nextPtr; // Set Previous Ptr Next Ptr to Node After Current Node
+        } else {
+            *sPtr = currentPtr->nextPtr;
+        }
         free(tempPtr);
     }
 
