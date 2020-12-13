@@ -118,6 +118,11 @@ void addColor(NodePtr *sPtr);
 void addColorToComponent(NodePtr *sPtr, char value[], char color[]);
 void removeColor(NodePtr *sPtr);
 void removeColorFromComponent(NodePtr *sPtr, char value[]);
+void writePromptToFile(NodePtr *sPtr);
+
+// File Information
+const char PATH[] = "";
+const char FILENAME[] = "prompt.txt";
 
 // Main Program
 int main (void) {
@@ -597,7 +602,7 @@ void createNewPrompt() {
                 colorContent(&startPtr);
                 break;
             case 'E':
-                writePromptToFile();
+                writePromptToFile(&startPtr);
                 break;
             case 'Q':
                 break;
@@ -645,7 +650,7 @@ void editExistingPrompt() {
                     colorContent(&startPtr);
                     break;
                 case 'E':
-                    writePromptToFile();
+                    writePromptToFile(&startPtr);
                     break;
                 case 'Q':
                     break;
@@ -1044,19 +1049,82 @@ void colorContent(NodePtr *sPtr) {
     } while (subMenuOption != 'Q');
 }
 
+
 /*
-   Function Description - Saves(Appends) Prompt to File
-   Parameters: N/A
+   Function Description - Writes the Prompt To A File
+   Parameters: NodePtr *sPtr
    Returns: N/A
 */
 
-void writePromptToFile() {
+void writePromptToFile(NodePtr *sPtr) {
+    FILE *fPtr; //File Pointer
+    NodePtr currentPtr;
 
-    puts("No prompt receieved! Returning...");
+    currentPtr = *sPtr;
 
-    // Receive Prompt from above
-    // Append Prompt to File (Duplicates can happen)
-    // Show Error if Error, Say Successful if Successful
+    char filePath[100] = "";
+    strcat(filePath, PATH);
+    strcat(filePath, FILENAME);
+
+    if ((fPtr = fopen(filePath, "w")) == NULL) {
+        puts("File could not be opened");
+    } else {
+
+        if (currentPtr == NULL) {
+            puts("The list is empty. No content can be written!");
+            return;
+        } else {
+            while (currentPtr != NULL) {
+
+                char textValue[100] = "";
+                char spCode[10] = "";
+                char spExample[15] = "";
+                char colorName[15] = "";
+                char colorCode[15] = "";
+
+                if (strcmp(currentPtr->data.textValue, "") == 0) {
+                    strcpy(textValue, "EMPTY");
+                } else {
+                    strcpy(textValue, currentPtr->data.textValue);
+                }
+
+                if (strcmp(currentPtr->data.spCode, "") == 0) {
+                    strcpy(spCode, "EMPTY");
+                } else {
+                    strcpy(spCode, currentPtr->data.spCode);
+                }
+
+                if (strcmp(currentPtr->data.spExample, "") == 0) {
+                    strcpy(spExample, "EMPTY");
+                } else {
+                    strcpy(spExample, currentPtr->data.spExample);
+                }
+
+                if (strcmp(currentPtr->data.colorName, "") == 0) {
+                    strcpy(colorName, "EMPTY");
+                } else {
+                    strcpy(colorName, currentPtr->data.colorName);
+                }
+
+                if (strcmp(currentPtr->data.colorCode, "") == 0) {
+                    strcpy(colorCode, "EMPTY");
+                } else {
+                    strcpy(colorCode, currentPtr->data.colorCode);
+                }
+
+                // Write Component As Line w/ Guillemet Delimeter
+                fprintf(fPtr, "%s»%s»%s»%s»%s»%d»%d\n", textValue, spCode, spExample, colorName, colorCode, currentPtr->data.hasColor, currentPtr->data.isSpecial);
+
+                // Move to Next Component
+                currentPtr = currentPtr->nextPtr;
+            }
+
+            fclose(fPtr); // Close File
+            puts("\nYour custom PS1 prompt was successfully saved to the prompts.txt file.");
+            puts("\nThis custom PS1 prompt will be loaded when you select 'Edit An Existing Prompt'.");
+        }
+
+    }
 }
 
 // ------------------------------------------------- LINKED LIST FUNCTIONS -------------------------------------------------
