@@ -623,7 +623,7 @@ void getTargetPromptComponent(NodePtr *sPtr, int *selectionPtr, char targetPromp
 }
 
 /*
-   Function Description - Writes the Prompt To File
+   Function Description - Writes the Prompt To A File
    Parameters: NodePtr *sPtr
    Returns: N/A
 */
@@ -695,7 +695,6 @@ void writePromptToFile(NodePtr *sPtr) {
 
     }
 }
-
 /*
    Function Description - Reads the Prompt From File and Builds Linked List
    Parameters: NodePtr *sPtr
