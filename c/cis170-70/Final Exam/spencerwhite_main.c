@@ -4,10 +4,11 @@
 */
 
 /*
-    Opportunities for Growth:
-    1. Write and read more than one prompt from a file. Given that I didn't allow this, I also dropped the How to Switch functionality.
-    2. Don't force spaces between prompt components by figuring out better patterns of features, text and delimters like -, >>, user: or host:, etc.
+    Opportunities for Growth - Written Morning of 12/16/2020:
+    1. Write and read more than one prompt from a file. Given that I did not allow this, I also dropped the How to Switch functionality.
+    2. Don't force spaces between prompt components.
     3. Allow immediate insertion as opposed to append and then move.
+    4. Add warning prior to leaving Edit Prompt Menu that the user's prompt will be lost.
 */
 
 // Headers
@@ -119,6 +120,7 @@ void addColorToComponent(NodePtr *sPtr, char value[], char color[]);
 void removeColor(NodePtr *sPtr);
 void removeColorFromComponent(NodePtr *sPtr, char value[]);
 void writePromptToFile(NodePtr *sPtr);
+void readPromptFromFile(NodePtr *ePtr);
 
 // File Information
 const char PATH[] = "";
@@ -621,14 +623,13 @@ void createNewPrompt() {
 void editExistingPrompt() {
 
     NodePtr startPtr = NULL; // New Prompt Linked List - REPLACE WITH READ FROM FILE
+    readPromptFromFile(&startPtr);
 
-    // Call readPromptsFromFile()
-    // Display prompts
-    // Force user to select one or quit
-    // Display Edit Prompt Menu
-    // Pass prompt to sub functions where appropriate
+    int validPromptSelected = 0;
 
-    int validPromptSelected = 1;
+    if (startPtr != NULL) {
+        validPromptSelected = 1;
+    }
 
     if (validPromptSelected == 1) {
         char subMenuOption;
@@ -1124,6 +1125,93 @@ void writePromptToFile(NodePtr *sPtr) {
             puts("\nThis custom PS1 prompt will be loaded when you select 'Edit An Existing Prompt'.");
         }
 
+    }
+}
+
+/*
+   Function Description - Reads the Prompt From File and Builds Linked List
+   Parameters: NodePtr *sPtr
+   Returns: N/A
+*/
+
+void readPromptFromFile(NodePtr *ePtr) {
+    FILE *fPtr; //File Pointer
+
+    char filePath[100] = "";
+    strcat(filePath, PATH);
+    strcat(filePath, FILENAME);
+
+    if ((fPtr = fopen(filePath, "r")) == NULL) {
+        puts("File could not be opened");
+    } else {
+
+        while(!feof(fPtr)) {
+            NodePtr newPtr = malloc(sizeof(Node)); // Create a New Node
+            struct PromptComponent newComponent = {"", "", "", "", "", 0, 0}; // Create a New Prompt Component Struct
+
+            char textValue[100] = "";
+            char spCode[10] = "";
+            char spExample[15] = "";
+            char colorName[15] = "";
+            char colorCode[15] = "";
+            int hasColor = 0;
+            int isSpecial = 0;
+
+            fscanf(fPtr, "%100[^»]»%5[^»]»%15[^»]»%15[^»]»%15[^»]»%d»%d\n", textValue, spCode, spExample, colorName, colorCode, &hasColor, &isSpecial);
+
+            if (strcmp(textValue, "EMPTY") == 0) {
+                strcpy(newComponent.textValue, "");
+            } else {
+                strcpy(newComponent.textValue, textValue);
+            }
+
+            if (strcmp(spCode, "EMPTY") == 0) {
+                strcpy(newComponent.spCode, "");
+            } else {
+                strcpy(newComponent.spCode, spCode);
+            }
+
+            if (strcmp(spExample, "EMPTY") == 0) {
+                strcpy(newComponent.spExample, "");
+            } else {
+                strcpy(newComponent.spExample, spExample);
+            }
+
+            if (strcmp(colorName, "EMPTY") == 0) {
+                strcpy(newComponent.colorName, "");
+            } else {
+                strcpy(newComponent.colorName, colorName);
+            }
+
+            if (strcmp(colorCode, "EMPTY") == 0) {
+                strcpy(newComponent.colorCode, "");
+            } else {
+                strcpy(newComponent.colorCode, colorCode);
+            }
+
+            newComponent.hasColor = hasColor;
+            newComponent.isSpecial = isSpecial;
+
+            newPtr->data = newComponent; // Place New Prompt Component Struct in Node
+            newPtr->nextPtr = NULL;
+
+            NodePtr currentPtr = *ePtr;
+            NodePtr previousPtr = NULL;
+
+            if (currentPtr == NULL) { // Start of List
+                newPtr->nextPtr = *ePtr;
+                *ePtr = newPtr;
+            } else {
+                while (currentPtr != NULL) { // Go to End of List
+                    previousPtr = currentPtr;
+                    currentPtr = currentPtr->nextPtr;
+                }
+
+                previousPtr->nextPtr = newPtr; // Insert New Node
+            }
+        }
+
+         fclose(fPtr); // Close File
     }
 }
 
