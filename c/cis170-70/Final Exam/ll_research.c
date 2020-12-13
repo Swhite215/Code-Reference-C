@@ -521,7 +521,7 @@ void buildPrompt(NodePtr *sPtr) {
             strcat(fullPrompt, partialPrompt); // Attach Partial Prompt to Full Prompt
             currentPtr = currentPtr->nextPtr; // Move to Next Item in List
 
-            if (!(currentPtr == NULL)) { // If Not At the End, Add a Space Between Prompt Values
+            if (!(currentPtr == NULL)) { // If Not At the End, Add a Space Between Prompt Values - CAN REMOVE TO TEST NO SPACE
                 strcat(fullPrompt, " ");
             }
         }
