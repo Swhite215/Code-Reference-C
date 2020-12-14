@@ -5,10 +5,11 @@
 
 /*
     Opportunities for Growth - Written 12/16/2020:
-    1. Write and read more than one prompt from a file. Given that I did not have time to finish this, I dropped the How to Switch functionality. Sorry =(. Hopefully this doesn't imapct the scoring greatly.
+    1. Write and read more than one prompt from a file. Given that I did not have time to finish this, I dropped the How to Switch functionality.
     2. Don't force spaces between prompt components. Can remove lines NUMBER and NUMBER if you want to see without lines.
     3. Allow immediate insertion as opposed to append and then move.
     4. Add warning prior to leaving Edit Prompt Menu that the user's prompt will be lost and then ask for confirmation.
+    5. Add a user check before returning from Understanding PS1, Understanding PS1 Special Variables, and Setup Prompt on MacOS
 */
 
 // Headers
@@ -726,7 +727,7 @@ void understandingSpecialPromptVariables() {
 */
 void howToSetupPS1() {
 
-        displaySetupInstructionsHeader();∂
+        displaySetupInstructionsHeader();
 
         NodePtr startPtr = NULL;
         readPromptFromFile(&startPtr);
@@ -1686,7 +1687,7 @@ void buildPrompt(NodePtr *sPtr) {
     
     }
 
-    printf("This is the special character string for your new prompt: %s\n", fullPrompt);
+    printf("This is the special character string for your saved prompt: %s\n", fullPrompt);
     puts("\nTo immediately see this prompt in action, copy the entire line below and paste it into a new terminal.");
     printf("    export PS1='%s: '\n", fullPrompt); // Display Instructions Code Example
     puts(" ");
