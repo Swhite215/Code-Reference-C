@@ -6,7 +6,7 @@
 /*
     Opportunities for Growth - Written Morning of 12/16/2020:
     1. Write and read more than one prompt from a file. Given that I did not allow this, I also dropped the How to Switch functionality.
-    2. Don't force spaces between prompt components.
+    2. Don't force spaces between prompt components. Can remove lines 
     3. Allow immediate insertion as opposed to append and then move.
     4. Add warning prior to leaving Edit Prompt Menu that the user's prompt will be lost.
 */
@@ -89,6 +89,8 @@ void displayEditPromptMenu(char *sPtr);
 void displaySavePromptMenu(char *sPtr);
 void displayAddContentMenu(char *sPtr);
 void displayPromptContentSelectionHeader();
+void displayPromptContentFirstSelection();
+void displayPromptContentSecondSelection();
 void displayMoveContentMenu(char *sPtr, int order);
 void displayColorContentMenu(char *sPtr);
 void displayColorSelectMenu(char *sPtr);
@@ -101,7 +103,7 @@ void howToSetupPS1();
 void generateRandomPrompt(); // REMOVE IF RUNNING OUT OF TIME
 void addContent(NodePtr *sPtr);
 void removeContent(NodePtr *sPtr);
-void moveContent(); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> takeOutAndHoldComponent() -> buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> insertToList()
+void moveContent(NodePtr *sPtr); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> takeOutAndHoldComponent() -> buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> insertToList()
 void colorContent(NodePtr *sPtr);
 void writePromptToFile();
 void readPromptFromFile();
@@ -121,6 +123,8 @@ void removeColor(NodePtr *sPtr);
 void removeColorFromComponent(NodePtr *sPtr, char value[]);
 void writePromptToFile(NodePtr *sPtr);
 void readPromptFromFile(NodePtr *ePtr);
+void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]);
+void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]);
 
 // File Information
 const char PATH[] = "";
@@ -322,6 +326,26 @@ void displayPromptContentSelectionHeader() {
     printf("%s", "+-----------------------------------------------+\n");
     puts("");
    
+}
+
+/*
+   Function Description - Prints Color Content Menu Header
+   Parameters: char *sPtr
+   Returns: N/A
+*/
+void displayPromptContentFirstSelection() {
+    printf("%s", "            Pick Component To Move               \n");
+    puts("");
+}
+
+/*
+   Function Description - Prints Color Content Menu Header
+   Parameters: char *sPtr
+   Returns: N/A
+*/
+void displayPromptContentSecondSelection() {
+    printf("%s", "            Pick Where To Move Component         \n");
+    puts("");
 }
 
 /*
@@ -598,7 +622,7 @@ void createNewPrompt() {
                 removeContent(&startPtr);
                 break;
             case 'C':
-                moveContent();
+                moveContent(&startPtr);
                 break;
             case 'D':
                 colorContent(&startPtr);
@@ -645,7 +669,7 @@ void editExistingPrompt() {
                     removeContent(&startPtr);
                     break;
                 case 'C':
-                    moveContent();
+                    moveContent(&startPtr);
                     break;
                 case 'D':
                     colorContent(&startPtr);
@@ -987,34 +1011,80 @@ void removeColor(NodePtr *sPtr) {
    Returns: N/A
 */
 
-void moveContent() {
-    // Receive Prompt from above
-    // Parse Prompt
-    // Show Dynamic Menu of Prompt Parts that Can be Moved
-    // User Selects Source
-    // User Selects Destination
-    // Portions are switched
-    // Repeat until Quit
+void moveContent(NodePtr *sPtr) {
 
-    char itemToBeMoved;
-    char whereToMoveItem;
+    char subMenuOption;
+    NodePtr currentPtr;
+    
+    currentPtr = *sPtr;
+
     do {
 
-        displayMoveContentMenu(&itemToBeMoved, 0);
-
-        if (itemToBeMoved == 'Q') {
+        if ((*sPtr) == NULL || currentPtr->nextPtr == NULL) {
+            subMenuOption = 'Q';
+            puts("There are not enough components to move. Returning to Edit Prompt Menu.");
             continue;
+        } else {
+            
+            int counter = 0;
+            int firstSelection = 0;
+            int secondSelection = 0;
+            char targetPromptValueToMove[100];
+            char whereToInsert[100];
+
+            // Get Prompt To Move
+            printLinkedList(sPtr);
+            displayPromptContentSelectionHeader();
+            displayPromptContentFirstSelection();
+            buildAndDisplayDynamicMenu(sPtr, &counter);
+            getSelection(&firstSelection, &counter);
+
+            if (firstSelection == 0) {
+                subMenuOption = 'Q';
+                continue;
+            }
+
+            // Get Where To Move
+            displayPromptContentSelectionHeader();
+            displayPromptContentSecondSelection();
+            buildAndDisplayDynamicMenu(sPtr, &counter);
+            getSelection(&secondSelection, &counter);
+
+            if (secondSelection == 0) {
+                subMenuOption = 'Q';
+                continue;
+            }
+
+            // Don't Allow User To Move Component To Same Position
+            while (secondSelection == firstSelection) {
+
+                puts("The prompt component already exists in that position.");
+                puts("Please choose a different position to move to.");
+
+                displayPromptContentSelectionHeader();
+                displayPromptContentSecondSelection();
+                buildAndDisplayDynamicMenu(sPtr, &counter);
+                getSelection(&secondSelection, &counter);
+            }
+            
+            // Get Component To Move
+            getTargetPromptComponent(sPtr, &firstSelection, targetPromptValueToMove);
+
+            // Get Where To Insert
+            getTargetPromptComponent(sPtr, &secondSelection, whereToInsert);
+
+            // Take Out and Hold Component To Move
+            NodePtr movePtr = NULL;
+            takeOutAndHoldComponent(sPtr, &movePtr, targetPromptValueToMove);
+
+            // Insert Component
+            insertToList(sPtr, &movePtr, whereToInsert);
+
+            // Exit After Successful Move
+            subMenuOption = 'Q';
         }
 
-        displayMoveContentMenu(&whereToMoveItem, 1);
-
-        if (whereToMoveItem == 'Q') {
-            continue;
-        }
-
-        puts("SWITCH CONTENT - call switchContent()");
-
-    } while (itemToBeMoved != 'Q' && whereToMoveItem != 'Q');
+    }  while (subMenuOption != 'Q');
 }
 
 /*
@@ -1472,5 +1542,70 @@ void removeColorFromComponent(NodePtr *sPtr, char value[]) {
         currentPtr->data.hasColor = 0; // Set Has Color to Zero
         strcpy(currentPtr->data.colorName, ""); // Set Color Name to Nothing
         strcpy(currentPtr->data.colorCode, ""); // Set Color Code to Nothing
+    }
+}
+
+/*
+   Function Description - Grabs and Holds a Node in Anticipation of Moving
+   Parameters: NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]
+   Returns: N/A
+*/
+void takeOutAndHoldComponent(NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]) {
+    NodePtr currentPtr = *sPtr;
+    NodePtr previousPtr = NULL;
+
+    if (currentPtr == NULL) {
+         puts("The list is empty. No content can be moved!");
+        return;
+    } else {
+
+        // Find Node to Move
+        while(currentPtr != NULL && (strcmp(currentPtr->data.textValue, valueToFind) != 0 && strcmp(currentPtr->data.spExample, valueToFind) != 0)) {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        // Remove It From List and Store Temporarily
+        (*mPtr) = currentPtr;
+
+
+        if (previousPtr == NULL) { // If Taking First Item - Set Start to Next Node
+            *sPtr = currentPtr->nextPtr;
+        } else { // Else If Taking Any Other item - Connect Previos Node to Next Node
+            previousPtr->nextPtr = currentPtr->nextPtr;
+        }
+    }
+}
+
+/*
+   Function Description - Inserts Node into Linked List
+   Parameters: NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]
+   Returns: N/A
+*/
+void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]) {
+
+    NodePtr currentPtr = *sPtr;
+    NodePtr previousPtr = NULL;
+
+    if (currentPtr == NULL) {
+         puts("The list is empty. No content can be inserted!");
+        return;
+    } else {
+
+        // Find Where to Insert
+        while (currentPtr != NULL && (strcmp(currentPtr->data.textValue, whereToInsert) != 0 && strcmp(currentPtr->data.spExample, whereToInsert) != 0)) {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        // If At Front Insert Directly
+        if (previousPtr == NULL) { // If At Front Insert Directly
+            (*mPtr)->nextPtr = *sPtr;
+            *sPtr = (*mPtr);
+        } else { // Else Insert Between Nodes
+            previousPtr->nextPtr = (*mPtr);
+            (*mPtr)->nextPtr = currentPtr;
+        }
+
     }
 }
