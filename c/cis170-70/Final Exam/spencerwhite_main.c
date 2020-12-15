@@ -9,7 +9,7 @@
     2. Don't force spaces between prompt components. Can remove lines NUMBER and NUMBER if you want to see without lines.
     3. Allow immediate insertion as opposed to append and then move.
     4. Add warning prior to leaving Edit Prompt Menu that the user's prompt will be lost and then ask for confirmation.
-    5. Add a user check before returning from Understanding PS1, Understanding PS1 Special Variables, and Setup Prompt on MacOS
+    5. Add a user check before returning from Understanding PS1, Understanding PS1 Special Variables, and Setup Prompt on MacOS to give a chance to read
 */
 
 // Headers
@@ -101,10 +101,9 @@ void editExistingPrompt();
 void understandingPS1();
 void understandingSpecialPromptVariables();
 void howToSetupPS1();
-void generateRandomPrompt(); // REMOVE IF RUNNING OUT OF TIME
 void addContent(NodePtr *sPtr);
 void removeContent(NodePtr *sPtr);
-void moveContent(NodePtr *sPtr); // buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> takeOutAndHoldComponent() -> buildAndDisplayDynamicMenu() -> getSelection() -> getTargetPromptComponent() -> insertToList()
+void moveContent(NodePtr *sPtr);
 void colorContent(NodePtr *sPtr);
 void writePromptToFile();
 void readPromptFromFile();
@@ -154,9 +153,6 @@ int main (void) {
             case 'E':
                 howToSetupPS1();
                 break;
-            case 'F':
-                generateRandomPrompt();
-                break;
             case 'Q':
                 puts("Exiting the program...");
                 break;
@@ -187,7 +183,6 @@ void displayMainMenu(char *mPtr) {
     printf("%s", "|  C: Understanding PS1                         |\n");
     printf("%s", "|  D: Understanding PS1 Special Variables       |\n");
     printf("%s", "|  E: Setup Prompt on MacOS                     |\n");
-    printf("%s", "|  F: Generate Random Prompt                    |\n");
     printf("%s", "|  Q: Quit                                      |\n");
     printf("%s", "+-----------------------------------------------+\n");
 
@@ -198,8 +193,8 @@ void displayMainMenu(char *mPtr) {
 
     mainMenuOption = toupper(mainMenuOption);
 
-    while (mainMenuOption != 'A' && mainMenuOption != 'B' && mainMenuOption != 'C' && mainMenuOption != 'D' && mainMenuOption != 'E' && mainMenuOption != 'F' && mainMenuOption != 'Q') {
-        puts("Invalid input. Enter either A, B, C, D, E, F or Q");
+    while (mainMenuOption != 'A' && mainMenuOption != 'B' && mainMenuOption != 'C' && mainMenuOption != 'D' && mainMenuOption != 'E' && mainMenuOption != 'Q') {
+        puts("Invalid input. Enter either A, B, C, D, E, or Q");
         printf("%s", "Enter Your Choice: ");
         scanf(" %c", &mainMenuOption);
 
@@ -761,36 +756,6 @@ void howToSetupPS1() {
             buildPrompt(&newPtr);
         }
 
-}
-
-/*
-   Function Description - Generates Random Prompts
-   Parameters: N/A
-   Returns: DEFINE DATA TYPE OF PROMPT
-*/
-void generateRandomPrompt() {
-
-    // Call generateRandomFeatures() - generates a prompt compose of random number special prompt variables
-    // Call generateRandomColors() - uses random colors to color a random number of the features in the prompt generated above
-    // Call displayPromptResults() - will display the prompt, the features that make it up, and the color codes usesd
-    // Call displaySavePromptMenu() - displays Save Prompt Menu - choose to save or quit and abandon prompt
-    
-     puts("No prompts can currently be generated...");
-
-    char subMenuOption;
-    do {
-        displaySavePromptMenu(&subMenuOption);
-        switch(subMenuOption){
-            case 'A':
-                puts("SAVE PROMPT - call writePromptToFile()");
-                break;
-            case 'Q':
-                break;
-            default:
-                printf("\n%c is an invalid option, please try again...\n\n", subMenuOption);
-                break;
-        }
-    } while (subMenuOption != 'Q');
 }
 
 /*
