@@ -725,8 +725,65 @@ void understandingPS1() {
 */
 void understandingSpecialPromptVariables() {
     displayUnderstandingPS1SpecialCharactersHeader();
-    // Detailed information about Special Variables from - Project Design references
-     puts("No information to share about special prompt variables...");
+    puts("What are PS1 Special Prompt Variables");
+    puts("  PS1 stands for Prompt Statement/String 1. It is an environment variable in your terminal.");
+    puts("  It is a set of characters and codes that controls what is displayed in the BASH Shell before each command you enter.");
+    puts("  Below is a list of the characters and codes you might see in your prompt and what each one does.");
+    puts("");
+
+    puts("Special Prompt Variables:");
+    puts("  #1. '\\d' - The date in 'Weekday Month Date' format e.g. 'Tue May 26'");
+    puts("  #2. '\\h' - The hostname, up to the first period e.g. deckard.");
+    puts("  #3. '\\t' - The time, in 24-hour HH:MM:SS format e.g. 19:29:58.");
+    puts("  #4. '\\T' - The time, in 12-hour HH:MM:SS format e.g. 7:29:58.");
+    puts("  #5. '\\@' - The time, in 12-hour AM/PM format e.g. 7:29 AM.");
+    puts("  #6. '\\u' - The username of the current user e.g. user.");
+    puts("  #7. '\\u' - The current working directory e.g. /Users/user/Desktop.");
+    puts("");
+
+    puts("Text Color Codes:");
+    puts("  You will also see the below codes in your prompt. These are used to give the prompt text color.");
+    puts("  #1. '\\e[0;31m' - RED");
+    puts("  #2. '\\e[0;32m' - GREEN");
+    puts("  #3. '\\e[0;33m' - YELLOW");
+    puts("  #4. '\\e[0;34m' - BLUE");
+    puts("  #5. '\\e[0;35m' - PURPLE");
+    puts("  #6. '\\e[0;36m' - TURQUOISE");
+    puts("");
+
+    puts("Even MORE Special Prompt Variables:");
+    puts("I didn't add these to the program, but as you get more familair with the prompt, try some of the below out!");
+    puts("  #1. '\\j' - The number of jobs currently managed by the shell");
+    puts("  #2. '\\H' - The entire hostname e.g. deckard.SS64.com ");
+    puts("  #3. '\\l' - The basename of the shell's terminal device name.");
+    puts("  #4. '\\s' - The name of the shell, the basename of $0.");
+    puts("  #5. '\\v' - The version of Bash e.g. 2.00");
+    puts("  #6. '\\V' - The release of Bash i.e. version + patch level e.g. 2.00.1");
+    puts("  #7. '\\W' - The basename of $PWD.");
+    puts("  #8. '\\!' - The history number of this command.");
+    puts("  #9. '\\#' - The command number of this command.");
+    puts("  #10. '\\n' - A newline.");
+    puts("  #11. '\\n' - A carriage return.");
+    puts("  #12. '\\e' - An escape character, typically a color code.");
+    puts("  #13. '\\' - A backslash.");
+    puts("  #14. '\[' - Begin a sequence of non-printing characters, like color escape sequences.");
+    puts("  #15. '\]' - End a sequence of non-printing characters.");
+    puts("");
+
+    puts("Even MORE Text Color Codes:");
+    puts("I didn't add these to the program, but as you get more familair with the prompt, try some of the below out!");
+    puts("  #1. '\\e[1;31m' - Bold RED");
+    puts("  #2. '\\e[1;32m' - Bold GREEN");
+    puts("  #3. '\\e[1;33m' - Bold YELLOW");
+    puts("  #4. '\\e[1;34m' - Bold BLUE");
+    puts("  #5. '\\e[1;35m' - Bold PURPLE");
+    puts("  #6. '\\e[1;36m' - Bold TURQUOISE");
+    puts("  #7. '\\e[0;30m' - DARK GRAY");
+    puts("  #8. '\\e[1;30m' - Bold DARK GRAY");
+    puts("  #9. '\\e[0;37m' - LIGHT GRAY");
+    puts("  #9. '\\e[1;37m' - Bold LIGHT GRAY");
+    puts("");
+
 }
 
 /*
