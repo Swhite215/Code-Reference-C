@@ -92,8 +92,9 @@ void displayAddContentMenu(char *sPtr);
 void displayPromptContentSelectionHeader();
 void displayPromptContentFirstSelection();
 void displayPromptContentSecondSelection();
+void displayUnderstandingPS1Header();
+void displayUnderstandingPS1SpecialCharactersHeader();
 void displayMoveContentMenu(char *sPtr, int order);
-void displayColorContentMenu(char *sPtr);
 void displayColorSelectMenu(char *sPtr);
 void createNewPrompt();
 void editExistingPrompt();
@@ -318,7 +319,7 @@ void displayAddContentMenu(char *sPtr) {
 
 /*
    Function Description - Prints Color Content Menu Header
-   Parameters: char *sPtr
+   Parameters: N/A
    Returns: N/A
 */
 void displayPromptContentSelectionHeader() {
@@ -331,78 +332,62 @@ void displayPromptContentSelectionHeader() {
 
 /*
    Function Description - Prints Component To Move Selection Menu
-   Parameters: char *sPtr
+   Parameters: N/A
    Returns: N/A
 */
 void displayPromptContentFirstSelection() {
-    printf("%s", "            Pick Component To Move               \n");
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "|            Pick Component To Move             |\n");
+    printf("%s", "+-----------------------------------------------+\n");
     puts("");
 }
 
 /*
    Function Description - Prints Where To Move Selection Menu
-   Parameters: char *sPtr
+   Parameters: N/A
    Returns: N/A
 */
 void displayPromptContentSecondSelection() {
-    printf("%s", "            Pick Where To Move Component         \n");
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "|        Pick Where To Move Component           |\n");
+    printf("%s", "+-----------------------------------------------+\n");
     puts("");
 }
 
 /*
    Function Description - Prints Setup Instructions Header
-   Parameters: char *sPtr
+   Parameters: N/A
    Returns: N/A
 */
 void displaySetupInstructionsHeader() {
-    printf("%s", "\nHow to Setup the PS1 Environment Variable         \n");
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "|   How to Setup the PS1 Environment Variable   |\n");
+    printf("%s", "+-----------------------------------------------+\n");
     puts("");
 }
 
 /*
-   Function Description - Prints Move Content Menu and Updates Value at Pointer
-   Parameters: char *sPtr
+   Function Description - Prints Understanding PS1 Header
+   Parameters: N/A
    Returns: N/A
 */
-void displayMoveContentMenu(char *sPtr, int order) {
-    char subMenuOption;
-    //  MENU NEEDS TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
+void displayUnderstandingPS1Header() {
     printf("%s", "\n+-----------------------------------------------+\n");
-    printf("%s", "|               Move Content Menu               |\n");
+    printf("%s", "|         Understanding the PS1 Variable        |\n");
     printf("%s", "+-----------------------------------------------+\n");
+    puts("");
+}
 
-    if (order == 0) {
-        printf("%s", "|                   Portion to Move?             |\n");
-        printf("%s", "|                                               |\n");
-    } else if (order == 1) {
-        printf("%s", "|                   Destination?                 |\n");
-        printf("%s", "|                   (Content after insert will be pushed to the right)                |\n");
-    }
-
-    printf("%s", "|                                               |\n");
-    printf("%s", "|  A: PORTION ONE                               |\n");
-    printf("%s", "|  B: PORTION TWO                               |\n");
-    printf("%s", "|  Q: Quit                                      |\n");
+/*
+   Function Description - Prints Understanding PS1 Special Variables Header
+   Parameters: N/A
+   Returns: N/A
+*/
+void displayUnderstandingPS1SpecialCharactersHeader() {
+    printf("%s", "\n+-----------------------------------------------+\n");
+    printf("%s", "| Understanding PS1 Variable Special Characters |\n");
     printf("%s", "+-----------------------------------------------+\n");
-
-    printf("%s", "Enter Your Choice: ");
-    scanf(" %c", &subMenuOption);
-
-    while ((getchar()) != '\n');
-
-    subMenuOption = toupper(subMenuOption);
-
-    // OPTIONS NEED TO BE DYNAMIC BASED ON NUMBER OF PARTS OF PROMPT
-    while (subMenuOption != 'A' && subMenuOption != 'B' && subMenuOption != 'Q') {
-        puts("Invalid input. Enter either A, B, or Q");
-        printf("%s", "Enter Your Choice: ");
-        scanf(" %c", &subMenuOption);
-
-        while ((getchar()) != '\n');
-        subMenuOption = toupper(subMenuOption);
-    }
-
-    *sPtr = subMenuOption;
+    puts("");
 }
 
 /*
@@ -706,8 +691,36 @@ void editExistingPrompt() {
    Returns: N/A
 */
 void understandingPS1() {
-    // Detailed information about PS1 from - Project Design references
-     puts("No information to share about PS1...");
+
+    displayUnderstandingPS1Header();
+    puts("What is PS1?");
+    puts("  PS1 stands for Prompt Statement/String 1. It is an environment variable in your terminal.");
+    puts("  It is a set of characters and codes that controls what is displayed in the BASH Shell before each command you enter.");
+    puts("  Check out 'Understanding PS1 Special Variables' in the main menu to learn more about the special codes/features.");
+    puts("");
+
+    puts("Why use PS1?");
+    puts("  What folder/path am I in?");
+    puts("  What is the current time?");
+    puts("  What user am I logged in as?");
+    puts("  Your prompt should help you do your work, by providing neat features like the current working directory, time, or your username.");
+    puts("  If your work involves only a terminal, no graphical user interface, the PS1 variable is crucial in giving you access to quick and helpful information.");
+    puts("  It can also be used just for fun, like having an awesome looking terminal while you are doing your work. You can even add colors!");
+    puts("");
+
+    puts("How is PS1 used?");
+    puts("  The PS1 environment variable can be set two ways.");
+    puts("  For a temporary look, just paste the entire line line in a terminal.");
+    puts("  export PS1='\\u: '");
+    puts("  You should see your username, followed by a colon and then a space.");
+    puts("  For a more permanent solution, check out 'Setup Prompt on MacOS' in the main menu to learn more.");
+    puts("");
+
+    puts("Where can I learn more?");
+    puts("  Check out these links:");
+    puts("      1. https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html");
+    puts("      2. https://www.thegeekstuff.com/2008/09/bash-shell-take-control-of-ps1-ps2-ps3-ps4-and-prompt_command/");
+    puts("      3. https://ss64.com/bash/syntax-prompt.html");
 }
 
 /*
@@ -716,6 +729,7 @@ void understandingPS1() {
    Returns: N/A
 */
 void understandingSpecialPromptVariables() {
+    displayUnderstandingPS1SpecialCharactersHeader();
     // Detailed information about Special Variables from - Project Design references
      puts("No information to share about special prompt variables...");
 }
