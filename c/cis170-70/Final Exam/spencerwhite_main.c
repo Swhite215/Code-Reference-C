@@ -6,10 +6,12 @@
 /*
     Opportunities for Growth - Written 12/16/2020:
     1. Write and read more than one prompt from a file. Given that I did not have time to finish this, I dropped the How to Switch functionality.
-    2. Don't force spaces between prompt components. Can remove lines NUMBER and NUMBER if you want to see without lines.
+    2. Don't force spaces between prompt components. Can remove lines 1501 and 1717 if you want to see prompt without lines.
     3. Allow immediate insertion as opposed to append and then move.
     4. Add warning prior to leaving Edit Prompt Menu that the user's prompt will be lost and then ask for confirmation.
-    5. Add a user check before returning from Understanding PS1, Understanding PS1 Special Variables, and Setup Prompt on MacOS to give a chance to read
+    5. Add a user check before returning from Understanding PS1, Understanding PS1 Special Variables, and Setup Prompt on MacOS to give a chance to read without polluting the terminal.
+    6. Add ability to generate a random prompt. Sorry, I also ran out of time to finish this. Hopefully I have demonstrated the fundamentals with the functionality that is available.
+    7. Separate functions into different files/modules to improve readability.
 */
 
 // Headers
@@ -313,7 +315,7 @@ void displayAddContentMenu(char *sPtr) {
 }
 
 /*
-   Function Description - Prints Color Content Menu Header
+   Function Description - Prints Prompt Component Selection Menu Header
    Parameters: N/A
    Returns: N/A
 */
@@ -350,7 +352,7 @@ void displayPromptContentSecondSelection() {
 }
 
 /*
-   Function Description - Prints Setup Instructions Header
+   Function Description - Prints Setup PS1 Instructions Header
    Parameters: N/A
    Returns: N/A
 */
@@ -500,7 +502,7 @@ void displayAddFeatureMenu(char *sPtr) {
 }
 
 /*
-   Function Description - Builds Dynamic Menu Options 
+   Function Description - Builds and Displays Dynamic Menu Options 
    Parameters: NodePtr *sPtr, int *cPtr
    Returns: N/A
 */
@@ -545,7 +547,7 @@ void getSelection(int *sPtr, int *cPtr){
     status = scanf("%d", &number);
     while ((getchar()) != '\n'); // Clear Buffer
 
-    while (status != 1 || number < 0 || number >= *cPtr) { // If Not Int, Less Than Zero, or Equal to Counter - Unnacceptable Option
+    while (status != 1 || number < 0 || number >= *cPtr) { // If Not Int, Less Than Zero, or Greater Than or Equal to Counter - Invalid Option
         puts("Invalid input. Please enter a valid number.");
         printf("%s", "\nPlease Select a Component: ");
         status = scanf("%d", &number);
@@ -557,7 +559,7 @@ void getSelection(int *sPtr, int *cPtr){
 
 /*
    Function Description - Gets Selected Prompt Component Value
-   Parameters: Node *sPtr, int *sPtr, char targetPromptValue[]
+   Parameters: NodePtr *sPtr, int *selectionPtr, char targetPromptValue[]
    Returns: N/A
 */
 
@@ -817,7 +819,7 @@ void howToSetupPS1() {
 
 /*
    Function Description - Adds Content
-   Parameters: N/A
+   Parameters: NodePtr *sPtr
    Returns: N/A
 */
 
@@ -924,7 +926,7 @@ void addFeature(NodePtr *sPtr) {
 
 /*
    Function Description - Removes Content
-   Parameters: N/A
+   Parameters: NodePtr *sPtr
    Returns: N/A
 */
 
@@ -1070,7 +1072,7 @@ void removeColor(NodePtr *sPtr) {
 
 /*
    Function Description - Moves Content
-   Parameters: N/A
+   Parameters: NodePtr *sPtr
    Returns: N/A
 */
 
@@ -1157,11 +1159,6 @@ void moveContent(NodePtr *sPtr) {
 */
 
 void colorContent(NodePtr *sPtr) {
-    // Receive Prompt from above
-    // Parse Prompt
-    // Choose to Add or Remove Color
-        // Add - Choose Content -> Choose Color
-        // Remove - Choose Content -> Removed IF color exists
 
     char subMenuOption;
     do {
@@ -1185,7 +1182,7 @@ void colorContent(NodePtr *sPtr) {
 
 
 /*
-   Function Description - Writes the Prompt To A File
+   Function Description - Writes the Prompt To A Sequential Access File
    Parameters: NodePtr *sPtr
    Returns: N/A
 */
@@ -1262,7 +1259,7 @@ void writePromptToFile(NodePtr *sPtr) {
 }
 
 /*
-   Function Description - Reads the Prompt From File and Builds Linked List
+   Function Description - Reads the Prompt From A Sequential Access File and Builds Linked List
    Parameters: NodePtr *sPtr
    Returns: N/A
 */
@@ -1380,7 +1377,7 @@ void appendToList(NodePtr *sPtr, char value[]) {
 
 /*
    Function Description - Appends New Special Prompt Component to Linked List
-   Parameters: NodePtr *sPtr, char value[]
+   Parameters: NodePtr *sPtr, char specialVariableCode[], char specialVariableExample
    Returns: N/A
 */
 void appendSPToList(NodePtr *sPtr, char specialVariableCode[], char specialVariableExample[]) {
@@ -1542,7 +1539,7 @@ void deleteFromList(NodePtr *sPtr, char value[]) {
 
 
 /*
-   Function Description - Adds Color to Node in the List
+   Function Description - Adds Color to Component in the List
    Parameters: NodePtr *sPtr, char value[], char color[]
    Returns: N/A
 */
@@ -1609,7 +1606,7 @@ void removeColorFromComponent(NodePtr *sPtr, char value[]) {
 }
 
 /*
-   Function Description - Grabs and Holds a Node in Anticipation of Moving
+   Function Description - Grabs and Holds a Component Prior To Moving
    Parameters: NodePtr *sPtr, NodePtr *mPtr, char valueToFind[]
    Returns: N/A
 */
@@ -1674,7 +1671,7 @@ void insertToList(NodePtr *sPtr, NodePtr *mPtr, char whereToInsert[]) {
 }
 
 /*
-   Function Description - Builds Prompt for PS1
+   Function Description - Builds Prompt for Understanding PS1
    Parameters: NodePtr *sPtr
    Returns: N/A
 */
