@@ -12,6 +12,7 @@
     5. Add a user check before returning from Understanding PS1, Understanding PS1 Special Variables, and Setup Prompt on MacOS to give a chance to read without polluting the terminal.
     6. Add ability to generate a random prompt. Sorry, I also ran out of time to finish this. Hopefully I have demonstrated the fundamentals with the functionality that is available.
     7. Separate functions into different files/modules to improve readability.
+    8. Use dynamic values for special variable examples when showing the prompt. I am not certain where I would get username, hostname, time, etc, from the terminal in a c program.
 */
 
 // Headers
@@ -707,7 +708,7 @@ void understandingPS1() {
 
     puts("How is PS1 used?");
     puts("  The PS1 environment variable can be set two ways.");
-    puts("  For a temporary look, just paste the entire line line in a terminal.");
+    puts("  For a temporary look, just paste the entire line below in a terminal.");
     puts("  export PS1='\\u: '");
     puts("  You should see your username, followed by a colon and then a space.");
     puts("  For a more permanent solution, check out 'Setup Prompt on MacOS' in the main menu to learn more.");
@@ -1253,6 +1254,7 @@ void writePromptToFile(NodePtr *sPtr) {
             fclose(fPtr); // Close File
             puts("\nYour custom PS1 prompt was successfully saved to the prompts.txt file.");
             puts("\nThis custom PS1 prompt will be loaded when you select 'Edit An Existing Prompt'.");
+            puts("\nFor instructions on how to setup your custom prompt, visit 'Setup Prompt on MacOS' in the main menu.");
         }
 
     }
