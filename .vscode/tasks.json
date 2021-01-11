@@ -17,19 +17,31 @@
           "cwd": "${workspaceFolder}"
         },
         "problemMatcher": [],
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        },
+        "group": "build",
         "presentation": {
           "reveal": "silent"
         }
       },
       {
-        "label": "Open Terminal",
         "type": "shell",
-        "command": "osascript -e 'tell application \"Terminal\"\ndo script \"echo hello\"\nend tell'",
-        "problemMatcher": []
+        "label": "clang++ build active file",
+        "command": "/usr/bin/clang++",
+        "args": [
+          "-std=c++17",
+          "-stdlib=libc++",
+          "-g",
+          "${file}",
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": ["$gcc"],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
       }
     ]
 }
