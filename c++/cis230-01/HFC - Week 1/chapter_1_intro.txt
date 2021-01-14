@@ -16,7 +16,6 @@ Chapter 1 Introduction
         - Concept: A program is a set of instructions a computer follws in order to perform a task
         - Algorithm - a set of well defined steps for performing a task or solving a problem]
         - Machine Langauge - a sequence of binary numbers, which the CPU interprets as commands
-        - Program 1-1: Reference for Homework Task #1
         - Programming Languages
             - High Level - Easily understood by humans
                 - BASIC, C, C++, C#, COBOL, FORTRAN, Java, JavaScript, Pascal, Python, Ruby, Visual Basic
