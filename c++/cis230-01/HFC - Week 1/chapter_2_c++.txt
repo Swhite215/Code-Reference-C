@@ -1,0 +1,40 @@
+Chapter 2 Introduction
+
+    a. Examples Parts of a C++ Program
+        - // Comment
+        - # include <iostream> - pre-processor directive
+        - using namespace std - organizes names of program entities
+        - int main - beginning of a function, entry point to program
+        - cout << "Programming is great fun!" - displays message on the screen
+    b. The cout object - cout.cpp
+    c. The #include Directive - include.cpp
+    d. Variables and Assignment - variables_assignment.cpp
+    e. Literals - variables_assignment.cpp
+    f. Identifiers
+        - alignas, const, for, private, throw
+        - alignof, constexper, friend, protected, true
+        - and, const_cast, goto, public, try
+        - and_eq, continue, if, register, typedef
+        - asm, decltype, inline, reinterpret_cast, typeid
+        - auto, default, int, return, typename
+        - bitand, delete, long, short, union
+        - bitor, do, mutable, signed, unsigned
+        - bool, double, namespace, sizeof, using
+        - break, dynamic_cast, new, static, virtual
+        - case, else, noexcep, static_assert, void
+        - catch, enum, not, static_cast, volatile
+        - char, explicit, not_eq, struct, wchar_t
+        - char16_t, export, nullptr, switch, while
+        - char32_t, extern, operator, template, xor
+        - class, false, or, this, xor_eq
+        - compl, float, or_eq, thread_local
+    g. Integer Data Types - lesson_01_01132021.cpp
+    h. Floating Point Data Types - lesson_01_01132021.cpp
+    i. The cahr Data Type - lesson_01_01132021.cpp
+    j. The C++ string Class - string_class.cpp
+    k. The bool Dat Type - bool.cpp
+    l. Determing the Size of a Data Type - sizeof.cpp
+    m. More on Varaibles Assignment and Initialization
+    n. Scope
+    o. Arithmetic Operators - arithmetic.cpp
+
