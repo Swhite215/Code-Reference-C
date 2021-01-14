@@ -52,6 +52,14 @@ int main()
   std::cout<<"The min value of a unsigned long int is "<<0<<" and the max value is "<<4294967295;
   std::cout<<std::endl;
 
+  long long int llint; // 8 Bytes | −9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+  std::cout<<"The min value of a long long int is -"<<9223372036854775808<<" and the max value is "<<9223372036854775808;
+  std::cout<<std::endl;
+
+  unsigned long long int llint; // 8 Bytes | 0 to 8,446,744,073,709,551,615
+  std::cout<<"The min value of a unsignd long long int is -"<<0<<" and the max value is "<<8446744073709551615;
+  std::cout<<std::endl;
+
   float myFloat = 3.145F;
 
   double myDouble;
@@ -71,6 +79,9 @@ int main()
   char myChar = static_cast<char>(66);
   std::cout<<"My character is "<<myChar;
   std::cout<<std::endl;
+
+  // 'A' char is stored as A. which is actually 65
+  // "A" string literal is stored as A -> \0, which is actually 65 0
 
   // Constants
   // C - #define PI 3.14
@@ -126,6 +137,7 @@ int main()
     std::cout<<std::endl;
  }
 
+ auto value = 129081298192; // Auto Example
 
   return 0;
 }
