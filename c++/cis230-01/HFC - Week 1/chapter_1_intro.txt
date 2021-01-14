@@ -1,0 +1,64 @@
+Chapter 1 Introduction
+
+    a. Why Program
+    b. Computer Systems: Hardware and Software
+        - Concept: All computer systems consist of similar hardware devices and software components.
+        - Hardware
+            - CPU - Central Processing Unit - Fetch -> Decode -> Exceute
+            - RAM - Primary Memory, Random Access Memory
+            - HDD/SDD - Secondary Memory
+            - I/O Devices
+        _ Software
+            - Operating Systems
+            - Utility Programs
+            - Software Develpment Tool
+    c. Programs and Programming Languages
+        - Concept: A program is a set of instructions a computer follws in order to perform a task
+        - Algorithm - a set of well defined steps for performing a task or solving a problem]
+        - Machine Langauge - a sequence of binary numbers, which the CPU interprets as commands
+        - Program 1-1: Reference for Homework Task #1
+        - Programming Languages
+            - High Level - Easily understood by humans
+                - BASIC, C, C++, C#, COBOL, FORTRAN, Java, JavaScript, Pascal, Python, Ruby, Visual Basic
+            - Low Level - close to the level of the machine, resembles numeric machine language more than natural human language
+        - Source, Object, and Executable Code
+            - Source Code - statements written by programmer
+            - Object Code - translated machine language instructions
+            - Executable Code - object wfile with necessary library routines
+        - IDE - Integrated Development Environment
+    d, What is a program made of?
+        - Langauge Elements
+            - Key Word - words with special meaning
+            - Programmer Defined Identifiers - variables
+            - Operators - perform operations on operands
+            - Punctuation - mark beginning or end of statement
+            - Syntax
+    e. Input, Processing, and Output
+        - Input - information a program collects from the outside world
+            - std::cin>>hours or std::cin>>rate
+        - Processing
+        - Output - information that a program sends to the outside world
+            - std::cout<<"What is your name?"
+    f. The Programming Process
+        - Designing and Creating a Program
+            - Define what the progam is to do
+            - Visualize the program running on the computer
+            - Use design tools to create a model of the program
+                - Hierarchy Charts, Flowcharts and Pseudocode
+            - Check the model for logical errors
+            - Write the program source code
+            - Compile the source code
+            - Correct any errors found during compilation
+            - Link the program to create an executable file
+            - Run the program using test data for input
+            - Correct any errors found while running the program
+            - Validate the results of the program
+        - What is software engineering?
+            - The complete process of crafting computer software, including designing, writing, testing, debugging, documenting, modifying and maintaining complex software development projects
+            - Tools
+                - Program Specifications
+                - Charts and Diagrams of Screen Output
+                - Hiearchy Charts
+                - Pseudocode
+                - Examples of Expected Input and Desired Output
+                - Tesing Software
