@@ -1,4 +1,4 @@
-Chapter 2 Introduction
+Chapter 3 Expressions and Interactivity
 
     a. The cin Object - cin.cpp
     b. Mathematical Expressions - math_expressions.cpp
