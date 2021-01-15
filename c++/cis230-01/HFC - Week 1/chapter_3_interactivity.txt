@@ -1,0 +1,21 @@
+Chapter 2 Introduction
+
+    a. The cin Object - cin.cpp
+    b. Mathematical Expressions - math_expressions.cpp
+    c. Data Type Conversion and Type Casting - casting.cpp
+        - Data Type Ranking
+            - long double, double, float, unsigned long long int, long long int, unsigned long int, long int, unsigned int, int
+        - Conversion Rules
+            - Promoted - converted to a higher data type
+            - Demoted - converted to a lower data type
+            - Rule 1 - char, short, and unsigned short values are automatically promoted to int values
+            - Rule 2 - when an operator works with two values of different data types, the lower-ranking value is promoted to the type of the higher ranking value
+            - Rule 3 - when the final value of an expression is assigned to a variable, it will be converted to the data type of that variable
+            - Imporatnt - if variable receiving the value is of a lower data type than the value, the value will be demoted to the type of the variable, and in some cases part of the value can be lost
+    d. Overflow and Underflow - under_over_flow.cppw
+    e. Named Constants - constants.cpp
+    f. Multiple and Combined Assignment - multi_assignment.cpp
+    g. Formatting Output - format_output.cpp
+    h. Working with Characters and Strings - chars_strings.cpp
+    i. More Mathematical Library Functions - math_library.cpp
+    j. Random Numbers - random.cpp
