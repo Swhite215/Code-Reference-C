@@ -1,4 +1,4 @@
-Chapter 1 Introduction
+Chapter 1 Introduction to Computers and Programming
 
     a. Why Program
     b. Computer Systems: Hardware and Software
