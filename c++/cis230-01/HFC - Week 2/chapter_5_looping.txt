@@ -1,0 +1,16 @@
+Chapter 5 Looping
+
+    a. The while Loop - looping.cpp
+    b. Using the while Loop for Input Validation - validation.cpp
+    c. Increment and Decrement Operators - looping.cpp
+    d. Counters - looping.cpp
+    e. Keeping a Running Total - looping.cpp
+    f. Sentinels - looping.cpp
+    g. The do-while Loop - looping.cpp
+    h. The for Loop - looping.cpp
+    i. Deciding Which Loop - looping.cpp
+    j. Nested Loops - looping.cpp
+    k. Breaking Out of Loops - looping.cpp
+    l. Using Files for Data Storage - files_storage.cpp
+        - Types - Text or Binary
+        - File Access Methods - Sequential or Random/Direct Access
