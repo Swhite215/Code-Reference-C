@@ -45,6 +45,7 @@ int main() {
         std::cout<<"Countdown: "<<i<<std::endl;
     }
 
+    // Nested Loop
     for (int j = 0; j < 2; j++) {
         for (int d = 0; d < 3; d++) {
 
@@ -56,6 +57,13 @@ int main() {
             
             std::cout<<"J is: "<<j<<" and D is: "<<d<<std::endl;
         }
+    }
+
+    // Range Base For Loop or ForEach
+    int temp[3] = {35, 41, 29};
+
+    for (int x : temp) {
+        std::cout<<x<<std::endl;
     }
 
     return 0;
