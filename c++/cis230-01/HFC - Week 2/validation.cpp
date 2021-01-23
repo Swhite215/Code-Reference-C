@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <limits>
+#include <sstream>
 
 int main() {
 
@@ -12,7 +14,7 @@ int main() {
     while (std::cin.fail()) {
 
         std::cin.clear();
-        std::cin.ignore(10000, '\n');
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         std::cout<<"Please enter a valid number"<<std::endl;
         std::cin>>num1;
@@ -20,7 +22,7 @@ int main() {
 
     std::cout<<"You entered: "<<num1<<std::endl;
 
-    std::cin.ignore(10000, '\n'); // Clear the Buffer
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the Buffer
 
     // Char Validation
     char letter1;
@@ -29,13 +31,13 @@ int main() {
 
     while (letter1 != 'A' && letter1 != 'B' && letter1 != 'C') {
         std::cin.clear();
-        std::cin.ignore(10000, '\n');
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         std::cout<<"Please enter a valid character i.e. (A, B, or C): ";
         std::cin.get(letter1);
     }
 
-    std::cin.ignore(10000, '\n'); // Clear the Buffer
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the Buffer
 
     std::cout<<"You entered: "<<letter1<<std::endl;
 
