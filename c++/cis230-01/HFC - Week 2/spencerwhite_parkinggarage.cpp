@@ -1,8 +1,10 @@
 /*
    Spencer White
-   CIS 230-02 - Parking Garage Assignment #1
+   CIS 230-02 - Parking Garage Assignment
    Calculates parking garage fee
 */
+
+// Potential Issue: I am allowing a user to enter 0 hours to simulate the scenario they entered and immediately left parking garage
 
 #include <iostream>
 #include <string>
@@ -76,7 +78,7 @@ float getHoursParked() {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        std::cout<<"Please enter a valid number of hours (1.00 - 24): ";
+        std::cout<<"Please enter a valid number of hours (0 - 24): ";
         std::cin>>hoursParked;
     }
 
