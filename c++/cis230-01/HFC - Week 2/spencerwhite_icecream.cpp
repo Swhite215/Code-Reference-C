@@ -1,6 +1,6 @@
 /*
    Spencer White
-   CIS 230-02 - Ice Cream Progam
+   CIS 230-02 - Ice Cream Sales Assigment
    Reports on ice cream sold this month
 */
 
@@ -29,16 +29,17 @@ int main() {
         numberSold[i] = getScoops(flavors[i]);
     }
 
+    // One By One - Print Scoops Sold For Each Flavor
+    for (int i = 0; i < 5; i++) {
+        std::cout<<flavors[i]<<" sold "<<numberSold[i]<<" scoops this month."<<std::endl;
+    }
+
     // Calculate Total Scoops Sold
     int totalSold = calculateTotalScoops(numberSold, 5);
 
     // Log Total Scoops Scold
     std::cout<<"The total number of scoops sold this month is: "<<totalSold<<std::endl;
 
-    // One By One - Print Scoops Sold For Each Flavor
-    for (int i = 0; i < 5; i++) {
-        std::cout<<flavors[i]<<" sold "<<numberSold[i]<<" scoops this month."<<std::endl;
-    }
 
     // Worst Selling Flavors
     std::string worstSelling[5];
@@ -85,10 +86,10 @@ int main() {
     } else if (min == max) {
         std::cout<<"There were no best or worst flavors for this month. All flavors sold an equal amount!"<<std::endl;
     }else {
-        // Log Best Selling Flavors
+        // Log Best Selling Flavor(s)
         logBestSelling(numberOfBest, bestSelling);
 
-        // Log Worst Selling Flavors
+        // Log Worst Selling Flavor(s)
         logWorstSelling(numberOfWorst, worstSelling);
     }
 
