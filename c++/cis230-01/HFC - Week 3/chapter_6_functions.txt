@@ -1,0 +1,27 @@
+Chapter 6 Functions
+
+    a. Modular Programming
+    b. Defining and Calling Functions
+    c. Function Prototypes
+    d. Sending Data into a Function
+    e. Passing Data by Value
+    f. The return Statement
+    g. Returning a Value from a Function
+    h. Returning a Boolean Value
+    i. Using Function in a Menu-Driven Program
+    j. Local and Global Variables - lesson_03_01272021.cpp
+    k. Static Local Variables - lesson_03_01272021.cpp
+    l. Default Arguments - lesson_03_01272021.cpp
+    m. Using Reference Variables as Parameters - lesson_03_01272021.cpp
+        - Determining When to Use References or Pass By Value
+            - If argument is a constant, it must be passed by value
+            - If variable argument should not have its value changed, it should be passed by value
+            - When exactly one value needs to be sent back from a function, it should generally be returned with a return statement
+            - When two or more variables passed as arguments need to have their values changed, they should be passed by reference
+            - When a copy of an argument cannot be reasonably or correctly be made, such as a file stream, it must be passed by referenc
+        - NOTE - Passing Files to Functions
+    n. Overloading Functions - lesson_03_01272021.cpp
+    o. The exit() Function
+    p. Stubs and Drivers
+    q. Assignments
+        - Bookshelf Program - Overloaded and Default Separate
