@@ -25,3 +25,9 @@ Chapter 6 Functions
     p. Stubs and Drivers
     q. Assignments
         - Bookshelf Program - Overloaded and Default Separate
+    r. Appendix E - Object Oriented
+    s. Appendix F - UML Design
+    t. Appendix G - Compiling and Link Multiple Files
+        - Class Specification or Class Declaration - Class.h
+        - Class Implementation - Class.cpp
+        - Client Functions that use Class - #inclue Class.h in .cpp
