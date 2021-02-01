@@ -31,6 +31,7 @@ class RetailItem {
             isValid = 0;
         }
 
+
         // Non-Default Constructor
         RetailItem(std::string n, std::string d, int u, double p, int r, bool v) {
             name = n;
@@ -65,6 +66,9 @@ void addItemToInventory(int &itemCount, RetailItem items[]);
 void getItemData(std::string &n, std::string &d, int &u, double &p, int &r);
 void displayAllItems(RetailItem items[], int itemCount);
 void checkForItem(RetailItem items[], int itemCount);
+void displayReorderItems(RetailItem items[], int itemCount);
+void displayItemNames(RetailItem items[]);
+void updateItem(RetailItem items[], int itemCount);
 
 int main() {
 
@@ -96,13 +100,13 @@ int main() {
                 checkForItem(retailItems, itemCount);
                 break;
             case 'D':
-                std::cout<<"DISPLAY ITEMS FOR REORDER"<<std::endl;
+                displayReorderItems(retailItems, itemCount);
                 break;
             case 'E':
-                std::cout<<"UPDATE AN ITEM"<<std::endl;
+                updateItem(retailItems, itemCount);
                 break;
             case 'Q':
-                std::cout<<"QUIT"<<std::endl;
+                std::cout<<"Exiting the program..."<<std::endl;
                 break;
         }
 
@@ -232,12 +236,12 @@ void getItemData(std::string &n, std::string &d, int &u, double &p, int &r) {
 
 /*
    Function Description: Display All Items in Inventory
-   Parameters: RetailItem items[]
+   Parameters: RetailItem items[], int itemCount
    Returns: N/A
 */
 void displayAllItems(RetailItem items[], int itemCount) {
     std::cout<<std::endl;
-    std::cout<<"Store Inventory List"<<std::endl;
+    std::cout<<"Start of Store Inventory List"<<std::endl;
 
     if (itemCount == 0) {
         std::cout<<"There are no items in inventory to display..."<<std::endl;
@@ -252,11 +256,13 @@ void displayAllItems(RetailItem items[], int itemCount) {
             }
         }
     }
+
+    std::cout<<"End of Store Inventory List"<<std::endl;
 }
 
 /*
    Function Description: Checks if Item is in Inventory
-   Parameters: RetailItem items[]
+   Parameters: RetailItem items[], int itemCount
    Returns: N/A
 */
 void checkForItem(RetailItem items[], int itemCount) {
@@ -283,5 +289,88 @@ void checkForItem(RetailItem items[], int itemCount) {
                 break;
             }
         }
+    }
+}
+
+/*
+   Function Description: Display Items to Reorder
+   Parameters: RetailItem items[], int itemCount
+   Returns: N/A
+*/
+void displayReorderItems(RetailItem items[], int itemCount) {
+    std::cout<<std::endl;
+    std::cout<<"Start of Inventory to Reorder List"<<std::endl;
+
+    if (itemCount == 0) {
+        std::cout<<"There are no items in inventory to reorder..."<<std::endl;
+    } else {
+        for (int i = 0; i < 20; i++) {
+            if (items[i].getValid() && (items[i].getUnits() <= items[i].getReorderQuantity())) {
+                std::cout<<i<<"). "<<items[i].getName()<<std::endl;
+            }
+        }
+    }
+
+    std::cout<<"End of Inventory to Reorder List"<<std::endl;
+}
+
+/*
+   Function Description: Display Item Names
+   Parameters: RetailItem items[], int itemCount
+   Returns: N/A
+*/
+void displayItemNames(RetailItem items[]) {
+    std::cout<<std::endl;
+    std::cout<<"Current Inventory Items"<<std::endl;
+
+    for (int i = 0; i < 20; i++) {
+        if (items[i].getValid()) {
+            std::cout<<i<<"). "<<items[i].getName()<<std::endl;
+        }
+    }
+}
+
+/*
+   Function Description: Updates an Inventory Item
+   Parameters: RetailItem items[], int itemCount
+   Returns: N/A
+*/
+void updateItem(RetailItem items[], int itemCount) {
+
+    int indexOfItemToUpdate = 0;
+
+    if (itemCount == 0) {
+        std::cout<<"There are no items to update..."<<std::endl;
+    } else {
+        // Get Item to Update
+        displayItemNames(items);
+
+        std::cout<<"Please enter the number of the item you wish to update [0-"<<itemCount - 1<<"]: ";
+        std::cin>>indexOfItemToUpdate;
+
+        while (std::cin.fail() || indexOfItemToUpdate < 0 || indexOfItemToUpdate >= itemCount) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            std::cout<<"Please enter a valid number [0-"<<itemCount - 1<<"]: ";
+            std::cin>>indexOfItemToUpdate;
+        }
+
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        // Get New Inputs
+        std::string name;
+        std::string description;
+        int unitsOnHand;
+        double price;
+        int reorderQuantity;
+        bool isValid = true;
+
+        getItemData(name, description, unitsOnHand, price, reorderQuantity);
+
+        // Set New Value
+        RetailItem newItem = RetailItem(name, description, unitsOnHand, price, reorderQuantity, isValid);
+        items[indexOfItemToUpdate] = newItem;
+
     }
 }
