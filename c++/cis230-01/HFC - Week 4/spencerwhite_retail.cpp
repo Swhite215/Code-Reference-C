@@ -179,7 +179,7 @@ void addItemToInventory(int &itemCount, RetailItem items[]) {
 
 /*
    Function Description: Gets Information About Item
-   Parameters: std::string description, int unitsOnHand, double price, int reorderQuantity
+   Parameters: std::string name, std::string description, int unitsOnHand, double price, int reorderQuantity
    Returns: N/A
 */
 void getItemData(std::string &n, std::string &d, int &u, double &p, int &r) {
