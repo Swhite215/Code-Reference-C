@@ -44,6 +44,28 @@
           "kind": "build",
           "isDefault": true
         }
+      },
+      {
+        "type": "shell",
+        "label": "clang++ build project example-project",
+        "command": "/usr/bin/clang++",
+        "args": [
+          "-g",
+          "${fileDirname}/address.cpp",
+          "${fileDirname}/userfile.cpp",
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [
+          "$gcc"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
       }
     ]
 }
