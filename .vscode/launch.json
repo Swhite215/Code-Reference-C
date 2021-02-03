@@ -27,6 +27,14 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "preLaunchTask": "clang++ build project example-project"
+        },
+        {
+            "name": "clang - Build and debug spencerwhite_publishedbook",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "preLaunchTask": "clang++ build spencerwhite_publishedbook"
         }
     ]
 }

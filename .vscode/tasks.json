@@ -66,6 +66,30 @@
           "kind": "build",
           "isDefault": true
         }
+      },
+      {
+        "type": "shell",
+        "label": "clang++ build spencerwhite_publishedbook",
+        "command": "/usr/bin/clang++",
+        "args": [
+          "-g",
+          "${fileDirname}/Author.cpp",
+          "${fileDirname}/Publisher.cpp",
+          "${fileDirname}/Book.cpp",
+          "${fileDirname}/main.cpp",
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [
+          "$gcc"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
       }
     ]
 }
