@@ -113,7 +113,7 @@ void getUserInput(std::string &woodType, int &numberOfShelves, char &wantGlassWi
 /*
 
    Function Description - Calculates bookshelf cost without glass windowed doors
-   Parameters: std::string &woodType, int &numberOfShelves
+   Parameters: std::string woodType, int numberOfShelves
    Returns: float totalCost
 */
 float calculateCost(std::string woodType, int numberOfShelves) {
@@ -147,7 +147,7 @@ float calculateCost(std::string woodType, int numberOfShelves) {
 
 /*
    Function Description - Calculates bookshelf cost with glass windowed doors
-   Parameters: std::string &woodType, int &numberOfShelves
+   Parameters: std::string woodType, int numberOfShelves, int numberOfGlassWindows
    Returns: float totalCost
 */
 float calculateCost(std::string woodType, int numberOfShelves, int numberOfGlassWindows) {
@@ -171,11 +171,11 @@ float calculateCost(std::string woodType, int numberOfShelves, int numberOfGlass
         totalCost += mahoganyCost;
     }
 
-    // Calcualte Shelf Cost
+    // Calculate Shelf Cost
     float costForShelves = numberOfShelves * shelfCost;
     totalCost += costForShelves;
 
-    // Calcualte Additional Door Cost
+    // Calculate Additional Door Cost
     float costForDoors = numberOfGlassWindows * windowDoorCost;
     totalCost += costForDoors;
 
