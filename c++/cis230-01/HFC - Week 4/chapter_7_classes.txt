@@ -1,0 +1,18 @@
+Chapter 7 Introduction to Classes and Objects
+
+    a. Abstract Types
+    b. Object-Oriented Programming
+    c. Introduction to Classes - spencerwhite_publishedbook/Book.h
+    d. Creating and Using Objects - spencerwhite_publishedbook/main.cpp
+    e. Defining Member Functions - spencerwhite_publishedbook/Book.cpp
+    f. Constructors - spencerwhite_publishedbook/Book.cpp
+    g. Destructors - destructor.cpp
+    h. Private Member Functions - spencerwhite_publishedbook/Book.h
+    i. Passing Objects to Functions - spencerwhite_retail.cpp
+    j. Object Composition - spencerwhite_publishedbook/Book.h
+    k. Separating Class Specification, Implementation, and Client Code - spencerwhite_publishedbook
+    l. Structures
+    m. More About Enumerated Types
+    n. Home Software Company OOP Case Study
+    o. Introduction to Object-Oriented Analysis and Design
+    p. Screen Control
