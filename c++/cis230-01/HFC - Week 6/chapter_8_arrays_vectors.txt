@@ -1,0 +1,17 @@
+Chapter 8 Arrays and Vectors
+
+    a. Arrays Hold Multiple Values - arrays.cpp
+    b. Accessing Array Elements - arrays.cpp
+    c. Inputting and Displaying Array Data - arrays.cpp
+    d. Array Initialization - arrays.cpp
+    e. The Range-Based for loop - arrays.cpp
+    f. Processing Array Contents - arrays.cpp
+    g. Using Parallel Arrays - arrays.cpp
+    h. The typedef Statement - typedef.cpp
+    i. Arrays as Function Arguments - arrays.cpp
+    j. Two-Dimensional Arrays - arrays.cpp
+    k. Arrays with Three or More Dimensions - arrays.cpp
+    l. Introduction to the STL Vector - vectors.cpp
+        - STL Data Types
+            - Sequence Container - organizes data in a sequential fashion
+            - Associative Container - organizes data with keys
