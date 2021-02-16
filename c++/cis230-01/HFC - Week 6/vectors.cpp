@@ -39,6 +39,12 @@ int main() {
     // Removing Elements from End - pop_back()
     numbers.pop_back();
 
+    for (int i = 0; i < numbers.size(); i++) {
+        if (i == 5) {
+            numbers.erase(numbers.begin() + i - 1);
+        }
+    }
+
     // Clearing a Vector
     numbers.clear();
 
