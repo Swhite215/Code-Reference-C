@@ -1,3 +1,9 @@
+/*
+   Spencer White
+   CIS 230-02 - Date
+   Simple Data Class
+*/
+
 #include <iostream>
 
 class Date {
