@@ -1,0 +1,13 @@
+Chapter 9 Searching, Sorting, and Algorithm Analysis
+
+    a. Linear Search - algorithms/linear_search.cpp
+    b. Binary Search - algorithms/binary_search.cpp
+        - Power of 2 is used to calculate the maximum number of comparisons the binary search will need to make on an array of any size
+        - Simply find the smallest power of 2 that is greater than the number of elements in the array
+        - Example - 50,000 elements, n must be 16, because 2^16 = 65,536
+    c. Searching an Array of Objects
+    d. The Bubble Sort - algorithms/bubble_sort.cpp
+    e. A More Efficient Bubble Sort
+    f. The Selection Sort - algorithms/selection_sort.cpp
+    g. Sorting and Searching Vectors
+    h. Introduction to Analysis of Algorithms
