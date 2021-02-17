@@ -1,3 +1,9 @@
+/*
+   Spencer White
+   CIS 230-02 - Person
+   Simple Person Class
+*/
+
 #include <iostream>
 
 class Person {
