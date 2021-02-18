@@ -22,7 +22,7 @@ class Date {
         int validateDate(int m, int d, int y) {
             switch(m){
                 case 2:
-                    if (d > 28) {
+                    if (d > 28 && (y % 4 != 0)) {
                         return 0;
                     }
                     break;
@@ -76,11 +76,16 @@ int main() {
     Date date9 = Date(9, 31, 1999);
     Date date10 = Date(11, 31, 1999);
     Date date11 = Date(2, 31, 1999);
+    Date date19 = Date(2, 29, 1993);
 
     // Tests - Successes
     Date date12 = Date(2, 15, 1999);
     Date date13 = Date(1, 31, 2023);
     Date date14 = Date(4, 30, 2023);
+    Date date15 = Date(2, 29, 2000);
+    Date date16 = Date(2, 29, 2004);
+    Date date17 = Date(2, 29, 2020);
+    Date date18 = Date(2, 29, 1996);
 
     return 0;
 }
