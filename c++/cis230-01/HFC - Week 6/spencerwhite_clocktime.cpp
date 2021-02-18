@@ -116,12 +116,6 @@ int main() {
 
     return 0;
 }
-/*
-   Function Description: Stores Test
-   Parameters: std::string expectedValue, std::string message
-   Returns: N/A
-*/
-
 
 /*
    Function Description: Performs an Assertion Equality Test
@@ -131,12 +125,10 @@ int main() {
 void assertThat(ClockTime t, std::string expected, std::string testName) {
     if (t.display() == expected) {
         // Store In Passing
-        // std::cout<<"Test: "<<testName<<" - "<<"Status: Passed"<<std::endl;
         passingTestList.push_back((t.display() + " - " + "Test: " + testName));
         passingTests++;
     } else {
         // Store In Failure
-        // std::cout<<"Test: "<<testName<<" - "<<"Status: Failed"<<std::endl;
         failingTestList.push_back((t.display() + " - " + "Test: " + testName));
         failingTests++;
     }
