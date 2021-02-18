@@ -35,6 +35,14 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "preLaunchTask": "clang++ build spencerwhite_publishedbook"
+        },
+        {
+            "name": "clang - Build and debug spencerwhite_pizza",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "preLaunchTask": "clang++ build spencerwhite_pizza"
         }
     ]
 }

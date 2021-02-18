@@ -90,6 +90,29 @@
           "kind": "build",
           "isDefault": true
         }
+      },
+      {
+        "type": "shell",
+        "label": "clang++ build spencerwhite_pizza",
+        "command": "/usr/bin/clang++",
+        "args": [
+          "-g",
+          "${fileDirname}/Pizza.cpp",
+          "${fileDirname}/Order.cpp",
+          "${fileDirname}/main.cpp",
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [
+          "$gcc"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
       }
     ]
 }
