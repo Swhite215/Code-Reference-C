@@ -5,7 +5,6 @@
 */
 
 #include <iostream>
-
 class Person {
     private:
         std::string lastName;
