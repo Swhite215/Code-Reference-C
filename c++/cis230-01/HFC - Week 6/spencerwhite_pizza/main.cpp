@@ -5,6 +5,7 @@
 */
 
 #include <iostream>
+#include <algorithm>
 #include "Order.h"
 
 // Function Prototypes
@@ -23,6 +24,7 @@ int main() {
     int numberOfToppings;
 
     std::cout<<"---- Welcome to C++ Style Pizzas ----"<<std::endl;
+
     // Get Customer Information
     getCustomerInfo(customerName, phoneNumber);
 
@@ -73,19 +75,30 @@ void getPizzaInfo(std::string &type, std::string &size, int &toppings) {
     std::cout<<"Would you like deep dish, pan, or hand tossed? ";
     getline(std::cin, type);
 
+    // Convert to Lowercase
+    transform(type.begin(), type.end(), type.begin(), ::tolower);
 
     while (type != "deep dish" && type != "pan" && type != "hand tossed") {
         std::cout<<"Please enter either deep dish, pan, or hand tossed: ";
         getline(std::cin, type);
+
+        // Convert to Lowercase
+        transform(type.begin(), type.end(), type.begin(), ::tolower);
     }
 
     // Get Size
     std::cout<<"Would you like deep small, medium, or large? ";
     getline(std::cin, size);
 
+    // Convert to Lowercase
+    transform(size.begin(), size.end(), size.begin(), ::tolower);
+
     while (size != "small" && size != "medium" && size != "large") {
         std::cout<<"Please enter either small, medium, or large: ";
         getline(std::cin, size);
+
+         // Convert to Lowercase
+        transform(size.begin(), size.end(), size.begin(), ::tolower);
     }
 
     // Get Number of Toppings
