@@ -28,7 +28,7 @@ float Pizza::calculatePrice() {
     } else if (size == "medium") {
         price += 14.00;
     } else {
-        price += 17;
+        price += 17.00;
     }
 
     // Add Toppings Charge
