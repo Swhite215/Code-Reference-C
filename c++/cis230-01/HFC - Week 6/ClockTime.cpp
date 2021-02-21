@@ -92,7 +92,7 @@ int main() {
     // Tests for All Hour Values in Range [13-24)
     for (int i = 13; i < 24; i++) {
         std::string hour = std::to_string(i - 12);
-        assertThat(ClockTime(i, 10), hour + ":10 PM", "ClockTime(" + hour + "," + "10)" + ".display()");
+        assertThat(ClockTime(i, 10), hour + ":10 PM", "ClockTime(" + std::to_string(i) + "," + "10)" + ".display()");
     }
 
     // Tests for 0 Hour Values
@@ -109,9 +109,10 @@ int main() {
     assertThat(ClockTime(500, 10), "11:10 PM", "ClockTime(500, 10).display()");
 
     // Test for Invalid Minute Input
-    assertThat(ClockTime(12, -1), "12:59 PM", "ClockTime(12, -1).display()");
+    assertThat(ClockTime(15, -1), "3:59 PM", "ClockTime(12, -1).display()");
     assertThat(ClockTime(5, 99), "5:59 AM", "ClockTime(5, 99).display()");
 
+    // Display Test Report
     displayTestReport();
 
     return 0;
@@ -125,11 +126,11 @@ int main() {
 void assertThat(ClockTime t, std::string expected, std::string testName) {
     if (t.display() == expected) {
         // Store In Passing
-        passingTestList.push_back((t.display() + " - " + "Test: " + testName));
+        passingTestList.push_back(("Test: " + testName + " - Result: " + t.display()));
         passingTests++;
     } else {
         // Store In Failure
-        failingTestList.push_back((t.display() + " - " + "Test: " + testName));
+        failingTestList.push_back(("Test: " + testName + " - Result: " + t.display()));
         failingTests++;
     }
 
@@ -144,10 +145,14 @@ void assertThat(ClockTime t, std::string expected, std::string testName) {
 void displayTestReport() {
     std::cout<<"  Report for 12hr HH:MM AM/PM Test Suite  "<<std::endl;
     std::cout<<"    Total Tests: "<<numberOfTests<<std::endl;
+
+    // Log Passing Tests
     std::cout<<"    Passing Tests: "<<passingTests<<std::endl;
     for (std::string x : passingTestList) {
         std::cout<<"        "<<x<<std::endl;
     }
+
+    // Log Failing Tests
     std::cout<<"    Failing Tests: "<<failingTests<<std::endl;
     for (std::string x : failingTestList) {
         std::cout<<"        "<<x<<std::endl;
