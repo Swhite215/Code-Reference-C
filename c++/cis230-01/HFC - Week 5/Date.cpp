@@ -1,7 +1,7 @@
 /*
    Spencer White
    CIS 230-02 - Date
-   Simple Data Class
+   Simple Date Class
 */
 
 #include <iostream>
@@ -77,6 +77,7 @@ int main() {
     Date date10 = Date(11, 31, 1999);
     Date date11 = Date(2, 31, 1999);
     Date date19 = Date(2, 29, 1993);
+    Date date20 = Date(2, 23, 1899);
 
     // Tests - Successes
     Date date12 = Date(2, 15, 1999);
@@ -86,6 +87,7 @@ int main() {
     Date date16 = Date(2, 29, 2004);
     Date date17 = Date(2, 29, 2020);
     Date date18 = Date(2, 29, 1996);
+    Date date21 = Date(12, 31, 2021);
 
     return 0;
 }
