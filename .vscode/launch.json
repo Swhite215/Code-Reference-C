@@ -43,6 +43,14 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "preLaunchTask": "clang++ build spencerwhite_pizza"
+        },
+        {
+            "name": "clang - Build and debug spencerwhite_battle",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "preLaunchTask": "clang++ build spencerwhite_battle"
         }
     ]
 }
