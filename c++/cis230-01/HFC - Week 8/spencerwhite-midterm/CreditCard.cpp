@@ -20,6 +20,11 @@ CreditCard::CreditCard(std::string n, std::string a, std::string c , std::string
     }
 }
 
+/*
+   Function Description: Determines Limit and Interest Based on Credit Score
+   Parameters: N/A
+   Returns: N/A
+*/
 void CreditCard::determineLimitAndInterest() {
 
     // Get Credit Score
@@ -40,7 +45,15 @@ void CreditCard::determineLimitAndInterest() {
         interestPercentage = .085;
     }
 
+}
 
+/*
+   Function Description: Returns Account Number
+   Parameters: N/A
+   Returns: long int accountNumber
+*/
+long int CreditCard::getAccountNumber() {
+    return accountNumber;
 }
 
 long int CreditCard::newAccountNumber = 100200;

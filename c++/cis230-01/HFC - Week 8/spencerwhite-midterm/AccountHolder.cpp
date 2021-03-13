@@ -15,6 +15,11 @@ AccountHolder::AccountHolder(std::string n, std::string a, std::string c, std::s
     ssn = ss;
 }
 
+/*
+   Function Description: Generates and Returns a Credit Score
+   Parameters: N/A
+   Returns: int creditScore
+*/
 int AccountHolder::getCreditScore() {
 
     // Generate Random Number as Credit Score
@@ -24,10 +29,20 @@ int AccountHolder::getCreditScore() {
     return creditScore;
 }
 
+/*
+   Function Description: Returns Credit Score
+   Parameters: N/A
+   Returns: int creditScore
+*/
 int AccountHolder::getCScore() {
     return creditScore;
 }
 
+/*
+   Function Description: Displays Account Name and Address
+   Parameters: N/A
+   Returns: N/A
+*/
 void AccountHolder::displayInfo() {
     std::cout<<name<<" lives at "<<address<<"."<<std::endl;
 }
