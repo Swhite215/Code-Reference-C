@@ -16,5 +16,9 @@ class CreditCard {
     public:
         CreditCard(std::string n, std::string a, std::string c , std::string s, int z, long int ss);
         void determineLimitAndInterest();
+        long int getAccountNumber();
+        void addTransaction(Transaction tx);
+        void displayInfo();
+        void printStatement();
 
 };
