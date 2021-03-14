@@ -11,6 +11,7 @@ void getMainMenuOption(char &mainMenuOption);
 CreditCard createAccount();
 void getAccountNumber(long int &accountNumber);
 void checkAndDisplayAccountDetails(long int accountNumber, std::vector<CreditCard> creditCards);
+void checkAndAddTransaction(long int accountNumber, std::vector<CreditCard> &creditCards);
 
 int main() {
 
@@ -34,12 +35,18 @@ int main() {
                 }
                 break;
             case 'B':
-                long int accountNumber;
-                getAccountNumber(accountNumber);
-                checkAndDisplayAccountDetails(accountNumber, creditCards);
+                {
+                    long int accountNumber;
+                    getAccountNumber(accountNumber);
+                    checkAndDisplayAccountDetails(accountNumber, creditCards);
+                }
                 break;
             case 'C':
-                // INPUT A TRANSACTION
+                {
+                    long int accountNumber;
+                    getAccountNumber(accountNumber);
+                    checkAndAddTransaction(accountNumber, creditCards);
+                }
                 break;
             case 'D':
                 // PRINT MONTHLY STATEMENTS
@@ -177,7 +184,7 @@ void getAccountNumber(long int &accountNumber) {
 }
 
 /*
-   Function Description: Check and Display Account Details
+   Function Description: Check Account and Display Account Details
    Parameters: long int &accountNumber, std::vector<CreditCard> creditCards
    Returns: N/A
 */
@@ -193,7 +200,32 @@ void checkAndDisplayAccountDetails(long int accountNumber, std::vector<CreditCar
     }
 
     if (foundFlag == 0) {
-        std::cout<<"No account with account number: "<<accountNumber<<" exists."<<std::endl;
+        std::cout<<"No account with account number "<<accountNumber<<" exists."<<std::endl;
+    }
+
+}
+
+/*
+   Function Description: Check Account and Add a Transaction
+   Parameters: long int &accountNumber, std::vector<CreditCard> creditCards
+   Returns: N/A
+*/
+void checkAndAddTransaction(long int accountNumber, std::vector<CreditCard> &creditCards) {
+    int foundFlag = 0;
+
+    // PASS VECTOR BY REFERENCE AND THEN PASS VECTOR CLASS BY REFERENCE TO MODIFY VECTOR VALUE
+    for (CreditCard &accounts : creditCards) {
+        if (accounts.getAccountNumber() == accountNumber) {
+            Transaction newTransaction = Transaction();
+            newTransaction.inputTransaction();
+            accounts.addTransaction(newTransaction);
+            foundFlag = 1;
+            break;
+        }
+    }
+
+    if (foundFlag == 0) {
+        std::cout<<"No account with account number "<<accountNumber<<" exists."<<std::endl;
     }
 
 }
