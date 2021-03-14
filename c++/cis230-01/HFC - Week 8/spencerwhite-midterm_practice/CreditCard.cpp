@@ -15,8 +15,9 @@ CreditCard::CreditCard(std::string n, std::string a, std::string c , std::string
     } else {
         std::cout<<"You have been approved for a credit card."<<std::endl;
         accountNumber = newAccountNumber;
+        newAccountNumber++;
 
-        std::cout<<"Your account number is: "<<newAccountNumber<<"."<<std::endl;
+        std::cout<<"Your account number is: "<<accountNumber<<"."<<std::endl;
         balance = 0;
         determineLimitAndInterest();
     }
@@ -73,6 +74,7 @@ void CreditCard::addTransaction(Transaction tx) {
     if (amountAvailable >= amount) {
         balance += amount;
         transactions.push_back(tx);
+        std::cout<<"Transaction recorded."<<std::endl;
     } else {
         std::cout<<"Transaction declined. You don't have enough remaining balance."<<std::endl;
     }
@@ -117,5 +119,11 @@ void CreditCard::printStatement() {
     std::cout<<"Total Balance Due: $"<<std::fixed<<std::setprecision(2)<<totalBalanceDue<<"."<<std::endl;
 }
 
+/*
+   Function Description: Sets Balance
+   Parameters: double b
+   Returns: N/A
+*/
+void CreditCard::setBalance(double b) { balance = b; }
 
 long int CreditCard::newAccountNumber = 100200;
