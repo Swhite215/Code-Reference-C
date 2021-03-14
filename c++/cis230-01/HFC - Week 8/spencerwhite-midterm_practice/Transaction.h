@@ -1,6 +1,7 @@
 #include <iostream>
+#pragma once
 
-class Transaction{
+class Transaction {
     private:
         std::string date;
         std::string description;

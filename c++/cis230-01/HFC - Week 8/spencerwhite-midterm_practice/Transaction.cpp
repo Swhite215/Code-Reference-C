@@ -2,7 +2,6 @@
 #include <limits>
 #include <sstream>
 #include <iomanip>
-
 #include "Transaction.h"
 
 Transaction::Transaction() {
