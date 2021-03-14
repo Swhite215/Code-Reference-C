@@ -85,7 +85,7 @@ void CreditCard::addTransaction(Transaction tx) {
 */
 void CreditCard::displayInfo() {
     double amountAvailable = creditLimit - balance;
-    std::cout<<"Credit Card - Account Number: "<<accountNumber<<" Balance: "<<balance<<" Available Credit: $"<<std::fixed<<std::setprecision(2)<<amountAvailable<<"."<<std::endl;
+    std::cout<<"Credit Card - Account Number: "<<accountNumber<<" Balance: $"<<balance<<" Available Credit: $"<<std::fixed<<std::setprecision(2)<<amountAvailable<<"."<<std::endl;
 }
 
 /*
