@@ -23,7 +23,9 @@ AccountHolder::AccountHolder(std::string n, std::string a, std::string c, std::s
 int AccountHolder::getCreditScore() {
 
     // Generate Random Number as Credit Score
-    int creditScore = rand() % (MAX_VALUE - MIN_VALUE + 1) + MIN_VALUE;
+    creditScore = rand() % (MAX_VALUE - MIN_VALUE + 1) + MIN_VALUE;
+
+    std::cout<<creditScore<<std::endl;
     
     // Return Credit Score
     return creditScore;
