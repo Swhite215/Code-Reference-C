@@ -119,11 +119,4 @@ void CreditCard::printStatement() {
     std::cout<<"Total Balance Due: $"<<std::fixed<<std::setprecision(2)<<totalBalanceDue<<"."<<std::endl;
 }
 
-/*
-   Function Description: Sets Balance
-   Parameters: double b
-   Returns: N/A
-*/
-void CreditCard::setBalance(double b) { balance = b; }
-
 long int CreditCard::newAccountNumber = 100200;
