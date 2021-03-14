@@ -9,6 +9,8 @@
 // Prototypes
 void getMainMenuOption(char &mainMenuOption);
 CreditCard createAccount();
+void getAccountNumber(long int &accountNumber);
+void checkAndDisplayAccountDetails(long int accountNumber, std::vector<CreditCard> creditCards);
 
 int main() {
 
@@ -32,7 +34,9 @@ int main() {
                 }
                 break;
             case 'B':
-                // SET BALANCE
+                long int accountNumber;
+                getAccountNumber(accountNumber);
+                checkAndDisplayAccountDetails(accountNumber, creditCards);
                 break;
             case 'C':
                 // INPUT A TRANSACTION
@@ -62,7 +66,7 @@ void getMainMenuOption(char &mainMenuOption) {
     std::cout<<"|               HFC Credit Company                                |"<<std::endl;
     std::cout<<"|-----------------------------------------------------------------|"<<std::endl;
     std::cout<<"|    A) Create and Account and Apply for a Credit Card            |"<<std::endl;
-    std::cout<<"|    B) Set Balance and Available Credit for an Existing Account  |"<<std::endl;
+    std::cout<<"|    B) See Balance and Available Credit for an Existing Account  |"<<std::endl;
     std::cout<<"|    C) Input a Transaction                                       |"<<std::endl;
     std::cout<<"|    D) Print All Monthly Statements                              |"<<std::endl;
     std::cout<<"|    Q) Quit                                                      |"<<std::endl;
@@ -149,4 +153,47 @@ CreditCard createAccount() {
     CreditCard newCreditCardAccount = CreditCard(name, address, city, state, zip, ssn);
 
     return newCreditCardAccount;
+}
+
+/*
+   Function Description: Get Account Number to Search
+   Parameters: long int &accountNumber
+   Returns: N/A
+*/
+void getAccountNumber(long int &accountNumber) {
+    // Get Account Number
+    std::cout<<"Please enter an account number: ";
+    std::cin>>accountNumber;
+
+    while (std::cin.fail() || accountNumber < 0) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        std::cout<<"Please enter a valid account number [XXXXX]: ";
+        std::cin>>accountNumber;
+    }
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+/*
+   Function Description: Check and Display Account Details
+   Parameters: long int &accountNumber, std::vector<CreditCard> creditCards
+   Returns: N/A
+*/
+void checkAndDisplayAccountDetails(long int accountNumber, std::vector<CreditCard> creditCards) {
+    int foundFlag = 0;
+
+    for (CreditCard accounts : creditCards) {
+        if (accounts.getAccountNumber() == accountNumber) {
+            accounts.displayInfo();
+            foundFlag = 1;
+            break;
+        }
+    }
+
+    if (foundFlag == 0) {
+        std::cout<<"No account with account number: "<<accountNumber<<" exists."<<std::endl;
+    }
+
 }
