@@ -135,6 +135,30 @@
           "kind": "build",
           "isDefault": true
         }
+      },
+      {
+        "type": "shell",
+        "label": "clang++ build spencerwhite_midterm_practice",
+        "command": "/usr/bin/clang++",
+        "args": [
+          "-g",
+          "${fileDirname}/AccountHolder.cpp",
+          "${fileDirname}/Transaction.cpp",
+          "${fileDirname}/CreditCard.cpp",
+          "${fileDirname}/main.cpp",
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [
+          "$gcc"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
       }
     ]
 }

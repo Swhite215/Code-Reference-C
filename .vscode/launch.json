@@ -51,6 +51,14 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "preLaunchTask": "clang++ build spencerwhite_battle"
+        },
+        {
+            "name": "clang - Build and debug spencerwhite_midterm_practice",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "preLaunchTask": "clang++ build spencerwhite_midterm_practice"
         }
     ]
 }
