@@ -49,7 +49,15 @@ int main() {
                 }
                 break;
             case 'D':
-                // PRINT MONTHLY STATEMENTS
+                {
+                    if (creditCards.size() > 0) {
+                        for (CreditCard account : creditCards) {
+                            account.printStatement();
+                        }
+                    } else {
+                        std::cout<<"No credit card accounts exist."<<std::endl;
+                    }
+                }
                 break;
             case 'Q':
                 std::cout<<"Exiting the program..."<<std::endl;
